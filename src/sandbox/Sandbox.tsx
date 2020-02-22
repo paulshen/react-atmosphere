@@ -3,8 +3,34 @@ import * as ReactDOM from "react-dom";
 import LayerContainer from "../LayerContainer";
 import { Layer } from "../Layer";
 
+function StatefulLayer({
+  layerKey,
+  close
+}: {
+  layerKey: number;
+  close: () => void;
+}) {
+  const [count, setCount] = React.useState(layerKey);
+  return (
+    <Layer
+      render={() => (
+        <div>
+          <button
+            onClick={() => {
+              setCount(count => count + 1);
+            }}
+          >
+            {count}
+          </button>
+          <button onClick={() => close()}>Close</button>
+        </div>
+      )}
+    />
+  );
+}
+
 function App() {
-  const [layerKeys, setLayerKeys] = React.useState([]);
+  const [layerKeys, setLayerKeys] = React.useState<Array<number>>([]);
   return (
     <div>
       <div>
@@ -20,20 +46,11 @@ function App() {
         </button>
       </div>
       {layerKeys.map(layerKey => (
-        <Layer
-          render={() => (
-            <div>
-              <button
-                onClick={() => {
-                  setLayerKeys(layerKeys =>
-                    layerKeys.filter(k => k !== layerKey)
-                  );
-                }}
-              >
-                {layerKey}
-              </button>
-            </div>
-          )}
+        <StatefulLayer
+          layerKey={layerKey}
+          close={() => {
+            setLayerKeys(layerKeys => layerKeys.filter(k => k !== layerKey));
+          }}
           key={layerKey}
         />
       ))}

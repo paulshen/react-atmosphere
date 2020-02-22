@@ -6,6 +6,20 @@ function layerReducer(state: Layer[], message: APIMessage) {
   switch (message.type) {
     case APIMessageType.PushLayer:
       return [...state, message.layer];
+    case APIMessageType.UpdateLayer:
+      if (
+        state.findIndex(
+          layer =>
+            layer.key === message.layer.key &&
+            layer.render !== message.layer.render
+        ) !== -1
+      ) {
+        return state.map(layer =>
+          layer.key === message.layer.key ? message.layer : layer
+        );
+      } else {
+        return state;
+      }
     case APIMessageType.RemoveLayer:
       return state.filter(layer => layer.key !== message.key);
   }

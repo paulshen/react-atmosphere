@@ -5,9 +5,14 @@ type LayerProps = {
   render: () => React.ReactNode;
 };
 export function Layer({ render }: LayerProps) {
+  const key = React.useRef<string>();
   React.useEffect(() => {
-    const key = LayerAPI.pushLayer(render);
-    return () => LayerAPI.removeLayer(key);
+    key.current = LayerAPI.getNextKey();
+    LayerAPI.pushLayer(key.current!, render);
+    return () => LayerAPI.removeLayer(key.current!);
   }, []);
+  React.useEffect(() => {
+    LayerAPI.updateLayer(key.current!, render);
+  }, [render]);
   return null;
 }

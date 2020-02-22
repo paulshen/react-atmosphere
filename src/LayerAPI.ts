@@ -3,8 +3,10 @@ import { APIMessage, APIMessageType } from "./Types";
 type APIListener = (message: APIMessage) => void;
 type API = {
   addListener: (listener: APIListener) => () => void;
-  pushLayer: (render: () => React.ReactNode) => string;
+  pushLayer: (key: string, render: () => React.ReactNode) => void;
+  updateLayer: (key: string, render: () => React.ReactNode) => void;
   removeLayer: (key: string) => void;
+  getNextKey: () => string;
 };
 
 function createAPI(): API {
@@ -24,10 +26,20 @@ function createAPI(): API {
       };
     },
 
-    pushLayer(render: () => React.ReactNode) {
-      const key = `${nextLayerId++}`;
+    pushLayer(key: string, render: () => React.ReactNode) {
       emit({
         type: APIMessageType.PushLayer,
+        layer: {
+          key,
+          render
+        }
+      });
+      return key;
+    },
+
+    updateLayer(key: string, render: () => React.ReactNode) {
+      emit({
+        type: APIMessageType.UpdateLayer,
         layer: {
           key,
           render
@@ -41,6 +53,10 @@ function createAPI(): API {
         type: APIMessageType.RemoveLayer,
         key
       });
+    },
+
+    getNextKey: () => {
+      return `${nextLayerId++}`;
     }
   };
 }

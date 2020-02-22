@@ -5,12 +5,17 @@ export type Layer = {
 
 export enum APIMessageType {
   PushLayer,
+  UpdateLayer,
   RemoveLayer
 }
 
 export type APIMessage =
   | {
       type: APIMessageType.PushLayer;
+      layer: Layer;
+    }
+  | {
+      type: APIMessageType.UpdateLayer;
       layer: Layer;
     }
   | {
