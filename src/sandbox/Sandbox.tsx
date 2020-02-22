@@ -1,9 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import Modal from "../Modal";
 import Layer from "../Layer";
 import LayerContainer from "../LayerContainer";
+import Modal from "../Modal";
 import PopperLayer from "../PopperLayer";
+import Tooltip from "../Tooltip";
 import { LayerState } from "../Types";
 
 function StatefulLayerComponent({
@@ -95,6 +96,9 @@ function App() {
           Popper Reference
         </button>
       </div>
+      <Tooltip text="Hi" placement="right">
+        {(props: any) => <button {...props}>Tooltip</button>}
+      </Tooltip>
       {showPopper ? (
         <PopperLayer
           reference={referenceRef}

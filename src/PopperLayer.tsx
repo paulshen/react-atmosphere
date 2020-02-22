@@ -8,7 +8,7 @@ import {
 import Layer from "./Layer";
 
 type PopperLayerProps = {
-  reference: React.RefObject<Element | VirtualElement>;
+  reference: React.RefObject<Element | VirtualElement | undefined>;
   render: () => React.ReactNode;
   options?: Partial<Options>;
 };
