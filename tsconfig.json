@@ -6,7 +6,7 @@
     "jsx": "react",
     "moduleResolution": "node",
     "strict": true,
-    "outDir": "dist"
+    "outDir": "build"
   },
-  "exclude": ["**/dist/"]
+  "exclude": ["**/build/", "**/dist/"]
 }

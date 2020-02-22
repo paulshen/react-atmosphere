@@ -1,11 +1,11 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import Layer from "../Layer";
-import LayerContainer from "../LayerContainer";
-import Modal from "../Modal";
-import PopperLayer from "../PopperLayer";
-import Tooltip from "../Tooltip";
-import { LayerState } from "../Types";
+import Layer from "../src/Layer";
+import LayerContainer from "../src/LayerContainer";
+import Modal from "../src/Modal";
+import PopperLayer from "../src/PopperLayer";
+import Tooltip from "../src/Tooltip";
+import { LayerState } from "../src/Types";
 
 function StatefulLayerComponent({
   count,

@@ -4,10 +4,13 @@
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": ["dist/**/*"],
   "scripts": {
     "build": "tsc --declaration",
-    "prepare": "npm run build",
-    "sandbox": "parcel src/sandbox/index.html",
+    "clean": "rm -rf dist build",
+    "copy-files": "cp -R build/src dist",
+    "prepare": "npm run clean && npm run build && npm run copy-files",
+    "sandbox": "parcel sandbox/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Paul Shen",
