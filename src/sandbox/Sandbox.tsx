@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import Modal from "../Modal";
 import Layer from "../Layer";
 import LayerContainer from "../LayerContainer";
 import PopperLayer from "../PopperLayer";
@@ -69,6 +70,7 @@ function App() {
   const [layerKeys, setLayerKeys] = React.useState<Array<number>>([]);
   const referenceRef = React.useRef(null);
   const [showPopper, setShowPopper] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false);
   return (
     <div>
       <div>
@@ -112,6 +114,21 @@ function App() {
             placement: "left"
           }}
         />
+      ) : null}
+      <div>
+        <button
+          onClick={() => {
+            setShowModal(true);
+          }}
+        >
+          Modal
+        </button>
+      </div>
+      {showModal ? (
+        <Modal onCloseRequest={() => setShowModal(false)}>
+          <div>Hello</div>
+          <button onClick={() => setShowModal(false)}>Close</button>
+        </Modal>
       ) : null}
       {layerKeys.map(layerKey => (
         <StatefulLayer
