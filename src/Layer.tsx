@@ -4,7 +4,7 @@ import LayerAPI from "./LayerAPI";
 type LayerProps = {
   render: () => React.ReactNode;
 };
-export function Layer({ render }: LayerProps) {
+export default function Layer({ render }: LayerProps) {
   const key = React.useRef<string>();
   React.useEffect(() => {
     key.current = LayerAPI.getNextKey();

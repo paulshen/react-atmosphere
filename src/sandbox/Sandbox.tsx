@@ -1,7 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import Layer from "../Layer";
 import LayerContainer from "../LayerContainer";
-import { Layer } from "../Layer";
+import PopperLayer from "../PopperLayer";
 
 function StatefulLayer({
   layerKey,
@@ -31,6 +32,8 @@ function StatefulLayer({
 
 function App() {
   const [layerKeys, setLayerKeys] = React.useState<Array<number>>([]);
+  const referenceRef = React.useRef(null);
+  const [showPopper, setShowPopper] = React.useState(false);
   return (
     <div>
       <div>
@@ -45,6 +48,36 @@ function App() {
           Add Layer
         </button>
       </div>
+      <div>
+        <button
+          onClick={() => {
+            setShowPopper(show => !show);
+          }}
+          ref={referenceRef}
+        >
+          Popper Reference
+        </button>
+      </div>
+      {showPopper ? (
+        <PopperLayer
+          reference={referenceRef}
+          render={() => (
+            <div
+              style={{
+                width: 100,
+                height: 100,
+                border: "1px solid black",
+                backgroundColor: "#ffffff"
+              }}
+            >
+              PopperLayer
+            </div>
+          )}
+          options={{
+            placement: "left"
+          }}
+        />
+      ) : null}
       {layerKeys.map(layerKey => (
         <StatefulLayer
           layerKey={layerKey}
