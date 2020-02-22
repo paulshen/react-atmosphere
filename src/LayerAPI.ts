@@ -1,10 +1,11 @@
-import { APIMessage, APIMessageType } from "./Types";
+import { APIMessage, APIMessageType, LayerRender } from "./Types";
 
 type APIListener = (message: APIMessage) => void;
 type API = {
   addListener: (listener: APIListener) => () => void;
-  pushLayer: (key: string, render: () => React.ReactNode) => void;
-  updateLayer: (key: string, render: () => React.ReactNode) => void;
+  pushLayer: (key: string, render: LayerRender) => void;
+  updateLayer: (key: string, render: LayerRender) => void;
+  transitionOutLayer: (key: string) => void;
   removeLayer: (key: string) => void;
   getNextKey: () => string;
 };
@@ -26,26 +27,29 @@ function createAPI(): API {
       };
     },
 
-    pushLayer(key: string, render: () => React.ReactNode) {
+    pushLayer(key: string, render: LayerRender) {
       emit({
         type: APIMessageType.PushLayer,
-        layer: {
-          key,
-          render
-        }
+        key,
+        render
       });
       return key;
     },
 
-    updateLayer(key: string, render: () => React.ReactNode) {
+    updateLayer(key: string, render: LayerRender) {
       emit({
         type: APIMessageType.UpdateLayer,
-        layer: {
-          key,
-          render
-        }
+        key,
+        render
       });
       return key;
+    },
+
+    transitionOutLayer(key: string) {
+      emit({
+        type: APIMessageType.TransitionOutLayer,
+        key
+      });
     },
 
     removeLayer(key: string) {

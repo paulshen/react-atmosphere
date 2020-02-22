@@ -1,25 +1,46 @@
 import * as React from "react";
 import LayerAPI from "./LayerAPI";
-import { APIMessage, APIMessageType, Layer } from "./Types";
+import { APIMessage, APIMessageType, Layer, LayerState } from "./Types";
 
 function layerReducer(state: Layer[], message: APIMessage) {
   switch (message.type) {
     case APIMessageType.PushLayer:
-      return [...state, message.layer];
+      return [
+        ...state,
+        {
+          key: message.key,
+          render: message.render,
+          state: LayerState.Active
+        }
+      ];
     case APIMessageType.UpdateLayer:
       if (
         state.findIndex(
-          layer =>
-            layer.key === message.layer.key &&
-            layer.render !== message.layer.render
-        ) !== -1
+          layer => layer.key === message.key && layer.render !== message.render
+        ) === -1
       ) {
-        return state.map(layer =>
-          layer.key === message.layer.key ? message.layer : layer
-        );
-      } else {
         return state;
       }
+      return state.map(layer =>
+        layer.key === message.key
+          ? {
+              ...layer,
+              render: message.render
+            }
+          : layer
+      );
+    case APIMessageType.TransitionOutLayer:
+      if (state.findIndex(layer => layer.key === message.key) === -1) {
+        return state;
+      }
+      return state.map(layer =>
+        layer.key === message.key
+          ? {
+              ...layer,
+              state: LayerState.TransitionOut
+            }
+          : layer
+      );
     case APIMessageType.RemoveLayer:
       return state.filter(layer => layer.key !== message.key);
   }
@@ -34,7 +55,18 @@ export default function LayerContainer() {
   return (
     <>
       {layers.map(layer => (
-        <React.Fragment key={layer.key}>{layer.render()}</React.Fragment>
+        <React.Fragment key={layer.key}>
+          {layer.render(
+            layer.state === LayerState.Active
+              ? { state: layer.state }
+              : {
+                  state: LayerState.TransitionOut,
+                  onTransitionOutComplete: () => {
+                    LayerAPI.removeLayer(layer.key);
+                  }
+                }
+          )}
+        </React.Fragment>
       ))}
     </>
   );

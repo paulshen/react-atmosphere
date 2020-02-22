@@ -3,6 +3,44 @@ import * as ReactDOM from "react-dom";
 import Layer from "../Layer";
 import LayerContainer from "../LayerContainer";
 import PopperLayer from "../PopperLayer";
+import { LayerState } from "../Types";
+
+function StatefulLayerComponent({
+  count,
+  setCount,
+  renderArgs,
+  close
+}: {
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+  renderArgs:
+    | { state: LayerState.Active }
+    | { state: LayerState.TransitionOut; onTransitionOutComplete: () => void };
+  close: () => void;
+}) {
+  React.useEffect(() => {
+    if (renderArgs.state === LayerState.TransitionOut) {
+      setTimeout(() => renderArgs.onTransitionOutComplete(), 1000);
+    }
+  }, [renderArgs.state]);
+  return (
+    <div
+      style={{
+        transition: "opacity 1s",
+        opacity: renderArgs.state === LayerState.TransitionOut ? 0 : 1
+      }}
+    >
+      <button
+        onClick={() => {
+          setCount(count => count + 1);
+        }}
+      >
+        {count}
+      </button>
+      <button onClick={() => close()}>Close</button>
+    </div>
+  );
+}
 
 function StatefulLayer({
   layerKey,
@@ -14,18 +52,15 @@ function StatefulLayer({
   const [count, setCount] = React.useState(layerKey);
   return (
     <Layer
-      render={() => (
-        <div>
-          <button
-            onClick={() => {
-              setCount(count => count + 1);
-            }}
-          >
-            {count}
-          </button>
-          <button onClick={() => close()}>Close</button>
-        </div>
+      render={args => (
+        <StatefulLayerComponent
+          count={count}
+          setCount={setCount}
+          renderArgs={args}
+          close={close}
+        />
       )}
+      transitionOut
     />
   );
 }

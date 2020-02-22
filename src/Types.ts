@@ -1,22 +1,41 @@
+export enum LayerState {
+  Active,
+  TransitionOut
+}
+
+export type LayerRender = (
+  args:
+    | { state: LayerState.Active }
+    | { state: LayerState.TransitionOut; onTransitionOutComplete: () => void }
+) => React.ReactNode;
+
 export type Layer = {
   key: string;
-  render: () => React.ReactNode;
+  state: LayerState;
+  render: LayerRender;
 };
 
 export enum APIMessageType {
   PushLayer,
   UpdateLayer,
+  TransitionOutLayer,
   RemoveLayer
 }
 
 export type APIMessage =
   | {
       type: APIMessageType.PushLayer;
-      layer: Layer;
+      key: string;
+      render: LayerRender;
     }
   | {
       type: APIMessageType.UpdateLayer;
-      layer: Layer;
+      key: string;
+      render: LayerRender;
+    }
+  | {
+      type: APIMessageType.TransitionOutLayer;
+      key: string;
     }
   | {
       type: APIMessageType.RemoveLayer;
