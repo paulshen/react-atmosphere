@@ -1,13 +1,12 @@
 export enum LayerState {
   Active,
-  TransitionOut
+  TransitionExit
 }
 
-export type LayerRender = (
-  args:
-    | { state: LayerState.Active }
-    | { state: LayerState.TransitionOut; onTransitionOutComplete: () => void }
-) => React.ReactNode;
+export type LayerRender = (args: {
+  state: LayerState;
+  completeTransitionExit: () => void;
+}) => React.ReactNode;
 
 export type Layer = {
   key: string;
@@ -18,7 +17,7 @@ export type Layer = {
 export enum APIMessageType {
   PushLayer,
   UpdateLayer,
-  TransitionOutLayer,
+  TransitionExitLayer,
   RemoveLayer
 }
 
@@ -34,7 +33,7 @@ export type APIMessage =
       render: LayerRender;
     }
   | {
-      type: APIMessageType.TransitionOutLayer;
+      type: APIMessageType.TransitionExitLayer;
       key: string;
     }
   | {

@@ -1,7 +1,6 @@
 import * as React from "react";
 import Layer from "./Layer";
 import { LayerState } from "./Types";
-import LayerAPI from "./LayerAPI";
 
 function Backdrop({ onClick }: { onClick: (() => void) | undefined }) {
   return (
@@ -21,13 +20,13 @@ function Backdrop({ onClick }: { onClick: (() => void) | undefined }) {
 }
 
 function ModalLayer({
-  args,
+  state,
+  completeTransitionExit,
   children,
   onCloseRequest
 }: {
-  args:
-    | { state: LayerState.Active }
-    | { state: LayerState.TransitionOut; onTransitionOutComplete: () => void };
+  state: LayerState;
+  completeTransitionExit: () => void;
   children: React.ReactNode;
   onCloseRequest: (() => void) | undefined;
 }) {
@@ -38,10 +37,10 @@ function ModalLayer({
     }, 20);
   }, []);
   React.useEffect(() => {
-    if (args.state === LayerState.TransitionOut) {
-      setTimeout(() => args.onTransitionOutComplete(), 500);
+    if (state === LayerState.TransitionExit) {
+      setTimeout(() => completeTransitionExit(), 500);
     }
-  }, [args.state]);
+  }, [state]);
   return (
     <div
       style={{
@@ -54,7 +53,7 @@ function ModalLayer({
         alignItems: "center",
         justifyContent: "center",
         transition: "opacity 0.5s",
-        opacity: !isMounted || args.state === LayerState.TransitionOut ? 0 : 1
+        opacity: !isMounted || state === LayerState.TransitionExit ? 0 : 1
       }}
     >
       <Backdrop onClick={onCloseRequest ? () => onCloseRequest() : undefined} />
@@ -74,12 +73,16 @@ export default function Modal({
 }) {
   return (
     <Layer
-      render={args => (
-        <ModalLayer args={args} onCloseRequest={onCloseRequest}>
+      render={({ state, completeTransitionExit }) => (
+        <ModalLayer
+          state={state}
+          completeTransitionExit={completeTransitionExit}
+          onCloseRequest={onCloseRequest}
+        >
           {children}
         </ModalLayer>
       )}
-      transitionOut
+      transitionExit
     />
   );
 }

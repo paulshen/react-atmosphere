@@ -29,7 +29,7 @@ function layerReducer(state: Layer[], message: APIMessage) {
             }
           : layer
       );
-    case APIMessageType.TransitionOutLayer:
+    case APIMessageType.TransitionExitLayer:
       if (state.findIndex(layer => layer.key === message.key) === -1) {
         return state;
       }
@@ -37,7 +37,7 @@ function layerReducer(state: Layer[], message: APIMessage) {
         layer.key === message.key
           ? {
               ...layer,
-              state: LayerState.TransitionOut
+              state: LayerState.TransitionExit
             }
           : layer
       );
@@ -56,16 +56,10 @@ export default function LayerContainer() {
     <>
       {layers.map(layer => (
         <React.Fragment key={layer.key}>
-          {layer.render(
-            layer.state === LayerState.Active
-              ? { state: layer.state }
-              : {
-                  state: LayerState.TransitionOut,
-                  onTransitionOutComplete: () => {
-                    LayerAPI.removeLayer(layer.key);
-                  }
-                }
-          )}
+          {layer.render({
+            state: layer.state,
+            completeTransitionExit: () => LayerAPI.removeLayer(layer.key)
+          })}
         </React.Fragment>
       ))}
     </>

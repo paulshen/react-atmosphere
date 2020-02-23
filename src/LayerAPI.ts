@@ -5,7 +5,7 @@ type API = {
   addListener: (listener: APIListener) => () => void;
   pushLayer: (key: string, render: LayerRender) => void;
   updateLayer: (key: string, render: LayerRender) => void;
-  transitionOutLayer: (key: string) => void;
+  transitionExitLayer: (key: string) => void;
   removeLayer: (key: string) => void;
   getNextKey: () => string;
 };
@@ -45,9 +45,9 @@ function createAPI(): API {
       return key;
     },
 
-    transitionOutLayer(key: string) {
+    transitionExitLayer(key: string) {
       emit({
-        type: APIMessageType.TransitionOutLayer,
+        type: APIMessageType.TransitionExitLayer,
         key
       });
     },

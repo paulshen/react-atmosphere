@@ -13,26 +13,26 @@ import styles from "./styles.module.css";
 function StatefulLayerComponent({
   count,
   setCount,
-  renderArgs,
+  state,
+  completeTransitionExit,
   close
 }: {
   count: number;
   setCount: React.Dispatch<React.SetStateAction<number>>;
-  renderArgs:
-    | { state: LayerState.Active }
-    | { state: LayerState.TransitionOut; onTransitionOutComplete: () => void };
+  state: LayerState;
+  completeTransitionExit: () => void;
   close: () => void;
 }) {
   React.useEffect(() => {
-    if (renderArgs.state === LayerState.TransitionOut) {
-      setTimeout(() => renderArgs.onTransitionOutComplete(), 1000);
+    if (state === LayerState.TransitionExit) {
+      setTimeout(() => completeTransitionExit(), 1000);
     }
-  }, [renderArgs.state]);
+  }, [state]);
   return (
     <div
       style={{
         transition: "opacity 1s",
-        opacity: renderArgs.state === LayerState.TransitionOut ? 0 : 1
+        opacity: state === LayerState.TransitionExit ? 0 : 1
       }}
     >
       <button
@@ -57,15 +57,16 @@ function StatefulLayer({
   const [count, setCount] = React.useState(layerKey);
   return (
     <Layer
-      render={args => (
+      render={({ state, completeTransitionExit }) => (
         <StatefulLayerComponent
           count={count}
           setCount={setCount}
-          renderArgs={args}
+          state={state}
+          completeTransitionExit={completeTransitionExit}
           close={close}
         />
       )}
-      transitionOut
+      transitionExit
     />
   );
 }
@@ -210,20 +211,20 @@ import {Layer, LayerContainer} from 'millefeuille';
         <code>{`
 import {LayerState} from 'millefeuille';
 
-function LayerContents({state, onTransitionOut}) {
+function LayerContents({state, completeTransitionExit}) {
   React.useTransition(() => {
-    if (state === LayerState.TransitionOut) {
-      setTimeout(onTransitionOut, 300);
+    if (state === LayerState.TransitionExit) {
+      setTimeout(completeTransitionExit, 300);
     }
   }, [state]);
   return <div>...</div>;
 }
 
 <Layer
-  render={({state, onTransitionOut}) =>
-    <LayerContents state={state} onTransitionOut={onTransitionOut} />
+  render={({state, completeTransitionExit}) =>
+    <LayerContents state={state} completeTransitionExit={completeTransitionExit} />
   }
-  transitionOut
+  transitionExit
 />
         `}</code>
       </pre>

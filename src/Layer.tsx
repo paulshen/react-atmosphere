@@ -4,16 +4,16 @@ import { LayerRender } from "./Types";
 
 type LayerProps = {
   render: LayerRender;
-  transitionOut?: boolean;
+  transitionExit?: boolean;
 };
-export default function Layer({ render, transitionOut }: LayerProps) {
+export default function Layer({ render, transitionExit }: LayerProps) {
   const key = React.useRef<string>();
   React.useEffect(() => {
     key.current = LayerAPI.getNextKey();
     LayerAPI.pushLayer(key.current!, render);
     return () => {
-      if (transitionOut === true) {
-        LayerAPI.transitionOutLayer(key.current!);
+      if (transitionExit === true) {
+        LayerAPI.transitionExitLayer(key.current!);
       } else {
         LayerAPI.removeLayer(key.current!);
       }
