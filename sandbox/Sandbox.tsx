@@ -7,6 +7,9 @@ import PopperLayer from "../src/PopperLayer";
 import Tooltip from "../src/Tooltip";
 import { LayerState } from "../src/Types";
 
+// @ts-ignore
+import styles from "./styles.module.css";
+
 function StatefulLayerComponent({
   count,
   setCount,
@@ -67,7 +70,7 @@ function StatefulLayer({
   );
 }
 
-function App() {
+function Example() {
   const [layerKeys, setLayerKeys] = React.useState<Array<number>>([]);
   const referenceRef = React.useRef(null);
   const [showPopper, setShowPopper] = React.useState(false);
@@ -143,6 +146,88 @@ function App() {
           key={layerKey}
         />
       ))}
+    </div>
+  );
+}
+
+function LayerExample() {
+  const [showLayer, setShowLayer] = React.useState(false);
+  return (
+    <div>
+      <button onClick={() => setShowLayer(show => !show)}>Toggle Layer</button>
+      {showLayer ? (
+        <Layer
+          render={() => (
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                border: "1px solid #000000"
+              }}
+            >
+              Layer
+            </div>
+          )}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div className={styles.root}>
+      <h1>millefeuille</h1>
+      <p>
+        A React library for creating and managing UI layers (tooltips, modals,
+        dropdowns, etc).
+      </p>
+      <p>{"The heart of millefeuille is the <Layer> component."}</p>
+      <LayerExample />
+      <pre>
+        <code>{`
+import {Layer, LayerContainer} from 'millefeuille';
+
+<div>
+  <Layer render={() => <div>Contents</div>} />
+  <LayerContainer />
+</div>
+        `}</code>
+      </pre>
+      <p>
+        {
+          "All layer components will be rendered in the same <LayerContainer> instance."
+        }
+      </p>
+      <p>
+        {
+          "millefeuille uses message passing instead of React.createPortal. This allows for more control, such as allowing UI to be rendered after the <Layer> unmounts. This is useful for transition animations."
+        }
+      </p>
+      <h2>Transition</h2>
+      <pre>
+        <code>{`
+import {LayerState} from 'millefeuille';
+
+function LayerContents({state, onTransitionOut}) {
+  React.useTransition(() => {
+    if (state === LayerState.TransitionOut) {
+      setTimeout(onTransitionOut, 300);
+    }
+  }, [state]);
+  return <div>...</div>;
+}
+
+<Layer
+  render={({state, onTransitionOut}) =>
+    <LayerContents state={state} onTransitionOut={onTransitionOut} />
+  }
+  transitionOut
+/>
+        `}</code>
+      </pre>
+      <Example />
       <LayerContainer />
     </div>
   );

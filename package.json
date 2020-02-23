@@ -4,7 +4,9 @@
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "build": "tsc --declaration",
     "clean": "rm -rf dist build",
@@ -24,6 +26,7 @@
     "@types/react": "^16.9.22",
     "@types/react-dom": "^16.9.5",
     "parcel-bundler": "^1.12.4",
+    "postcss-modules": "^1.5.0",
     "typescript": "^3.8.2"
   }
 }
