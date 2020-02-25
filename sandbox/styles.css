@@ -33,6 +33,10 @@ h2 {
   transform: rotate3d(1, -1, 1, 60deg);
 }
 
+.topExampleLayerContainer {
+  position: relative;
+}
+
 .code {
   font-size: 12px;
 }

@@ -176,14 +176,16 @@ function Example() {
   );
 }
 
+const topExampleAPI = createAPI();
 function TopExample() {
   const [numLayers, setNumLayers] = React.useState(5);
   const layers = [];
   for (let i = 0; i < numLayers; i++) {
     layers.push(
       <Layer
+        context={topExampleAPI}
         render={() => (
-          <div className="topExampleLayer" style={{ top: 256 - i * 8 }}></div>
+          <div className="topExampleLayer" style={{ top: 96 - i * 8 }}></div>
         )}
         key={i}
       />
@@ -198,6 +200,9 @@ function TopExample() {
         Remove Layer
       </button>
       {layers}
+      <div className="topExampleLayerContainer">
+        <LayerContainer context={topExampleAPI} />
+      </div>
     </div>
   );
 }
@@ -206,11 +211,24 @@ function App() {
   return (
     <div className="root">
       <h1>millefeuille</h1>
-      <p>
-        A React library for creating and managing UI layers (tooltips, modals,
-        dropdowns, etc).
-      </p>
+      <p>A React library for UI layers (tooltips, modals, dropdowns, etc).</p>
       <TopExample />
+      <h2>Features</h2>
+      <ul>
+        <li>Declarative component API for rendering/hiding layers.</li>
+        <li>
+          Single Layer container stacks layers based on render order, removing
+          need for most z-index wars.
+        </li>
+        <li>
+          Animate layers as they unmount, even if the owner (parent) component
+          has unmounted.
+        </li>
+        <li>
+          An imperative API for managing layers for when it's inconvenient to
+          map to use component API.
+        </li>
+      </ul>
       <h2>Usage</h2>
       <p>
         Render a <code>{"<LayerContainer>"}</code> in your app. This component
