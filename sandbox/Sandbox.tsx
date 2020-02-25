@@ -152,31 +152,6 @@ function Example() {
   );
 }
 
-function LayerExample() {
-  const [showLayer, setShowLayer] = React.useState(false);
-  return (
-    <div>
-      <button onClick={() => setShowLayer(show => !show)}>Toggle Layer</button>
-      {showLayer ? (
-        <Layer
-          render={() => (
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                border: "1px solid #000000"
-              }}
-            >
-              Layer
-            </div>
-          )}
-        />
-      ) : null}
-    </div>
-  );
-}
-
 function TopExample() {
   const [numLayers, setNumLayers] = React.useState(5);
   const layers = [];
@@ -198,7 +173,7 @@ function TopExample() {
       <button onClick={() => setNumLayers(layers => layers + 1)}>
         Add Layer
       </button>
-      <button onClick={() => setNumLayers(layers => layers - 1)}>
+      <button onClick={() => setNumLayers(layers => Math.max(layers - 1, 0))}>
         Remove Layer
       </button>
       {layers}
@@ -216,10 +191,9 @@ function App() {
       </p>
       <TopExample />
       <h2>Usage</h2>
-      <LayerExample />
       <p>
         Render a <code>{"<LayerContainer>"}</code> in your app. This component
-        will render all your layers and is usually rendered at the root of your
+        will contain all your layers and is usually rendered at the root of your
         app.
       </p>
       <pre>
@@ -241,34 +215,54 @@ function App() {
         <code>{`import {Layer} from 'millefeuille';
 
 function MyComponent() {
+  ...
   return (
     <div>
-      <Layer render={layerProps => <div>Layer contents</div>} />;
+      {showLayer ? (
+        <Layer render={layerProps => <div>I'm a layer!</div>} />
+      ) : null}
     </div>
   );
 }`}</code>
       </pre>
       <p>
         Although this Layer looks like it is a child of MyComponent, the actual
-        layer DOM nodes are rendered in your app's LayerContainer.
+        layer DOM nodes are rendered inside your app's LayerContainer.
       </p>
       <p>
-        {
-          "millefeuille uses message passing instead of React.createPortal. This allows for more control, such as allowing UI to be rendered after the <Layer> unmounts. This is useful for transition animations."
-        }
+        millefeuille uses message passing instead of{" "}
+        <code>{"React.createPortal"}</code>. This allows for more control, such
+        as allowing UI to be rendered after the <code>{"<Layer>"}</code>{" "}
+        unmounts. This is useful for transition out animations.
       </p>
-      <h2>Transition</h2>
+      <h2>Exit Transition</h2>
+      <p>
+        You may want to do an transition animation as the layer is unmounting.
+        Because the layer is rendered by the LayerContainer, we can keep
+        rendering the layer DOM even after the Layer component (or its owner!)
+        unmounts.
+      </p>
+      <p>
+        Set the Layer prop transitionExit to true. Layer's render function
+        contains two relevant props, state and completeTransitionExit. When the
+        Layer component is no longer rendered, it will enter the TransitionExit
+        state. Perform your animation and call completeTransitionExit when
+        finished.
+      </p>
       <pre>
-        <code>{`
-import {LayerState} from 'millefeuille';
+        <code>{`import {LayerState} from 'millefeuille';
 
 function LayerContents({state, completeTransitionExit}) {
-  React.useTransition(() => {
+  React.useEffect(() => {
     if (state === LayerState.TransitionExit) {
       setTimeout(completeTransitionExit, 300);
     }
   }, [state]);
-  return <div>...</div>;
+  return (
+    <div style={{opacity: state === LayerState.TransitionExit ? 0 : 1}}>
+      ...
+    </div>
+  );
 }
 
 <Layer
@@ -276,9 +270,12 @@ function LayerContents({state, completeTransitionExit}) {
     <LayerContents state={state} completeTransitionExit={completeTransitionExit} />
   }
   transitionExit
-/>
-        `}</code>
+/>`}</code>
       </pre>
+      <p>
+        There is no layer API for enter transitions. You can manage this via
+        React lifecycles.
+      </p>
       <Example />
       <LayerContainer />
     </div>
