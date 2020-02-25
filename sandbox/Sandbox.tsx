@@ -35,71 +35,11 @@ function Code({ children }: { children: string }) {
   );
 }
 
-function StatefulLayerComponent({
-  count,
-  setCount,
-  state,
-  completeTransitionExit,
-  close
-}: {
-  count: number;
-  setCount: React.Dispatch<React.SetStateAction<number>>;
-  state: LayerState;
-  completeTransitionExit: () => void;
-  close: () => void;
-}) {
-  React.useEffect(() => {
-    if (state === LayerState.TransitionExit) {
-      setTimeout(() => completeTransitionExit(), 1000);
-    }
-  }, [state]);
-  return (
-    <div
-      style={{
-        transition: "opacity 1s",
-        opacity: state === LayerState.TransitionExit ? 0 : 1
-      }}
-    >
-      <button
-        onClick={() => {
-          setCount(count => count + 1);
-        }}
-      >
-        {count}
-      </button>
-      <button onClick={() => close()}>Close</button>
-    </div>
-  );
-}
-
-function StatefulLayer({
-  layerKey,
-  close
-}: {
-  layerKey: number;
-  close: () => void;
-}) {
-  const [count, setCount] = React.useState(layerKey);
-  return (
-    <Layer
-      render={({ state, completeTransitionExit }) => (
-        <StatefulLayerComponent
-          count={count}
-          setCount={setCount}
-          state={state}
-          completeTransitionExit={completeTransitionExit}
-          close={close}
-        />
-      )}
-      transitionExit
-    />
-  );
-}
-
-function DialogExample() {
+function DialogSection() {
   const [showDialog, setShowDialog] = React.useState(false);
   return (
-    <>
+    <section>
+      <h3>Dialog</h3>
       <div>
         <button
           onClick={() => {
@@ -113,7 +53,12 @@ function DialogExample() {
         <Dialog
           render={() => (
             <div
-              style={{ backgroundColor: "#ffffff", width: 500, height: 300 }}
+              style={{
+                backgroundColor: "#ffffff",
+                width: 500,
+                height: 300,
+                padding: 16
+              }}
             >
               <div>Hello</div>
               <button onClick={() => setShowDialog(false)}>Close</button>
@@ -122,7 +67,45 @@ function DialogExample() {
           onCloseRequest={() => setShowDialog(false)}
         />
       ) : null}
+      <Code>{`import {Dialog} from 'millefeuille';
+
+function DialogExample() {
+  return (
+    <>
+      ...
+      {showDialog ? (<Dialog
+        render={() => <DialogRoot />}
+        onCloseRequest={() => setShowDialog(false)}
+      />) : null}
     </>
+  );
+}`}</Code>
+      <h4>Props</h4>
+      <table>
+        <tbody>
+          <tr>
+            <td>render</td>
+            <td>
+              <code>
+                {`(args: {
+  state: LayerState;
+  completeTransitionExit: () => void;
+}) => React.ReactNode;
+`}
+              </code>
+              <div>A render prop for the dialog</div>
+            </td>
+          </tr>
+          <tr>
+            <td>onCloseRequest</td>
+            <td>
+              <code>{"() => void"}</code>
+              <div>An optional callback when the backdrop is clicked</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   );
 }
 
@@ -225,35 +208,6 @@ function TooltipSection() {
         </tbody>
       </table>
     </section>
-  );
-}
-
-function Example() {
-  const [layerKeys, setLayerKeys] = React.useState<Array<number>>([]);
-  return (
-    <div>
-      <div>
-        <button
-          onClick={() => {
-            setLayerKeys(layerKeys => [
-              ...layerKeys,
-              Math.max.apply(null, [...layerKeys, 0]) + 1
-            ]);
-          }}
-        >
-          Add Layer
-        </button>
-      </div>
-      {layerKeys.map(layerKey => (
-        <StatefulLayer
-          layerKey={layerKey}
-          close={() => {
-            setLayerKeys(layerKeys => layerKeys.filter(k => k !== layerKey));
-          }}
-          key={layerKey}
-        />
-      ))}
-    </div>
   );
 }
 
@@ -393,10 +347,7 @@ function LayerContents({state, completeTransitionExit}) {
         React lifecycles.
       </p>
       <h2>Components</h2>
-      <section>
-        <h3>Dialog</h3>
-        <DialogExample />
-      </section>
+      <DialogSection />
       <section>
         <h3>PopperLayer</h3>
         <p>
@@ -460,7 +411,6 @@ function PopperLayerExample() {
         </table>
       </section>
       <TooltipSection />
-      <Example />
       <LayerContainer />
     </div>
   );
