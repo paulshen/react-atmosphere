@@ -6,10 +6,34 @@ import Modal from "../src/Modal";
 import PopperLayer from "../src/PopperLayer";
 import Tooltip from "../src/Tooltip";
 import { LayerState } from "../src/Types";
+import Highlight, { defaultProps } from "prism-react-renderer";
 
-// @ts-ignore
-import styles from "./styles.module.css";
 import { createAPI } from "../src/LayerAPI";
+
+function Code({ children }: { children: string }) {
+  return (
+    <Highlight
+      {...defaultProps}
+      code={children}
+      language="typescript"
+      theme={undefined}
+    >
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <pre className={"code " + className} style={style}>
+          <code>
+            {tokens.map((line, i) => (
+              <div {...getLineProps({ line, key: i })}>
+                {line.map((token, key) => (
+                  <span {...getTokenProps({ token, key })} />
+                ))}
+              </div>
+            ))}
+          </code>
+        </pre>
+      )}
+    </Highlight>
+  );
+}
 
 function StatefulLayerComponent({
   count,
@@ -159,17 +183,14 @@ function TopExample() {
     layers.push(
       <Layer
         render={() => (
-          <div
-            className={styles.topExampleLayer}
-            style={{ top: 256 - i * 8 }}
-          ></div>
+          <div className="topExampleLayer" style={{ top: 256 - i * 8 }}></div>
         )}
         key={i}
       />
     );
   }
   return (
-    <div className={styles.topExample}>
+    <div className="topExample">
       <button onClick={() => setNumLayers(layers => layers + 1)}>
         Add Layer
       </button>
@@ -183,7 +204,7 @@ function TopExample() {
 
 function App() {
   return (
-    <div className={styles.root}>
+    <div className="root">
       <h1>millefeuille</h1>
       <p>
         A React library for creating and managing UI layers (tooltips, modals,
@@ -196,8 +217,8 @@ function App() {
         will contain all your layers and is usually rendered at the root of your
         app.
       </p>
-      <pre>
-        <code>{`import {LayerContainer} from 'millefeuille';
+      <Code>
+        {`import {LayerContainer} from 'millefeuille';
 
 function App() {
   return (
@@ -206,13 +227,13 @@ function App() {
       <LayerContainer />
     </>
   );
-}`}</code>
-      </pre>
+}`}
+      </Code>
       <p>
         The heart of millefeuille is the <code>{"<Layer>"}</code> component.
       </p>
-      <pre>
-        <code>{`import {Layer} from 'millefeuille';
+      <Code>
+        {`import {Layer} from 'millefeuille';
 
 function MyComponent() {
   ...
@@ -223,8 +244,8 @@ function MyComponent() {
       ) : null}
     </div>
   );
-}`}</code>
-      </pre>
+}`}
+      </Code>
       <p>
         Although this Layer looks like it is a child of MyComponent, the actual
         layer DOM nodes are rendered inside your app's LayerContainer.
@@ -249,8 +270,7 @@ function MyComponent() {
         state. Perform your animation and call completeTransitionExit when
         finished.
       </p>
-      <pre>
-        <code>{`import {LayerState} from 'millefeuille';
+      <Code>{`import {LayerState} from 'millefeuille';
 
 function LayerContents({state, completeTransitionExit}) {
   React.useEffect(() => {
@@ -270,8 +290,7 @@ function LayerContents({state, completeTransitionExit}) {
     <LayerContents state={state} completeTransitionExit={completeTransitionExit} />
   }
   transitionExit
-/>`}</code>
-      </pre>
+/>`}</Code>
       <p>
         There is no layer API for enter transitions. You can manage this via
         React lifecycles.
