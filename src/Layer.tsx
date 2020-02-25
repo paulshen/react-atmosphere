@@ -1,26 +1,31 @@
 import * as React from "react";
-import LayerAPI from "./LayerAPI";
+import LayerAPI, { API } from "./LayerAPI";
 import { LayerRender } from "./Types";
 
 type LayerProps = {
   render: LayerRender;
   transitionExit?: boolean;
+  context?: API;
 };
-export default function Layer({ render, transitionExit }: LayerProps) {
+export default function Layer({
+  render,
+  transitionExit,
+  context = LayerAPI
+}: LayerProps) {
   const key = React.useRef<string>();
   React.useEffect(() => {
-    key.current = LayerAPI.getNextKey();
-    LayerAPI.pushLayer(key.current!, render);
+    key.current = context.getNextKey();
+    context.pushLayer(key.current!, render);
     return () => {
       if (transitionExit === true) {
-        LayerAPI.transitionExitLayer(key.current!);
+        context.transitionExitLayer(key.current!);
       } else {
-        LayerAPI.removeLayer(key.current!);
+        context.removeLayer(key.current!);
       }
     };
   }, []);
   React.useEffect(() => {
-    LayerAPI.updateLayer(key.current!, render);
+    context.updateLayer(key.current!, render);
   }, [render]);
   return null;
 }

@@ -9,6 +9,7 @@ import { LayerState } from "../src/Types";
 
 // @ts-ignore
 import styles from "./styles.module.css";
+import { createAPI } from "../src/LayerAPI";
 
 function StatefulLayerComponent({
   count,
@@ -176,6 +177,35 @@ function LayerExample() {
   );
 }
 
+function TopExample() {
+  const [numLayers, setNumLayers] = React.useState(5);
+  const layers = [];
+  for (let i = 0; i < numLayers; i++) {
+    layers.push(
+      <Layer
+        render={() => (
+          <div
+            className={styles.topExampleLayer}
+            style={{ top: 256 - i * 8 }}
+          ></div>
+        )}
+        key={i}
+      />
+    );
+  }
+  return (
+    <div className={styles.topExample}>
+      <button onClick={() => setNumLayers(layers => layers + 1)}>
+        Add Layer
+      </button>
+      <button onClick={() => setNumLayers(layers => layers - 1)}>
+        Remove Layer
+      </button>
+      {layers}
+    </div>
+  );
+}
+
 function App() {
   return (
     <div className={styles.root}>
@@ -184,22 +214,43 @@ function App() {
         A React library for creating and managing UI layers (tooltips, modals,
         dropdowns, etc).
       </p>
-      <p>{"The heart of millefeuille is the <Layer> component."}</p>
+      <TopExample />
+      <h2>Usage</h2>
       <LayerExample />
+      <p>
+        Render a <code>{"<LayerContainer>"}</code> in your app. This component
+        will render all your layers and is usually rendered at the root of your
+        app.
+      </p>
       <pre>
-        <code>{`
-import {Layer, LayerContainer} from 'millefeuille';
+        <code>{`import {LayerContainer} from 'millefeuille';
 
-<div>
-  <Layer render={() => <div>Contents</div>} />
-  <LayerContainer />
-</div>
-        `}</code>
+function App() {
+  return (
+    <>
+      ...
+      <LayerContainer />
+    </>
+  );
+}`}</code>
       </pre>
       <p>
-        {
-          "All layer components will be rendered in the same <LayerContainer> instance."
-        }
+        The heart of millefeuille is the <code>{"<Layer>"}</code> component.
+      </p>
+      <pre>
+        <code>{`import {Layer} from 'millefeuille';
+
+function MyComponent() {
+  return (
+    <div>
+      <Layer render={layerProps => <div>Layer contents</div>} />;
+    </div>
+  );
+}`}</code>
+      </pre>
+      <p>
+        Although this Layer looks like it is a child of MyComponent, the actual
+        layer DOM nodes are rendered in your app's LayerContainer.
       </p>
       <p>
         {

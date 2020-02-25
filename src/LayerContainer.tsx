@@ -1,5 +1,5 @@
 import * as React from "react";
-import LayerAPI from "./LayerAPI";
+import LayerAPI, { API } from "./LayerAPI";
 import { APIMessage, APIMessageType, Layer, LayerState } from "./Types";
 
 function layerReducer(state: Layer[], message: APIMessage) {
@@ -47,10 +47,15 @@ function layerReducer(state: Layer[], message: APIMessage) {
   return state;
 }
 
-export default function LayerContainer() {
+type LayerContainerProps = {
+  context?: API;
+};
+export default function LayerContainer({
+  context = LayerAPI
+}: LayerContainerProps) {
   const [layers, dispatch] = React.useReducer(layerReducer, []);
   React.useEffect(() => {
-    return LayerAPI.addListener(dispatch);
+    return context.addListener(dispatch);
   }, []);
   return (
     <>

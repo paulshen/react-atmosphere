@@ -1,7 +1,7 @@
 import { APIMessage, APIMessageType, LayerRender } from "./Types";
 
 type APIListener = (message: APIMessage) => void;
-type API = {
+export type API = {
   addListener: (listener: APIListener) => () => void;
   pushLayer: (key: string, render: LayerRender) => void;
   updateLayer: (key: string, render: LayerRender) => void;
@@ -10,14 +10,23 @@ type API = {
   getNextKey: () => string;
 };
 
-function createAPI(): API {
+export function createAPI(): API {
   let nextLayerId = 1;
+  let queuedMessages: Array<APIMessage> = [];
   const listeners: Array<(message: APIMessage) => void> = [];
   function emit(message: APIMessage) {
-    listeners.forEach(listener => listener(message));
+    if (listeners.length === 0) {
+      queuedMessages.push(message);
+    } else {
+      listeners.forEach(listener => listener(message));
+    }
   }
   return {
     addListener: (listener: APIListener) => {
+      if (queuedMessages.length > 0) {
+        queuedMessages.forEach(message => listener(message));
+        queuedMessages = [];
+      }
       listeners.push(listener);
       return () => {
         const index = listeners.indexOf(listener);
