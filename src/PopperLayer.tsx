@@ -3,30 +3,48 @@ import {
   createPopper,
   Instance,
   VirtualElement,
-  Options
+  Options,
+  State,
+  Modifier
 } from "@popperjs/core";
 import Layer from "./Layer";
 
 type PopperLayerProps = {
   reference: React.RefObject<Element | VirtualElement | undefined>;
-  render: () => React.ReactNode;
+  render: (props: { popperState: State | undefined }) => React.ReactNode;
   options?: Partial<Options>;
 };
 
 export default function PopperLayer({
   reference,
   render,
-  options
+  options: optionsProp
 }: PopperLayerProps) {
   const popperRef = React.useRef<Instance>();
+  const [popperState, setPopperState] = React.useState<State>();
+  const options = React.useMemo(
+    () => ({
+      ...optionsProp,
+      modifiers: [
+        ...(optionsProp?.modifiers ?? []),
+        {
+          name: "popperLayer",
+          enabled: true,
+          phase: "afterWrite",
+          fn: ({ state }: { state: State }) => {
+            setPopperState(state);
+          },
+          requires: ["computeStyles"]
+        } as Modifier<any>
+      ]
+    }),
+    [optionsProp]
+  );
   const layerRef = (layerDiv: HTMLDivElement | null) => {
     if (layerDiv !== null) {
       if (!popperRef.current) {
         popperRef.current = createPopper(reference.current!, layerDiv, options);
       }
-    } else if (popperRef.current) {
-      popperRef.current.destroy();
-      popperRef.current = undefined;
     }
   };
   React.useEffect(() => {
@@ -34,10 +52,16 @@ export default function PopperLayer({
       popperRef.current.setOptions(options);
     }
   }, [options]);
+  React.useEffect(() => {
+    if (popperRef.current) {
+      popperRef.current.destroy();
+      popperRef.current = undefined;
+    }
+  }, []);
   return (
     <Layer
       render={() => {
-        return <div ref={layerRef}>{render()}</div>;
+        return <div ref={layerRef}>{render({ popperState })}</div>;
       }}
     />
   );

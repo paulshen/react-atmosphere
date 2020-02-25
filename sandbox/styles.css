@@ -17,6 +17,11 @@ h2 {
   border-bottom: 1px solid #d0d0d0;
 }
 
+h3 {
+  font-size: 20px;
+  margin: 0;
+}
+
 .topExample {
   position: relative;
   height: 192px;

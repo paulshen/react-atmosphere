@@ -131,18 +131,20 @@ function Example() {
       {showPopper ? (
         <PopperLayer
           reference={referenceRef}
-          render={() => (
-            <div
-              style={{
-                width: 100,
-                height: 100,
-                border: "1px solid black",
-                backgroundColor: "#ffffff"
-              }}
-            >
-              PopperLayer
-            </div>
-          )}
+          render={args => {
+            return (
+              <div
+                style={{
+                  width: 100,
+                  height: 100,
+                  border: "1px solid black",
+                  backgroundColor: "#ffffff"
+                }}
+              >
+                PopperLayer
+              </div>
+            );
+          }}
           options={{
             placement: "left"
           }}
@@ -258,7 +260,7 @@ function MyComponent() {
   return (
     <div>
       {showLayer ? (
-        <Layer render={layerProps => <div>I'm a layer!</div>} />
+        <Layer render={renderProps => <div>I'm a layer!</div>} />
       ) : null}
     </div>
   );
@@ -274,7 +276,7 @@ function MyComponent() {
         as allowing UI to be rendered after the <code>{"<Layer>"}</code>{" "}
         unmounts. This is useful for transition out animations.
       </p>
-      <h2>Exit Transition</h2>
+      <h3>Exit Transition</h3>
       <p>
         You may want to do an transition animation as the layer is unmounting.
         Because the layer is rendered by the LayerContainer, we can keep
@@ -304,15 +306,37 @@ function LayerContents({state, completeTransitionExit}) {
 }
 
 <Layer
-  render={({state, completeTransitionExit}) =>
-    <LayerContents state={state} completeTransitionExit={completeTransitionExit} />
-  }
+  render={renderProps => <LayerContents {...renderProps} />}
   transitionExit
 />`}</Code>
       <p>
         There is no layer API for enter transitions. You can manage this via
         React lifecycles.
       </p>
+      <h2>Components</h2>
+      <h3>Modal</h3>
+      <h3>PopperLayer</h3>
+      <p>
+        It is common to position layers next to a context element. This is the
+        case for tooltips, popouts, and dropdowns. millefeuille uses Popper.js
+        to power PopperLayer.
+      </p>
+      <Code>{`import {PopperLayer} from 'millefeuille';
+
+function PopperLayerExample() {
+  const contextRef = React.useRef();
+  return (
+    <>
+      <div ref={contextRef}>Context Element</div>
+      <PopperLayer
+        reference={contextRef}
+        render={renderProps => <div>Popper Contents</div>}
+        options={{placement: 'left'}}
+      />
+    </>
+  );
+}`}</Code>
+      <h3>Tooltip</h3>
       <Example />
       <LayerContainer />
     </div>
