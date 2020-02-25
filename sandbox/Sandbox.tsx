@@ -109,11 +109,21 @@ function DialogExample() {
   );
 }
 
-function PopperLayerExample() {
+function PopperLayerSection() {
   const referenceRef = React.useRef(null);
   const [showPopper, setShowPopper] = React.useState(false);
   return (
-    <>
+    <section>
+      <h3>PopperLayer</h3>
+      <p>
+        It is common to position layers next to a context element. This is the
+        case for tooltips, popouts, and dropdowns. millefeuille uses Popper.js
+        to power PopperLayer.
+      </p>
+      <p>
+        PopperLayer renders a wrapper div whose position is managed by
+        Popper.js. Your render function provides the div contents.
+      </p>
       <div>
         <button
           onClick={() => {
@@ -147,7 +157,56 @@ function PopperLayerExample() {
           }}
         />
       ) : null}
+      <Code>{`import {PopperLayer} from 'millefeuille';
+
+function PopperLayerExample() {
+  const contextRef = React.useRef();
+  return (
+    <>
+      <div ref={contextRef}>Context Element</div>
+      <PopperLayer
+        reference={contextRef}
+        render={renderProps => <div>Popper Contents</div>}
+        options={{placement: 'left'}}
+      />
     </>
+  );
+}`}</Code>
+      <h4>Props</h4>
+      <table>
+        <tbody>
+          <tr>
+            <td>reference</td>
+            <td>
+              <code>
+                {"React.RefObject<Element | VirtualElement | undefined>"}
+              </code>
+              <div>A ReactRef containing the reference DOM element</div>
+            </td>
+          </tr>
+          <tr>
+            <td>render</td>
+            <td>
+              <code>
+                {
+                  "(renderProps: { popperState: State | undefined }) => React.ReactNode"
+                }
+              </code>
+              <div>
+                A render function that renders the popper layer contents
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>options</td>
+            <td>
+              <code>{"Partial<Options>"}</code>
+              <div>Popper.js options</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   );
 }
 
@@ -348,68 +407,7 @@ function LayerContents({state, completeTransitionExit}) {
       </p>
       <h2>Components</h2>
       <DialogSection />
-      <section>
-        <h3>PopperLayer</h3>
-        <p>
-          It is common to position layers next to a context element. This is the
-          case for tooltips, popouts, and dropdowns. millefeuille uses Popper.js
-          to power PopperLayer.
-        </p>
-        <p>
-          PopperLayer renders a wrapper div whose position is managed by
-          Popper.js. Your render function provides the div contents.
-        </p>
-        <PopperLayerExample />
-        <Code>{`import {PopperLayer} from 'millefeuille';
-
-function PopperLayerExample() {
-  const contextRef = React.useRef();
-  return (
-    <>
-      <div ref={contextRef}>Context Element</div>
-      <PopperLayer
-        reference={contextRef}
-        render={renderProps => <div>Popper Contents</div>}
-        options={{placement: 'left'}}
-      />
-    </>
-  );
-}`}</Code>
-        <h4>Props</h4>
-        <table>
-          <tbody>
-            <tr>
-              <td>reference</td>
-              <td>
-                <code>
-                  {"React.RefObject<Element | VirtualElement | undefined>"}
-                </code>
-                <div>A ReactRef containing the reference DOM element</div>
-              </td>
-            </tr>
-            <tr>
-              <td>render</td>
-              <td>
-                <code>
-                  {
-                    "(renderProps: { popperState: State | undefined }) => React.ReactNode"
-                  }
-                </code>
-                <div>
-                  A render function that renders the popper layer contents
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>options</td>
-              <td>
-                <code>{"Partial<Options>"}</code>
-                <div>Popper.js options</div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+      <PopperLayerSection />
       <TooltipSection />
       <LayerContainer />
     </div>
