@@ -168,6 +168,66 @@ function PopperLayerExample() {
   );
 }
 
+function TooltipSection() {
+  return (
+    <section>
+      <h3>Tooltip</h3>
+      <Tooltip text="Tooltip">
+        {tooltipProps => (
+          <div
+            {...tooltipProps}
+            style={{ border: "2px solid #000000", display: "inline-block" }}
+          >
+            Hover Me
+          </div>
+        )}
+      </Tooltip>
+      <p>
+        Tooltip is a component built on top of PopperLayer that manages mouse
+        interactions. Tooltip has to attach mouse listeners and a ref to the
+        context element. This is done with an explicit children render API.
+      </p>
+      <Code>{`import {Tooltip} from 'millefeuille';
+
+<Tooltip text="Tooltip Text">
+  {tooltipProps => <div {...tooltipProps}>Context</div>}
+</Tooltip>`}</Code>
+      <h4>Props</h4>
+      <table>
+        <tbody>
+          <tr>
+            <td>children</td>
+            <td>
+              <code>
+                {`{
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+  ref: React.RefObject<any>;
+} => React.ReactNode`}
+              </code>
+              <div>A render prop for the tooltip context</div>
+            </td>
+          </tr>
+          <tr>
+            <td>text</td>
+            <td>
+              <code>React.ReactNode</code>
+              <div>The contents of the tooltip</div>
+            </td>
+          </tr>
+          <tr>
+            <td>placement</td>
+            <td>
+              <code>{"Placement"}</code>
+              <div>Where to render the tooltip.</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  );
+}
+
 function Example() {
   const [layerKeys, setLayerKeys] = React.useState<Array<number>>([]);
   return (
@@ -184,9 +244,6 @@ function Example() {
           Add Layer
         </button>
       </div>
-      <Tooltip text="Hi" placement="right">
-        {(props: any) => <button {...props}>Tooltip</button>}
-      </Tooltip>
       {layerKeys.map(layerKey => (
         <StatefulLayer
           layerKey={layerKey}
@@ -402,7 +459,7 @@ function PopperLayerExample() {
           </tbody>
         </table>
       </section>
-      <h3>Tooltip</h3>
+      <TooltipSection />
       <Example />
       <LayerContainer />
     </div>

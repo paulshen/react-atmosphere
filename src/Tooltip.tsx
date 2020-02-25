@@ -5,7 +5,7 @@ import { Placement } from "@popperjs/core";
 type TooltipRenderProps = {
   onMouseEnter: () => void;
   onMouseLeave: () => void;
-  ref: React.RefObject<Element | undefined>;
+  ref: React.RefObject<any>;
 };
 
 function TooltipLayer({ text }: { text: React.ReactNode }) {
@@ -16,12 +16,16 @@ function TooltipLayer({ text }: { text: React.ReactNode }) {
 
 type TooltipProps = {
   children: (tooltipProps: TooltipRenderProps) => React.ReactNode;
-  placement: Placement;
+  placement?: Placement;
   text: React.ReactNode;
 };
 
-export default function Tooltip({ children, text, placement }: TooltipProps) {
-  const domRef = React.useRef<Element>();
+export default function Tooltip({
+  children,
+  text,
+  placement = "top"
+}: TooltipProps) {
+  const domRef = React.useRef<Element>(null);
   const [showTooltip, setShowTooltip] = React.useState(false);
 
   return (
