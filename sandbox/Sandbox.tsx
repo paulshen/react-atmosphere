@@ -126,10 +126,50 @@ function DialogExample() {
   );
 }
 
-function Example() {
-  const [layerKeys, setLayerKeys] = React.useState<Array<number>>([]);
+function PopperLayerExample() {
   const referenceRef = React.useRef(null);
   const [showPopper, setShowPopper] = React.useState(false);
+  return (
+    <>
+      <div>
+        <button
+          onClick={() => {
+            setShowPopper(show => !show);
+          }}
+          ref={referenceRef}
+        >
+          {showPopper ? "Hide PopperLayer" : "Show PopperLayer"}
+        </button>
+      </div>
+      {showPopper ? (
+        <PopperLayer
+          reference={referenceRef}
+          render={args => {
+            return (
+              <div
+                style={{
+                  width: 100,
+                  height: 100,
+                  border: "2px solid black",
+                  borderRadius: 4,
+                  backgroundColor: "#ffffff"
+                }}
+              >
+                PopperLayer
+              </div>
+            );
+          }}
+          options={{
+            placement: "left"
+          }}
+        />
+      ) : null}
+    </>
+  );
+}
+
+function Example() {
+  const [layerKeys, setLayerKeys] = React.useState<Array<number>>([]);
   return (
     <div>
       <div>
@@ -144,41 +184,9 @@ function Example() {
           Add Layer
         </button>
       </div>
-      <div>
-        <button
-          onClick={() => {
-            setShowPopper(show => !show);
-          }}
-          ref={referenceRef}
-        >
-          Popper Reference
-        </button>
-      </div>
       <Tooltip text="Hi" placement="right">
         {(props: any) => <button {...props}>Tooltip</button>}
       </Tooltip>
-      {showPopper ? (
-        <PopperLayer
-          reference={referenceRef}
-          render={args => {
-            return (
-              <div
-                style={{
-                  width: 100,
-                  height: 100,
-                  border: "1px solid black",
-                  backgroundColor: "#ffffff"
-                }}
-              >
-                PopperLayer
-              </div>
-            );
-          }}
-          options={{
-            placement: "left"
-          }}
-        />
-      ) : null}
       {layerKeys.map(layerKey => (
         <StatefulLayer
           layerKey={layerKey}
@@ -234,7 +242,7 @@ function App() {
         <li>Declarative component API for rendering/hiding layers.</li>
         <li>
           Single Layer container stacks layers based on render order, removing
-          need for most z-index wars.
+          need for most z-index.
         </li>
         <li>
           Animate layers as they unmount, even if the owner (parent) component
@@ -286,15 +294,15 @@ function MyComponent() {
       </p>
       <p>
         millefeuille uses message passing instead of{" "}
-        <code>{"React.createPortal"}</code>. This allows for more control, such
-        as allowing UI to be rendered after the <code>{"<Layer>"}</code>{" "}
+        <code>{"React.createPortal"}</code>. This allows for more control,
+        including the ability to render UI after the <code>{"<Layer>"}</code>{" "}
         unmounts. This is useful for transition out animations.
       </p>
       <h3>Exit Transition</h3>
       <p>
         You may want to do an transition animation as the layer is unmounting.
         Because the layer is rendered by the LayerContainer, we can keep
-        rendering the layer DOM even after the Layer component (or its owner!)
+        rendering the layer DOM even after the Layer component (or its owner)
         unmounts.
       </p>
       <p>
@@ -328,15 +336,23 @@ function LayerContents({state, completeTransitionExit}) {
         React lifecycles.
       </p>
       <h2>Components</h2>
-      <h3>Dialog</h3>
-      <DialogExample />
-      <h3>PopperLayer</h3>
-      <p>
-        It is common to position layers next to a context element. This is the
-        case for tooltips, popouts, and dropdowns. millefeuille uses Popper.js
-        to power PopperLayer.
-      </p>
-      <Code>{`import {PopperLayer} from 'millefeuille';
+      <section>
+        <h3>Dialog</h3>
+        <DialogExample />
+      </section>
+      <section>
+        <h3>PopperLayer</h3>
+        <p>
+          It is common to position layers next to a context element. This is the
+          case for tooltips, popouts, and dropdowns. millefeuille uses Popper.js
+          to power PopperLayer.
+        </p>
+        <p>
+          PopperLayer renders a wrapper div whose position is managed by
+          Popper.js. Your render function provides the div contents.
+        </p>
+        <PopperLayerExample />
+        <Code>{`import {PopperLayer} from 'millefeuille';
 
 function PopperLayerExample() {
   const contextRef = React.useRef();
@@ -351,6 +367,41 @@ function PopperLayerExample() {
     </>
   );
 }`}</Code>
+        <h4>Props</h4>
+        <table>
+          <tbody>
+            <tr>
+              <td>reference</td>
+              <td>
+                <code>
+                  {"React.RefObject<Element | VirtualElement | undefined>"}
+                </code>
+                <div>A ReactRef containing the reference DOM element</div>
+              </td>
+            </tr>
+            <tr>
+              <td>render</td>
+              <td>
+                <code>
+                  {
+                    "(renderProps: { popperState: State | undefined }) => React.ReactNode"
+                  }
+                </code>
+                <div>
+                  A render function that renders the popper layer contents
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>options</td>
+              <td>
+                <code>{"Partial<Options>"}</code>
+                <div>Popper.js options</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
       <h3>Tooltip</h3>
       <Example />
       <LayerContainer />

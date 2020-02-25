@@ -22,6 +22,7 @@ export default function PopperLayer({
 }: PopperLayerProps) {
   const popperRef = React.useRef<Instance>();
   const [popperState, setPopperState] = React.useState<State>();
+  const isMountedRef = React.useRef(true);
   const options = React.useMemo(
     () => ({
       ...optionsProp,
@@ -32,7 +33,9 @@ export default function PopperLayer({
           enabled: true,
           phase: "afterWrite",
           fn: ({ state }: { state: State }) => {
-            setPopperState(state);
+            if (isMountedRef.current) {
+              setPopperState(state);
+            }
           },
           requires: ["computeStyles"]
         } as Modifier<any>
@@ -53,6 +56,7 @@ export default function PopperLayer({
     }
   }, [options]);
   React.useEffect(() => {
+    isMountedRef.current = false;
     if (popperRef.current) {
       popperRef.current.destroy();
       popperRef.current = undefined;
