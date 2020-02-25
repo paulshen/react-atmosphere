@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import Layer from "../src/Layer";
 import LayerContainer from "../src/LayerContainer";
-import Modal from "../src/Modal";
+import Dialog from "../src/Dialog";
 import PopperLayer from "../src/PopperLayer";
 import Tooltip from "../src/Tooltip";
 import { LayerState } from "../src/Types";
@@ -96,11 +96,40 @@ function StatefulLayer({
   );
 }
 
+function DialogExample() {
+  const [showDialog, setShowDialog] = React.useState(false);
+  return (
+    <>
+      <div>
+        <button
+          onClick={() => {
+            setShowDialog(true);
+          }}
+        >
+          Open Dialog
+        </button>
+      </div>
+      {showDialog ? (
+        <Dialog
+          render={() => (
+            <div
+              style={{ backgroundColor: "#ffffff", width: 500, height: 300 }}
+            >
+              <div>Hello</div>
+              <button onClick={() => setShowDialog(false)}>Close</button>
+            </div>
+          )}
+          onCloseRequest={() => setShowDialog(false)}
+        />
+      ) : null}
+    </>
+  );
+}
+
 function Example() {
   const [layerKeys, setLayerKeys] = React.useState<Array<number>>([]);
   const referenceRef = React.useRef(null);
   const [showPopper, setShowPopper] = React.useState(false);
-  const [showModal, setShowModal] = React.useState(false);
   return (
     <div>
       <div>
@@ -150,21 +179,6 @@ function Example() {
           }}
         />
       ) : null}
-      <div>
-        <button
-          onClick={() => {
-            setShowModal(true);
-          }}
-        >
-          Modal
-        </button>
-      </div>
-      {showModal ? (
-        <Modal onCloseRequest={() => setShowModal(false)}>
-          <div>Hello</div>
-          <button onClick={() => setShowModal(false)}>Close</button>
-        </Modal>
-      ) : null}
       {layerKeys.map(layerKey => (
         <StatefulLayer
           layerKey={layerKey}
@@ -213,7 +227,7 @@ function App() {
   return (
     <div className="root">
       <h1>millefeuille</h1>
-      <p>A React library for UI layers (tooltips, modals, dropdowns, etc).</p>
+      <p>A React library for UI layers (tooltips, Dialogs, dropdowns, etc).</p>
       <TopExample />
       <h2>Features</h2>
       <ul>
@@ -314,7 +328,8 @@ function LayerContents({state, completeTransitionExit}) {
         React lifecycles.
       </p>
       <h2>Components</h2>
-      <h3>Modal</h3>
+      <h3>Dialog</h3>
+      <DialogExample />
       <h3>PopperLayer</h3>
       <p>
         It is common to position layers next to a context element. This is the

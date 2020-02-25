@@ -1,6 +1,6 @@
 import * as React from "react";
 import Layer from "./Layer";
-import { LayerState } from "./Types";
+import { LayerRender, LayerState } from "./Types";
 
 function Backdrop({ onClick }: { onClick: (() => void) | undefined }) {
   return (
@@ -11,7 +11,7 @@ function Backdrop({ onClick }: { onClick: (() => void) | undefined }) {
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.3)",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
         zIndex: -1
       }}
       onClick={onClick}
@@ -19,7 +19,19 @@ function Backdrop({ onClick }: { onClick: (() => void) | undefined }) {
   );
 }
 
-function ModalLayer({
+const DialogContainerStyles: React.CSSProperties = {
+  position: "fixed",
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  transition: "opacity 225ms cubic-bezier(0.4, 0, 0.2, 1)"
+};
+
+function DialogLayer({
   state,
   completeTransitionExit,
   children,
@@ -32,55 +44,41 @@ function ModalLayer({
 }) {
   const [isMounted, setIsMounted] = React.useState(false);
   React.useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setIsMounted(true);
     }, 20);
+    return () => clearTimeout(timeout);
   }, []);
   React.useEffect(() => {
     if (state === LayerState.TransitionExit) {
-      setTimeout(() => completeTransitionExit(), 500);
+      const timeout = setTimeout(() => completeTransitionExit(), 225);
+      return () => clearTimeout(timeout);
     }
   }, [state]);
   return (
     <div
       style={{
-        position: "fixed",
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        transition: "opacity 0.5s",
+        ...DialogContainerStyles,
         opacity: !isMounted || state === LayerState.TransitionExit ? 0 : 1
       }}
     >
       <Backdrop onClick={onCloseRequest ? () => onCloseRequest() : undefined} />
-      <div style={{ backgroundColor: "#ffffff", width: 500, height: 300 }}>
-        {children}
-      </div>
+      {children}
     </div>
   );
 }
 
-export default function Modal({
-  children,
-  onCloseRequest
-}: {
-  children: React.ReactNode;
+type DialogProps = {
+  render: LayerRender;
   onCloseRequest?: () => void;
-}) {
+};
+export default function Dialog({ render, onCloseRequest }: DialogProps) {
   return (
     <Layer
-      render={({ state, completeTransitionExit }) => (
-        <ModalLayer
-          state={state}
-          completeTransitionExit={completeTransitionExit}
-          onCloseRequest={onCloseRequest}
-        >
-          {children}
-        </ModalLayer>
+      render={renderProps => (
+        <DialogLayer {...renderProps} onCloseRequest={onCloseRequest}>
+          {render(renderProps)}
+        </DialogLayer>
       )}
       transitionExit
     />
