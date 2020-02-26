@@ -35,11 +35,10 @@ function Code({ children }: { children: string }) {
   );
 }
 
-function DialogSection() {
+function NestableDialogButton({ level }: { level: number }) {
   const [showDialog, setShowDialog] = React.useState(false);
   return (
-    <section>
-      <h3>Dialog</h3>
+    <>
       <div>
         <button
           onClick={() => {
@@ -60,13 +59,23 @@ function DialogSection() {
                 padding: 16
               }}
             >
-              <div>Hello</div>
+              <div>Level {level}</div>
+              <NestableDialogButton level={level + 1} />
               <button onClick={() => setShowDialog(false)}>Close</button>
             </div>
           )}
           onCloseRequest={() => setShowDialog(false)}
         />
       ) : null}
+    </>
+  );
+}
+
+function DialogSection() {
+  return (
+    <section>
+      <h3>Dialog</h3>
+      <NestableDialogButton level={1} />
       <Code>{`import {Dialog} from 'millefeuille';
 
 function DialogExample() {
