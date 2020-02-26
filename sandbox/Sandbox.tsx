@@ -45,7 +45,7 @@ function NestableDialogButton({ level }: { level: number }) {
             setShowDialog(true);
           }}
         >
-          Open Dialog
+          Open {level > 1 ? "Nested " : null}Dialog
         </button>
       </div>
       {showDialog ? (
@@ -54,8 +54,9 @@ function NestableDialogButton({ level }: { level: number }) {
             <div
               style={{
                 backgroundColor: "#ffffff",
-                width: 500,
-                height: 300,
+                borderRadius: 4,
+                width: 500 - level * 20,
+                height: 300 - level * 20,
                 padding: 16
               }}
             >
