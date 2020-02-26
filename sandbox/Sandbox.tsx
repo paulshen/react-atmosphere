@@ -162,6 +162,9 @@ function PopperLayerSection() {
               </div>
             );
           }}
+          onCloseRequest={() => {
+            setShowPopper(false);
+          }}
           options={{
             placement: "left"
           }}
@@ -205,6 +208,13 @@ function PopperLayerExample() {
               <div>
                 A render function that renders the popper layer contents
               </div>
+            </td>
+          </tr>
+          <tr>
+            <td>onCloseRequest</td>
+            <td>
+              <code>{"() => void"}</code>
+              <div>An optional callback when the user clicks away</div>
             </td>
           </tr>
           <tr>
