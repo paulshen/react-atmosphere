@@ -1,6 +1,6 @@
 import * as React from "react";
 import PopperLayer from "./PopperLayer";
-import { Placement } from "@popperjs/core";
+import { Placement, State } from "@popperjs/core";
 
 type TooltipRenderProps = {
   onMouseEnter: () => void;
@@ -8,7 +8,7 @@ type TooltipRenderProps = {
   ref: React.RefObject<any>;
 };
 
-function TooltipLayer({ text }: { text: React.ReactNode }) {
+function defaultRenderTooltip(text: React.ReactNode) {
   return (
     <div style={{ backgroundColor: "#000000", color: "#ffffff" }}>{text}</div>
   );
@@ -16,14 +16,19 @@ function TooltipLayer({ text }: { text: React.ReactNode }) {
 
 type TooltipProps = {
   children: (tooltipProps: TooltipRenderProps) => React.ReactNode;
-  placement?: Placement;
   text: React.ReactNode;
+  placement?: Placement;
+  renderTooltip?: (
+    text: React.ReactNode,
+    props: { popperState: State | undefined }
+  ) => React.ReactNode;
 };
 
 export default function Tooltip({
   children,
   text,
-  placement = "top"
+  placement = "top",
+  renderTooltip = defaultRenderTooltip
 }: TooltipProps) {
   const domRef = React.useRef<Element>(null);
   const [showTooltip, setShowTooltip] = React.useState(false);
@@ -43,7 +48,7 @@ export default function Tooltip({
         <PopperLayer
           reference={domRef}
           options={{ placement }}
-          render={() => <TooltipLayer text={text} />}
+          render={popperProps => renderTooltip(text, popperProps)}
         />
       ) : null}
     </>

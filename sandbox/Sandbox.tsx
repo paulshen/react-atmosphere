@@ -107,7 +107,7 @@ function DialogExample() {
             </td>
           </tr>
           <tr>
-            <td>onCloseRequest</td>
+            <td>onCloseRequest?</td>
             <td>
               <code>{"() => void"}</code>
               <div>An optional callback when the backdrop is clicked</div>
@@ -211,14 +211,14 @@ function PopperLayerExample() {
             </td>
           </tr>
           <tr>
-            <td>onCloseRequest</td>
+            <td>onCloseRequest?</td>
             <td>
               <code>{"() => void"}</code>
               <div>An optional callback when the user clicks away</div>
             </td>
           </tr>
           <tr>
-            <td>options</td>
+            <td>options?</td>
             <td>
               <code>{"Partial<Options>"}</code>
               <div>Popper.js options</div>
@@ -278,9 +278,19 @@ function TooltipSection() {
             </td>
           </tr>
           <tr>
-            <td>placement</td>
+            <td>placement?</td>
             <td>
               <code>{"Placement"}</code>
+              <div>Where to render the tooltip.</div>
+            </td>
+          </tr>
+          <tr>
+            <td>renderTooltip?</td>
+            <td>
+              <code>{`(
+  text: React.ReactNode,
+  props: { popperState: State | undefined }
+) => React.ReactNode`}</code>
               <div>Where to render the tooltip.</div>
             </td>
           </tr>
@@ -341,6 +351,10 @@ function App() {
         <li>
           An imperative API for managing layers for when it's inconvenient to
           map to use component API.
+        </li>
+        <li>
+          millefeuille is designed to be the building blocks for your own UI
+          library. The components come with as little styling as possible.
         </li>
       </ul>
       <h2>Usage</h2>
