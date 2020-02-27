@@ -75,7 +75,7 @@ function NestableDialogButton({ level }: { level: number }) {
 function DialogSection() {
   return (
     <section>
-      <h3>Dialog</h3>
+      <h3 id="dialog">Dialog</h3>
       <NestableDialogButton level={1} />
       <Code>{`import {Dialog} from 'millefeuille';
 
@@ -124,7 +124,7 @@ function PopperLayerSection() {
   const [showPopper, setShowPopper] = React.useState(false);
   return (
     <section>
-      <h3>PopperLayer</h3>
+      <h3 id="popper-layer">PopperLayer</h3>
       <p>
         It is common to position layers next to a context element. This is the
         case for tooltips, popouts, and dropdowns. millefeuille uses Popper.js
@@ -233,7 +233,7 @@ function PopperLayerExample() {
 function TooltipSection() {
   return (
     <section>
-      <h3>Tooltip</h3>
+      <h3 id="tooltip">Tooltip</h3>
       <Tooltip text="Tooltip">
         {tooltipProps => (
           <div
@@ -331,40 +331,79 @@ function TopExample() {
   );
 }
 
+function Sidebar() {
+  return (
+    <div className="sidebar-container">
+      <div className="sidebar">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#features">Features</a>
+          </li>
+          <li>
+            <a href="#usage">Usage</a>
+          </li>
+          <li className="sidebar-indented">
+            <a href="#exit-transition">Exit Transition</a>
+          </li>
+          <li>
+            <a href="#components">Components</a>
+          </li>
+          <li className="sidebar-indented">
+            <a href="#dialog">Dialog</a>
+          </li>
+          <li className="sidebar-indented">
+            <a href="#popper-layer">PopperLayer</a>
+          </li>
+          <li className="sidebar-indented">
+            <a href="#tooltip">Tooltip</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   return (
-    <div className="root">
-      <h1>millefeuille</h1>
-      <p>A React library for UI layers (tooltips, Dialogs, dropdowns, etc).</p>
-      <TopExample />
-      <h2>Features</h2>
-      <ul>
-        <li>Declarative component API for rendering/hiding layers.</li>
-        <li>
-          Single Layer container stacks layers based on render order, removing
-          need for most z-index.
-        </li>
-        <li>
-          Animate layers as they unmount, even if the owner (parent) component
-          has unmounted.
-        </li>
-        <li>
-          An imperative API for managing layers for when it's inconvenient to
-          map to use component API.
-        </li>
-        <li>
-          millefeuille is designed to be the building blocks for your own UI
-          library. The components come with as little styling as possible.
-        </li>
-      </ul>
-      <h2>Usage</h2>
-      <p>
-        Render a <code>{"<LayerContainer>"}</code> in your app. This component
-        will contain all your layers and is usually rendered at the root of your
-        app.
-      </p>
-      <Code>
-        {`import {LayerContainer} from 'millefeuille';
+    <div id="introduction" className="container">
+      <Sidebar />
+      <div className="main">
+        <h1>millefeuille</h1>
+        <p>
+          A React library for UI layers (tooltips, Dialogs, dropdowns, etc).
+        </p>
+        <TopExample />
+        <h2 id="features">Features</h2>
+        <ul>
+          <li>Declarative component API for rendering/hiding layers.</li>
+          <li>
+            Single Layer container stacks layers based on render order, removing
+            need for most z-index.
+          </li>
+          <li>
+            Animate layers as they unmount, even if the owner (parent) component
+            has unmounted.
+          </li>
+          <li>
+            An imperative API for managing layers for when it's inconvenient to
+            map to use component API.
+          </li>
+          <li>
+            millefeuille is designed to be the building blocks for your own UI
+            library. The components come with as little styling as possible.
+          </li>
+        </ul>
+        <h2 id="usage">Usage</h2>
+        <p>
+          Render a <code>{"<LayerContainer>"}</code> in your app. This component
+          will contain all your layers and is usually rendered at the root of
+          your app.
+        </p>
+        <Code>
+          {`import {LayerContainer} from 'millefeuille';
 
 function App() {
   return (
@@ -374,12 +413,12 @@ function App() {
     </>
   );
 }`}
-      </Code>
-      <p>
-        The heart of millefeuille is the <code>{"<Layer>"}</code> component.
-      </p>
-      <Code>
-        {`import {Layer} from 'millefeuille';
+        </Code>
+        <p>
+          The heart of millefeuille is the <code>{"<Layer>"}</code> component.
+        </p>
+        <Code>
+          {`import {Layer} from 'millefeuille';
 
 function MyComponent() {
   ...
@@ -391,32 +430,32 @@ function MyComponent() {
     </div>
   );
 }`}
-      </Code>
-      <p>
-        Although this Layer looks like it is a child of MyComponent, the actual
-        layer DOM nodes are rendered inside your app's LayerContainer.
-      </p>
-      <p>
-        millefeuille uses message passing instead of{" "}
-        <code>{"React.createPortal"}</code>. This allows for more control,
-        including the ability to render UI after the <code>{"<Layer>"}</code>{" "}
-        unmounts. This is useful for transition out animations.
-      </p>
-      <h3>Exit Transition</h3>
-      <p>
-        You may want to do an transition animation as the layer is unmounting.
-        Because the layer is rendered by the LayerContainer, we can keep
-        rendering the layer DOM even after the Layer component (or its owner)
-        unmounts.
-      </p>
-      <p>
-        Set the Layer prop transitionExit to true. Layer's render function
-        contains two relevant props, state and completeTransitionExit. When the
-        Layer component is no longer rendered, it will enter the TransitionExit
-        state. Perform your animation and call completeTransitionExit when
-        finished.
-      </p>
-      <Code>{`import {LayerState} from 'millefeuille';
+        </Code>
+        <p>
+          Although this Layer looks like it is a child of MyComponent, the
+          actual layer DOM nodes are rendered inside your app's LayerContainer.
+        </p>
+        <p>
+          millefeuille uses message passing instead of{" "}
+          <code>{"React.createPortal"}</code>. This allows for more control,
+          including the ability to render UI after the <code>{"<Layer>"}</code>{" "}
+          unmounts. This is useful for transition out animations.
+        </p>
+        <h3 id="exit-transition">Exit Transition</h3>
+        <p>
+          You may want to do an transition animation as the layer is unmounting.
+          Because the layer is rendered by the LayerContainer, we can keep
+          rendering the layer DOM even after the Layer component (or its owner)
+          unmounts.
+        </p>
+        <p>
+          Set the Layer prop transitionExit to true. Layer's render function
+          contains two relevant props, state and completeTransitionExit. When
+          the Layer component is no longer rendered, it will enter the
+          TransitionExit state. Perform your animation and call
+          completeTransitionExit when finished.
+        </p>
+        <Code>{`import {LayerState} from 'millefeuille';
 
 function LayerContents({state, completeTransitionExit}) {
   React.useEffect(() => {
@@ -435,14 +474,15 @@ function LayerContents({state, completeTransitionExit}) {
   render={renderProps => <LayerContents {...renderProps} />}
   transitionExit
 />`}</Code>
-      <p>
-        There is no layer API for enter transitions. You can manage this via
-        React lifecycles.
-      </p>
-      <h2>Components</h2>
-      <DialogSection />
-      <PopperLayerSection />
-      <TooltipSection />
+        <p>
+          There is no layer API for enter transitions. You can manage this via
+          React lifecycles.
+        </p>
+        <h2 id="components">Components</h2>
+        <DialogSection />
+        <PopperLayerSection />
+        <TooltipSection />
+      </div>
       <LayerContainer />
     </div>
   );
