@@ -13,16 +13,11 @@
   "author": "Paul Shen",
   "license": "ISC",
   "peerDependencies": {
-    "@types/react": "^16.8.6",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   },
-  "peerDependenciesMeta": {
-    "@types/react": {
-      "optional": true
-    }
-  },
   "devDependencies": {
+    "@types/react": "^16.9.23",
     "typescript": "^3.8.2"
   }
 }

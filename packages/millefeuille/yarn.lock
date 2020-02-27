@@ -7,6 +7,29 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.0.6.tgz#5a39ac118811ca844155b0ad5190b8c24f35e533"
   integrity sha512-zj7Gw8QC4jmR92eKUvtrZUEpl2ypRbq+qlE4pwf9n2hnUO9BOAcWUs4/Ht+gNIbFt98xtqhLvccdCfD469MzpQ==
 
+"@types/prop-types@*":
+  version "15.7.3"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
+  integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+
+"@types/react@^16.9.23":
+  version "16.9.23"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.23.tgz#1a66c6d468ba11a8943ad958a8cb3e737568271c"
+  integrity sha512-SsGVT4E7L2wLN3tPYLiF20hmZTPGuzaayVunfgXzUn1x4uHVsKH6QDJQ/TdpHqwsTLd4CwrmQ2vOgxN7gE24gw==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
+
+csstype@^2.2.0:
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.9.tgz#05141d0cd557a56b8891394c1911c40c8a98d098"
+  integrity sha512-xz39Sb4+OaTsULgUERcCk+TJj8ylkL4aSVDQiX/ksxbELSqwkgt4d4RD7fovIdgJGSuNYqwZEiVjYY5l0ask+Q==
+
+millefeuille-layer@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/millefeuille-layer/-/millefeuille-layer-0.0.2.tgz#7663d21983569b5354987b19fa7ded1af332f7e5"
+  integrity sha512-EXSpKmW6PqaYnVm49p3CWPDIxPgHG1V3IY7ykr554h8x5Ku6X2h/oyRbAsTRGoycvJDee/nINhN+n8cRSuVIEg==
+
 typescript@^3.8.2:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.2.tgz#91d6868aaead7da74f493c553aeff76c0c0b1d5a"
