@@ -5,8 +5,7 @@
     "lib": ["es6", "dom"],
     "jsx": "react",
     "moduleResolution": "node",
-    "strict": true,
-    "outDir": "build"
+    "strict": true
   },
-  "exclude": ["**/build/", "**/dist/"]
+  "exclude": ["**/dist/"]
 }

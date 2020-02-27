@@ -1,6 +1,5 @@
+import { Layer, LayerRender, LayerState } from "millefeuille-layer";
 import * as React from "react";
-import Layer from "./Layer";
-import { LayerRender, LayerState } from "./Types";
 
 function Backdrop({ onClick }: { onClick: (() => void) | undefined }) {
   return (

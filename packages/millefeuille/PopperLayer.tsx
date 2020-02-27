@@ -1,13 +1,13 @@
-import * as React from "react";
 import {
   createPopper,
   Instance,
-  VirtualElement,
+  Modifier,
   Options,
   State,
-  Modifier
+  VirtualElement
 } from "@popperjs/core";
-import Layer from "./Layer";
+import { Layer } from "millefeuille-layer";
+import * as React from "react";
 import useEventCallback from "./utils/useEventCallback";
 
 type PopperLayerProps = {

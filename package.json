@@ -1,33 +1,13 @@
 {
-  "name": "millefeuille",
-  "version": "0.0.1",
-  "description": "",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
+  "private": true,
   "scripts": {
-    "build": "tsc --declaration",
-    "clean": "rm -rf dist build",
-    "copy-files": "cp -R build/src dist",
-    "prepare": "npm run clean && npm run build && npm run copy-files",
-    "sandbox": "parcel sandbox/index.html",
+    "sandbox": "cd packages/sandbox && yarn start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Paul Shen",
   "license": "ISC",
-  "dependencies": {
-    "@popperjs/core": "^2.0.6",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
-  },
   "devDependencies": {
-    "@types/react": "^16.9.22",
-    "@types/react-dom": "^16.9.5",
-    "parcel-bundler": "^1.12.4",
-    "postcss-modules": "^1.5.0",
-    "prism-react-renderer": "^1.0.2",
-    "typescript": "^3.8.2"
-  }
+    "lerna": "^3.20.2"
+  },
+  "name": "millefeuille"
 }

@@ -1,14 +1,15 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import Layer from "../src/Layer";
-import LayerContainer from "../src/LayerContainer";
-import Dialog from "../src/Dialog";
-import PopperLayer from "../src/PopperLayer";
-import Tooltip from "../src/Tooltip";
-import { LayerState } from "../src/Types";
+import {
+  Layer,
+  LayerContainer,
+  Dialog,
+  PopperLayer,
+  Tooltip,
+  createAPI
+} from "millefeuille";
 import Highlight, { defaultProps } from "prism-react-renderer";
 
-import { createAPI } from "../src/LayerAPI";
 import PropTable from "./PropTable";
 
 function Code({ children }: { children: string }) {

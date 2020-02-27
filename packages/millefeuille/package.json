@@ -1,0 +1,32 @@
+{
+  "name": "millefeuille",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --declaration",
+    "clean": "rm -rf dist",
+    "prepare": "npm run clean && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paul Shen",
+  "license": "ISC",
+  "peerDependencies": {
+    "@types/react": "^16.8.6",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "millefeuille-layer": "0.0.1",
+    "@popperjs/core": "^2.0.6"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.2"
+  }
+}
