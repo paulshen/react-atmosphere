@@ -22,7 +22,7 @@ body {
   padding: 16px;
 }
 
-.sidebar-container {
+.sidebarContainer {
   width: 256px;
 }
 
@@ -36,7 +36,7 @@ body {
   list-style: none;
 }
 
-.sidebar-indented {
+.sidebarIndented {
   padding-left: 16px;
 }
 
@@ -87,4 +87,28 @@ button + button {
 
 .code {
   font-size: 12px;
+}
+
+.propTable {
+  border-color: #000000;
+  border-spacing: 0;
+  border-style: solid;
+  border-width: 1px 0 0 1px;
+  width: 100%;
+}
+
+.propTable td {
+  border-color: #000000;
+  border-style: solid;
+  border-width: 0 1px 1px 0;
+  margin: 0;
+  padding: 8px;
+  vertical-align: top;
+}
+
+.propTableName {
+  padding-right: 16px;
+}
+
+.propTableCode {
 }

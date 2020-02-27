@@ -9,6 +9,7 @@ import { LayerState } from "../src/Types";
 import Highlight, { defaultProps } from "prism-react-renderer";
 
 import { createAPI } from "../src/LayerAPI";
+import PropTable from "./PropTable";
 
 function Code({ children }: { children: string }) {
   return (
@@ -91,30 +92,24 @@ function DialogExample() {
   );
 }`}</Code>
       <h4>Props</h4>
-      <table>
-        <tbody>
-          <tr>
-            <td>render</td>
-            <td>
-              <code>
-                {`(args: {
+      <PropTable
+        props={[
+          {
+            name: "render",
+            type: `(args: {
   state: LayerState;
   completeTransitionExit: () => void;
 }) => React.ReactNode;
-`}
-              </code>
-              <div>A render prop for the dialog</div>
-            </td>
-          </tr>
-          <tr>
-            <td>onCloseRequest?</td>
-            <td>
-              <code>{"() => void"}</code>
-              <div>An optional callback when the backdrop is clicked</div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+`,
+            description: "A render prop for the dialog"
+          },
+          {
+            name: "onCloseRequest?",
+            type: "() => void",
+            description: "An optional callback when the backdrop is clicked"
+          }
+        ]}
+      />
     </section>
   );
 }
@@ -186,46 +181,32 @@ function PopperLayerExample() {
   );
 }`}</Code>
       <h4>Props</h4>
-      <table>
-        <tbody>
-          <tr>
-            <td>reference</td>
-            <td>
-              <code>
-                {"React.RefObject<Element | VirtualElement | undefined>"}
-              </code>
-              <div>A ReactRef containing the reference DOM element</div>
-            </td>
-          </tr>
-          <tr>
-            <td>render</td>
-            <td>
-              <code>
-                {
-                  "(renderProps: { popperState: State | undefined }) => React.ReactNode"
-                }
-              </code>
-              <div>
-                A render function that renders the popper layer contents
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>onCloseRequest?</td>
-            <td>
-              <code>{"() => void"}</code>
-              <div>An optional callback when the user clicks away</div>
-            </td>
-          </tr>
-          <tr>
-            <td>options?</td>
-            <td>
-              <code>{"Partial<Options>"}</code>
-              <div>Popper.js options</div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <PropTable
+        props={[
+          {
+            name: "reference",
+            type: "React.RefObject<Element | VirtualElement | undefined>",
+            description: "A ReactRef containing the reference DOM element"
+          },
+          {
+            name: "render",
+            type:
+              "(renderProps: { popperState: State | undefined }) => React.ReactNode",
+            description:
+              "A render function that renders the popper layer contents"
+          },
+          {
+            name: "onCloseRequest?",
+            type: "() => void",
+            description: "An optional callback when the user clicks away"
+          },
+          {
+            name: "options?",
+            type: "Partial<Options>",
+            description: "Popper.js options"
+          }
+        ]}
+      />
     </section>
   );
 }
@@ -255,47 +236,37 @@ function TooltipSection() {
   {tooltipProps => <div {...tooltipProps}>Context</div>}
 </Tooltip>`}</Code>
       <h4>Props</h4>
-      <table>
-        <tbody>
-          <tr>
-            <td>children</td>
-            <td>
-              <code>
-                {`{
+      <PropTable
+        props={[
+          {
+            name: "children",
+            type: `{
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   ref: React.RefObject<any>;
-} => React.ReactNode`}
-              </code>
-              <div>A render prop for the tooltip context</div>
-            </td>
-          </tr>
-          <tr>
-            <td>text</td>
-            <td>
-              <code>React.ReactNode</code>
-              <div>The contents of the tooltip</div>
-            </td>
-          </tr>
-          <tr>
-            <td>placement?</td>
-            <td>
-              <code>{"Placement"}</code>
-              <div>Where to render the tooltip.</div>
-            </td>
-          </tr>
-          <tr>
-            <td>renderTooltip?</td>
-            <td>
-              <code>{`(
+} => React.ReactNode`,
+            description: "A render prop for the tooltip context"
+          },
+          {
+            name: "text",
+            type: "React.ReactNode",
+            description: "The contents of the tooltip"
+          },
+          {
+            name: "placement?",
+            type: "Placement",
+            description: "Where to render the tooltip"
+          },
+          {
+            name: "renderTooltip?",
+            type: `(
   text: React.ReactNode,
   props: { popperState: State | undefined }
-) => React.ReactNode`}</code>
-              <div>Where to render the tooltip.</div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+) => React.ReactNode`,
+            description: "Where to render the tooltip."
+          }
+        ]}
+      />
     </section>
   );
 }
@@ -333,7 +304,7 @@ function TopExample() {
 
 function Sidebar() {
   return (
-    <div className="sidebar-container">
+    <div className="sidebarContainer">
       <div className="sidebar">
         <ul>
           <li>
@@ -345,19 +316,19 @@ function Sidebar() {
           <li>
             <a href="#usage">Usage</a>
           </li>
-          <li className="sidebar-indented">
+          <li className="sidebarIndented">
             <a href="#exit-transition">Exit Transition</a>
           </li>
           <li>
             <a href="#components">Components</a>
           </li>
-          <li className="sidebar-indented">
+          <li className="sidebarIndented">
             <a href="#dialog">Dialog</a>
           </li>
-          <li className="sidebar-indented">
+          <li className="sidebarIndented">
             <a href="#popper-layer">PopperLayer</a>
           </li>
-          <li className="sidebar-indented">
+          <li className="sidebarIndented">
             <a href="#tooltip">Tooltip</a>
           </li>
         </ul>
@@ -432,8 +403,8 @@ function MyComponent() {
 }`}
         </Code>
         <p>
-          Although this Layer looks like it is a child of MyComponent, the
-          actual layer DOM nodes are rendered inside your app's LayerContainer.
+          Although this Layer is a React child of MyComponent, the actual layer
+          DOM nodes are rendered inside your app's LayerContainer.
         </p>
         <p>
           millefeuille uses message passing instead of{" "}
