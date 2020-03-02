@@ -10,6 +10,9 @@ export default function NavSidebar() {
         <li>
           <Link to="/layer">Layer</Link>
         </li>
+        <li>
+          <Link to="/tooltip">Tooltip</Link>
+        </li>
       </ul>
     </nav>
   )

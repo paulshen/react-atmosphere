@@ -8,13 +8,17 @@
 import React from "react"
 import styles from "./Layout.module.css"
 import NavSidebar from "./NavSidebar"
+import { LayerContainer } from "millefeuille"
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className={styles.root}>
-      <NavSidebar />
-      {children}
-    </div>
+    <>
+      <div className={styles.root}>
+        <NavSidebar />
+        {children}
+      </div>
+      <LayerContainer />
+    </>
   )
 }
 

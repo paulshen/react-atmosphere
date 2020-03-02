@@ -1301,6 +1301,11 @@
     string-width "^2.0.0"
     strip-ansi "^3"
 
+"@popperjs/core@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.0.6.tgz#5a39ac118811ca844155b0ad5190b8c24f35e533"
+  integrity sha512-zj7Gw8QC4jmR92eKUvtrZUEpl2ypRbq+qlE4pwf9n2hnUO9BOAcWUs4/Ht+gNIbFt98xtqhLvccdCfD469MzpQ==
+
 "@reach/router@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@reach/router/-/router-1.2.1.tgz#34ae3541a5ac44fa7796e5506a5d7274a162be4e"
@@ -1386,6 +1391,13 @@
   version "7.0.4"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.4.tgz#38fd73ddfd9b55abb1e1b2ed578cb55bd7b7d339"
   integrity sha512-8+KAKzEvSUdeo+kmqnKrqgeE+LcA0tjYWFY7RPProVYwnqDjukzO+3b6dLD56rYX5TdWejnEOLJYOIeh4CXKuA==
+
+"@types/mdx-js__react@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@types/mdx-js__react/-/mdx-js__react-1.5.0.tgz#b429bb82d37332810756dd463c440df7f9f2b48e"
+  integrity sha512-bkxx9ebCyE4jm3+10y0xpop1E0pq1NNoO4CkAeO/Gbbt0Wgc3tbtEgNaGT3P+0ixIbhqu3qN7SS10qXCjd8rAQ==
+  dependencies:
+    "@types/react" "*"
 
 "@types/minimatch@*":
   version "3.0.3"
@@ -8413,6 +8425,19 @@ micromatch@^4.0.2:
   dependencies:
     braces "^3.0.1"
     picomatch "^2.0.5"
+
+millefeuille-layer@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/millefeuille-layer/-/millefeuille-layer-0.0.2.tgz#7663d21983569b5354987b19fa7ded1af332f7e5"
+  integrity sha512-EXSpKmW6PqaYnVm49p3CWPDIxPgHG1V3IY7ykr554h8x5Ku6X2h/oyRbAsTRGoycvJDee/nINhN+n8cRSuVIEg==
+
+millefeuille@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/millefeuille/-/millefeuille-0.0.2.tgz#938bebbe555b191331f93e590cee36e91f36b08a"
+  integrity sha512-0jwq61Qy1loIE0zbqGW21Ai6LTPmZR+NbYAx2qWhkY592hJ+NGvVQzTBJDiXvU9LgzKWqgRhEnhMswljf/rU1g==
+  dependencies:
+    "@popperjs/core" "^2.0.6"
+    millefeuille-layer "^0.0.2"
 
 miller-rabin@^4.0.0:
   version "4.0.1"

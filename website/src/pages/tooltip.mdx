@@ -1,0 +1,26 @@
+import { Tooltip } from "millefeuille"
+
+# Tooltip
+
+<Tooltip text="Tooltip Text">
+  {tooltipProps => <button {...tooltipProps}>Hover Me</button>}
+</Tooltip>
+
+Tooltip is a component built on top of PopperLayer that manages mouse interactions. Tooltip has to attach mouse listeners and a ref to the context element. This is done with an explicit children render API.
+
+```js
+import { Tooltip } from "millefeuille"
+
+<Tooltip text="Tooltip Text">
+  {tooltipProps => <button {...tooltipProps}>Hover Me</button>}
+</Tooltip>
+```
+
+## Tooltip API
+
+| Prop              | Type                                       | Required |
+| ----------------- | ------------------------------------------ | -------- |
+| `children`        | `(props: TooltipProps) => React.ReactNode` | true     |
+| `text`            | `React.ReactNode`                          | true     |
+| `placement`       | `Placement`                                | false    |
+| `tooltipRenderer` | `Function`                                 | false    |
