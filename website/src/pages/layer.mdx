@@ -1,0 +1,22 @@
+# Layer Page
+
+The heart of millefeuille is the `<Layer>` component.
+
+```js
+import {Layer} from 'millefeuille';
+
+function MyComponent() {
+  ...
+  return (
+    <div>
+      {showLayer ? (
+        <Layer render={renderProps => <div>I'm a layer!</div>} />
+      ) : null}
+    </div>
+  );
+}
+```
+
+Although this Layer is a React child of MyComponent, the actual layer DOM nodes are rendered inside your app's LayerContainer.
+
+millefeuille uses message passing instead of `React.createPortal`. This allows for more control, including the ability to render UI after the `<Layer>` unmounts. This is useful for transition out animations.
