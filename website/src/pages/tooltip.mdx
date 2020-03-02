@@ -8,6 +8,7 @@ import { Tooltip } from "millefeuille"
 
 Tooltip is a component built on top of PopperLayer that manages mouse interactions. Tooltip has to attach mouse listeners and a ref to the context element. This is done with an explicit children render API.
 
+<!-- prettier-ignore -->
 ```js
 import { Tooltip } from "millefeuille"
 
@@ -18,9 +19,41 @@ import { Tooltip } from "millefeuille"
 
 ## Tooltip API
 
-| Prop              | Type                                       | Required |
-| ----------------- | ------------------------------------------ | -------- |
-| `children`        | `(props: TooltipProps) => React.ReactNode` | true     |
-| `text`            | `React.ReactNode`                          | true     |
-| `placement`       | `Placement`                                | false    |
-| `tooltipRenderer` | `Function`                                 | false    |
+| Prop                                  | Type                                       | Required |
+| ------------------------------------- | ------------------------------------------ | -------- |
+| [`children`](#children)               | `(props: TooltipProps) => React.ReactNode` | true     |
+| [`text`](#text)                       | `React.ReactNode`                          | true     |
+| [`placement`](#placement)             | `Placement`                                | false    |
+| [`tooltipRenderer`](#tooltiprenderer) | `Function`                                 | false    |
+
+### children
+
+A render function for the tooltip contents
+
+### text
+
+The contents of the tooltip
+
+### placement
+
+Where to render the tooltip
+
+### tooltipRenderer
+
+<!-- prettier-ignore -->
+```typescript
+(text: React.ReactNode, props: { popperState: State | undefined }) =>
+  React.ReactNode
+```
+
+A custom renderer for the tooltip
+
+```typescript
+function customTooltipRender(text: string, { popperState }) {
+  return <div>{text}</div>
+}
+
+;<Tooltip text="Text" tooltipRenderer={customTooltipRender}>
+  {tooltipProps => <button {...tooltipProps}>Child</button>}
+</Tooltip>
+```

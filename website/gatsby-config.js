@@ -33,7 +33,10 @@ module.exports = {
             resolve: "gatsby-remark-images",
           },
           {
-            resolve: "gatsby-remark-slug",
+            resolve: "gatsby-remark-autolink-headers",
+            options: {
+              isIconAfterHeader: true,
+            },
           },
           {
             resolve: `gatsby-remark-prismjs`,

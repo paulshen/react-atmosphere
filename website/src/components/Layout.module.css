@@ -29,3 +29,15 @@ body {
   border-bottom: 1px solid #ffffff;
   padding: 4px 0;
 }
+
+.mdxMain :global(.anchor) {
+  margin-left: 6px;
+  visibility: hidden;
+}
+
+.mdxMain h1:hover :global(.anchor),
+.mdxMain h2:hover :global(.anchor),
+.mdxMain h3:hover :global(.anchor),
+.mdxMain h4:hover :global(.anchor) {
+  visibility: visible;
+}
