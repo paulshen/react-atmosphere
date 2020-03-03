@@ -3,11 +3,10 @@ import { APIMessage, APIMessageType, LayerRender } from "./Types";
 type APIListener = (message: APIMessage) => void;
 export type API = {
   addListener: (listener: APIListener) => () => void;
-  pushLayer: (key: string, render: LayerRender) => void;
+  pushLayer: (render: LayerRender) => string;
   updateLayer: (key: string, render: LayerRender) => void;
   transitionExitLayer: (key: string) => void;
   removeLayer: (key: string) => void;
-  getNextKey: () => string;
 };
 
 export function createAPI(): API {
@@ -36,7 +35,8 @@ export function createAPI(): API {
       };
     },
 
-    pushLayer(key: string, render: LayerRender) {
+    pushLayer(render: LayerRender) {
+      const key = `${nextLayerId++}`;
       emit({
         type: APIMessageType.PushLayer,
         key,
@@ -51,7 +51,6 @@ export function createAPI(): API {
         key,
         render
       });
-      return key;
     },
 
     transitionExitLayer(key: string) {
@@ -66,10 +65,6 @@ export function createAPI(): API {
         type: APIMessageType.RemoveLayer,
         key
       });
-    },
-
-    getNextKey: () => {
-      return `${nextLayerId++}`;
     }
   };
 }

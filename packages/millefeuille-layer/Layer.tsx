@@ -14,8 +14,7 @@ export default function Layer({
 }: LayerProps) {
   const key = React.useRef<string>();
   React.useEffect(() => {
-    key.current = context.getNextKey();
-    context.pushLayer(key.current!, render);
+    key.current = context.pushLayer(render);
     return () => {
       if (transitionExit === true) {
         context.transitionExitLayer(key.current!);

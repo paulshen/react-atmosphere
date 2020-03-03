@@ -26,6 +26,10 @@ export default function NavSidebar() {
         <NavLink to="/tooltip">Tooltip</NavLink>
         <NavLink to="/layer-container">LayerContainer</NavLink>
       </ul>
+      <h4>Topics</h4>
+      <ul className={styles.navList}>
+        <NavLink to="/imperative-api">Imperative API</NavLink>
+      </ul>
     </nav>
   )
 }

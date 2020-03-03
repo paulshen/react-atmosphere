@@ -1,0 +1,94 @@
+# Imperative API
+
+You may want to show and hide layers outside the lifecycle of a React component.
+Usually, you can model this as state at a root component but sometimes, an
+imperative `showLayer` is what you want.
+
+```typescript
+import { LayerAPI } from "millefeuille"
+
+function showMyLayer() {
+  const key = LayerAPI.pushLayer(() => (
+    <MyLayerComponent
+      onClose={() => {
+        LayerAPI.removeLayer(key)
+      }}
+    />
+  ))
+}
+```
+
+## API
+
+| Method                                        | Type                                                             |
+| --------------------------------------------- | ---------------------------------------------------------------- |
+| [`pushLayer`](#pushlayer)                     | `(render: (args: RenderArgs) => ReactNode) => string`            |
+| [`updateLayer`](#updatelayer)                 | `(key: string, render: (args: RenderArgs) => ReactNode) => void` |
+| [`transitionExitLayer`](#transitionexitlayer) | `(key: string) => void`                                          |
+| [`removeLayer`](#removelayer)                 | `(key: string) => void`                                          |
+
+### pushLayer
+
+###### Type
+
+<!-- prettier-ignore -->
+```typescript
+(
+  render: (args: {
+    state: LayerState
+    completeTransitionExit: () => void
+  }) => ReactNode
+) => string
+```
+
+Push a new Layer with the given `render` function. This method returns a string
+key that is used to update and remove the layer.
+
+### updateLayer
+
+###### Type
+
+<!-- prettier-ignore -->
+```typescript
+(
+  key: string,
+  render: (args: {
+    state: LayerState
+    completeTransitionExit: () => void
+  }) => ReactNode
+) => string
+```
+
+Update the render function with the given key.
+
+```typescript
+const key = LayerAPI.pushLayer(() => <MyLayer state={1} />)
+LayerAPI.updateLayer(key, () => <MyLayer state={2} />)
+```
+
+### transitionExitLayer
+
+###### Type
+
+```typescript
+(key: string) => void;
+```
+
+See [Exit transition](/layer#exit-transition). Call this to toggle the state of
+the layer to `LayerState.TransitionExit`. The layer should detect this and call
+`completeTransitionExit` when the transition is complete.
+
+### removeLayer
+
+###### Type
+
+```typescript
+(key: string) => void;
+```
+
+Remove a layer.
+
+```typescript
+const key = LayerAPI.pushLayer(() => <MyLayer />)
+LayerAPI.removeLayer(key)
+```

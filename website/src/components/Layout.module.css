@@ -24,6 +24,7 @@ body {
 
 .mdxMain table {
   border-spacing: 0;
+  margin-bottom: 64px;
   width: 100%;
 }
 
@@ -71,4 +72,11 @@ body {
 
 .mdxMain li {
   line-height: 21px;
+}
+
+.mdxMain h6 {
+  color: #808080;
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0 0 -20px;
 }
