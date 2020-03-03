@@ -3,13 +3,24 @@
   bottom: 0;
   box-sizing: border-box;
   left: 0;
-  padding: 32px 0;
+  padding: 64px 0;
   position: fixed;
   top: 0;
   width: 256px;
 }
 
+.nav h4 {
+  color: #808080;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.6px;
+  margin: 0 0 4px;
+  padding-left: 32px;
+  text-transform: uppercase;
+}
+
 .navList {
+  margin: 0 0 16px;
   padding: 0;
 }
 

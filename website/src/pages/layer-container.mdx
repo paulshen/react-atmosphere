@@ -1,0 +1,20 @@
+# LayerContainer
+
+Your app must have exactly one rendered `<LayerContainer>` element. This is
+where all layers will be rendered.
+
+This is usually at the root of your app after the other UI elements. This is so
+that layers are rendered at the end of the DOM and reduces the need for z-index.
+
+```typescript
+import { LayerContainer } from "millefeuille"
+
+function MyApp() {
+  return (
+    <>
+      ...
+      <LayerContainer />
+    </>
+  )
+}
+```
