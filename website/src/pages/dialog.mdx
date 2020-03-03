@@ -1,0 +1,50 @@
+import DialogExample from "../components/DialogExample"
+
+# Dialog
+
+<DialogExample />
+
+<!-- prettier-ignore -->
+```typescript
+import { Dialog } from "millefeuille"
+
+<Dialog
+  render={() => (
+    <div
+      style={{
+        backgroundColor: "#ffffff",
+        width: 500,
+        height: 300,
+      }}
+    >
+      <button onClick={() => setShowDialog(false)}>Close</button>
+    </div>
+  )}
+  onBackdropClick={() => setShowDialog(false)}
+/>
+```
+
+## Dialog API
+
+| Prop                                  | Type                               | Required |
+| ------------------------------------- | ---------------------------------- | -------- |
+| [`render`](#render)                   | `(renderProps) => React.ReactNode` | true     |
+| [`onBackdropClick`](#onbackdropclick) | `() => void`                       | false    |
+
+### render
+
+<!-- prettier-ignore -->
+```typescript
+(args: {
+  state: LayerState;
+  completeTransitionExit: () => void;
+}) => React.ReactNode
+```
+
+A render function for the Dialog element. This element will be centered on top
+of the backdrop.
+
+### onBackdropClick
+
+An optional callback when the backdrop is clicked. The most likely
+implementation is to stop rendering the Dialog.
