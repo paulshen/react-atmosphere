@@ -1,9 +1,9 @@
 .nav {
-  background-color: #404040;
+  background-color: #fdeade;
   bottom: 0;
   box-sizing: border-box;
   left: 0;
-  padding: 32px 32px;
+  padding: 32px 0;
   position: fixed;
   top: 0;
   width: 256px;
@@ -18,5 +18,16 @@
 }
 
 .navList a {
-  color: #ffffff;
+  color: #141414;
+  display: block;
+  padding: 6px 32px;
+  text-decoration: none;
+}
+
+a.navListActiveLink {
+  font-weight: 600;
+}
+
+.navList a:hover {
+  background-color: #fbd2b9;
 }
