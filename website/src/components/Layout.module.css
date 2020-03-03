@@ -14,10 +14,16 @@ body {
 
 .root {
   display: flex;
+  height: 100vh;
+}
+
+.right {
+  flex-grow: 1;
+  overflow: auto;
 }
 
 .mdxMain {
-  padding: 32px 32px;
+  padding: 32px 48px 64px;
   max-width: 640px;
 }
 
@@ -40,4 +46,28 @@ body {
 .mdxMain h3:hover :global(.anchor),
 .mdxMain h4:hover :global(.anchor) {
   visibility: visible;
+}
+
+.mdxMain p {
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.mdxMain pre {
+  margin: 24px 0;
+}
+
+.mdxMain pre,
+.mdxMain code {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.mdxMain ol,
+.mdxMain ul {
+  padding: 0;
+}
+
+.mdxMain li {
+  line-height: 21px;
 }

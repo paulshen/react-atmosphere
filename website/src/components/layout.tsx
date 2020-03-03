@@ -15,7 +15,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <>
       <div className={styles.root}>
         <NavSidebar />
-        {children}
+        <div className={styles.right}>{children}</div>
       </div>
       <LayerContainer />
     </>

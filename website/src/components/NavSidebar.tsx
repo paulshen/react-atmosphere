@@ -5,8 +5,11 @@ import styles from "./NavSidebar.module.css"
 
 export default function NavSidebar() {
   return (
-    <nav>
+    <nav className={styles.nav}>
       <ul className={styles.navList}>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
         <li>
           <Link to="/layer">Layer</Link>
         </li>
