@@ -19,7 +19,7 @@ export default function NavSidebar() {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/layer">Layer</NavLink>
         <NavLink to="/dialog">Dialog</NavLink>
-        <NavLink to="/popperlayer">PopperLayer</NavLink>
+        <NavLink to="/popper-layer">PopperLayer</NavLink>
         <NavLink to="/tooltip">Tooltip</NavLink>
       </ul>
     </nav>
