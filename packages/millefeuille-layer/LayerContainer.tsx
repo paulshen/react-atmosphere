@@ -50,31 +50,33 @@ function layerReducer(state: Layer[], message: APIMessage) {
 type LayerContainerProps = {
   context?: API;
 };
-export default function LayerContainer({
-  context = LayerAPI
-}: LayerContainerProps) {
-  // Memoize children to avoid infinite recursive rendering (Layer rendering Layer)
-  const renderedElements = React.useRef<Map<Layer, React.ReactNode>>();
-  if (!renderedElements.current) {
-    renderedElements.current = new Map();
-  }
-  const [layers, dispatch] = React.useReducer(layerReducer, []);
-  React.useEffect(() => context.addListener(dispatch), []);
-  const children = layers.map(layer => {
-    let child = renderedElements.current?.get(layer);
-    if (!child) {
-      child = layer.render({
-        state: layer.state,
-        completeTransitionExit: () => LayerAPI.removeLayer(layer.key)
-      });
-      renderedElements.current?.set(layer, child);
+const LayerContainer = React.memo(
+  ({ context = LayerAPI }: LayerContainerProps) => {
+    // Memoize children to avoid infinite recursive rendering (Layer rendering Layer)
+    const renderedElements = React.useRef<Map<Layer, React.ReactNode>>();
+    if (!renderedElements.current) {
+      renderedElements.current = new Map();
     }
-    return <React.Fragment key={layer.key}>{child}</React.Fragment>;
-  });
-  for (const layer of Array.from(renderedElements.current.keys())) {
-    if (layers.indexOf(layer) === -1) {
-      renderedElements.current.delete(layer);
+    const [layers, dispatch] = React.useReducer(layerReducer, []);
+    React.useEffect(() => context.addListener(dispatch), []);
+    const children = layers.map(layer => {
+      let child = renderedElements.current?.get(layer);
+      if (!child) {
+        child = layer.render({
+          state: layer.state,
+          completeTransitionExit: () => LayerAPI.removeLayer(layer.key)
+        });
+        renderedElements.current?.set(layer, child);
+      }
+      return <React.Fragment key={layer.key}>{child}</React.Fragment>;
+    });
+    for (const layer of Array.from(renderedElements.current.keys())) {
+      if (layers.indexOf(layer) === -1) {
+        renderedElements.current.delete(layer);
+      }
     }
+    return <>{children}</>;
   }
-  return <>{children}</>;
-}
+);
+
+export default LayerContainer;
