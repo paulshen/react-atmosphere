@@ -13,14 +13,14 @@ import useEventCallback from "./utils/useEventCallback";
 type PopperLayerProps = {
   reference: React.RefObject<Element | VirtualElement | undefined>;
   render: (props: { popperState: State | undefined }) => React.ReactNode;
-  onCloseRequest?: () => void;
+  onBackdropClick?: () => void;
   options?: Partial<Options>;
 };
 
 export default function PopperLayer({
   reference,
   render,
-  onCloseRequest,
+  onBackdropClick,
   options: optionsProp
 }: PopperLayerProps) {
   const popperRef = React.useRef<Instance>();
@@ -56,7 +56,7 @@ export default function PopperLayer({
     }
   };
   const onClick = useEventCallback((e: MouseEvent) => {
-    if (!onCloseRequest) {
+    if (!onBackdropClick) {
       return;
     }
     const target = e.target;
@@ -73,7 +73,7 @@ export default function PopperLayer({
       )
         return;
     }
-    onCloseRequest();
+    onBackdropClick();
   });
   React.useEffect(() => {
     if (popperRef.current && options) {

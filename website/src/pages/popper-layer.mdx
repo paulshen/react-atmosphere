@@ -31,7 +31,7 @@ function MyComponent() {
 | [`reference`](#reference)           | <code class="language-text">React.RefObject<Element &#124; VirtualElement &#124; undefined></code> | true     |
 | [`render`](#render)                 | `(renderProps) => React.ReactNode`                                                                 | true     |
 | [`options`](#placement)             | `Partial<Options>`                                                                                 | false    |
-| [`onCloseRequest`](#oncloserequest) | `() => void`                                                                                       | false    |
+| [`onBackdropClick`](#onBackdropClick) | `() => void`                                                                                       | false    |
 
 ### reference
 
@@ -55,6 +55,6 @@ An optional Popper.js [options](https://github.com/popperjs/popper-core/blob/56a
 object. This prop is forwarded to Popper.js and allows you to configure the
 layer's placement and a lot of popper behavior. See [Popper.js documentation](https://popper.js.org/docs/v2/constructors/#options).
 
-### onCloseRequest
+### onBackdropClick
 
 An optional callback when the user clicks away.

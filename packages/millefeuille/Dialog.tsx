@@ -34,12 +34,12 @@ function DialogLayer({
   state,
   completeTransitionExit,
   children,
-  onCloseRequest
+  onBackdropClick
 }: {
   state: LayerState;
   completeTransitionExit: () => void;
   children: React.ReactNode;
-  onCloseRequest: (() => void) | undefined;
+  onBackdropClick?: (() => void) | undefined;
 }) {
   const [isMounted, setIsMounted] = React.useState(false);
   React.useEffect(() => {
@@ -61,7 +61,9 @@ function DialogLayer({
         opacity: !isMounted || state === LayerState.TransitionExit ? 0 : 1
       }}
     >
-      <Backdrop onClick={onCloseRequest ? () => onCloseRequest() : undefined} />
+      <Backdrop
+        onClick={onBackdropClick ? () => onBackdropClick() : undefined}
+      />
       {children}
     </div>
   );
@@ -69,13 +71,13 @@ function DialogLayer({
 
 type DialogProps = {
   render: LayerRender;
-  onCloseRequest?: () => void;
+  onBackdropClick?: () => void;
 };
-export default function Dialog({ render, onCloseRequest }: DialogProps) {
+export default function Dialog({ render, onBackdropClick }: DialogProps) {
   return (
     <Layer
       render={renderProps => (
-        <DialogLayer {...renderProps} onCloseRequest={onCloseRequest}>
+        <DialogLayer {...renderProps} onBackdropClick={onBackdropClick}>
           {render(renderProps)}
         </DialogLayer>
       )}

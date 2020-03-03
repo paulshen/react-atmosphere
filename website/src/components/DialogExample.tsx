@@ -29,7 +29,7 @@ export default function DialogExample() {
               <button onClick={() => setShowDialog(false)}>Close</button>
             </div>
           )}
-          onCloseRequest={() => setShowDialog(false)}
+          onBackdropClick={() => setShowDialog(false)}
         />
       ) : null}
     </>

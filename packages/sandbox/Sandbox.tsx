@@ -67,7 +67,7 @@ function NestableDialogButton({ level }: { level: number }) {
               <button onClick={() => setShowDialog(false)}>Close</button>
             </div>
           )}
-          onCloseRequest={() => setShowDialog(false)}
+          onBackdropClick={() => setShowDialog(false)}
         />
       ) : null}
     </>
@@ -87,7 +87,7 @@ function DialogExample() {
       ...
       {showDialog ? (<Dialog
         render={() => <DialogRoot />}
-        onCloseRequest={() => setShowDialog(false)}
+        onBackdropClick={() => setShowDialog(false)}
       />) : null}
     </>
   );
@@ -105,7 +105,7 @@ function DialogExample() {
             description: "A render prop for the dialog"
           },
           {
-            name: "onCloseRequest?",
+            name: "onBackdropClick?",
             type: "() => void",
             description: "An optional callback when the backdrop is clicked"
           }
@@ -158,7 +158,7 @@ function PopperLayerSection() {
               </div>
             );
           }}
-          onCloseRequest={() => {
+          onBackdropClick={() => {
             setShowPopper(false);
           }}
           options={{
@@ -197,7 +197,7 @@ function PopperLayerExample() {
               "A render function that renders the popper layer contents"
           },
           {
-            name: "onCloseRequest?",
+            name: "onBackdropClick?",
             type: "() => void",
             description: "An optional callback when the user clicks away"
           },
