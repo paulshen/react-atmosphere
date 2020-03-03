@@ -21,13 +21,19 @@ body {
   max-width: 640px;
 }
 
+.mdxMain table {
+  border-spacing: 0;
+  width: 100%;
+}
+
 .mdxMain th {
+  padding-bottom: 8px;
   text-align: left;
 }
 
-.mdxMain tr {
-  border-bottom: 1px solid #ffffff;
-  padding: 4px 0;
+.mdxMain td {
+  border-top: 1px solid #f0f0f0;
+  padding: 8px 0;
 }
 
 .mdxMain :global(.anchor) {

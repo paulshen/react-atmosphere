@@ -19,16 +19,28 @@ import { Tooltip } from "millefeuille"
 
 ## Tooltip API
 
-| Prop                                  | Type                                       | Required |
-| ------------------------------------- | ------------------------------------------ | -------- |
-| [`children`](#children)               | `(props: TooltipProps) => React.ReactNode` | true     |
-| [`text`](#text)                       | `React.ReactNode`                          | true     |
-| [`placement`](#placement)             | `Placement`                                | false    |
-| [`tooltipRenderer`](#tooltiprenderer) | `Function`                                 | false    |
+| Prop                                  | Type                                | Required |
+| ------------------------------------- | ----------------------------------- | -------- |
+| [`children`](#children)               | `(TooltipProps) => React.ReactNode` | true     |
+| [`text`](#text)                       | `React.ReactNode`                   | true     |
+| [`placement`](#placement)             | `Placement`                         | false    |
+| [`tooltipRenderer`](#tooltiprenderer) | `Function`                          | false    |
 
 ### children
 
-A render function for the tooltip contents
+<!-- prettier-ignore -->
+```typescript
+(tooltipProps: {
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+  ref: React.RefObject<any>;
+}) => React.ReactNode
+```
+
+A render function for the tooltip contents. Tooltip adopts a children render
+prop API to give you control how to render the children. You are responsible for
+transferring the props to your rendered element. This makes it more explicit,
+for example, that your child needs to handle `onMouseEnter` and `onMouseLeave`.
 
 ### text
 
@@ -42,18 +54,21 @@ Where to render the tooltip
 
 <!-- prettier-ignore -->
 ```typescript
-(text: React.ReactNode, props: { popperState: State | undefined }) =>
-  React.ReactNode
+(
+  text: React.ReactNode,
+  props: { popperState: State | undefined }
+) => React.ReactNode
 ```
 
 A custom renderer for the tooltip
 
+<!-- prettier-ignore -->
 ```typescript
 function customTooltipRender(text: string, { popperState }) {
   return <div>{text}</div>
 }
 
-;<Tooltip text="Text" tooltipRenderer={customTooltipRender}>
+<Tooltip text="Text" tooltipRenderer={customTooltipRender}>
   {tooltipProps => <button {...tooltipProps}>Child</button>}
 </Tooltip>
 ```
