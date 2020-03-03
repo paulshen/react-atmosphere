@@ -12,14 +12,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.root {
-  display: flex;
-  height: 100vh;
-}
-
 .right {
-  flex-grow: 1;
-  overflow: auto;
+  margin-left: 256px;
 }
 
 .mdxMain {

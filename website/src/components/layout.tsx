@@ -13,7 +13,7 @@ import { LayerContainer } from "millefeuille"
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <div className={styles.root}>
+      <div>
         <NavSidebar />
         <div className={styles.right}>{children}</div>
       </div>
