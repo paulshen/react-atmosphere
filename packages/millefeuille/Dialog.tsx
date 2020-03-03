@@ -1,4 +1,4 @@
-import { Layer, LayerRender, LayerState } from "millefeuille-layer";
+import { Layer, LayerState } from "millefeuille-layer";
 import * as React from "react";
 
 function Backdrop({ onClick }: { onClick: (() => void) | undefined }) {
@@ -31,14 +31,14 @@ const DialogContainerStyles: React.CSSProperties = {
 };
 
 function DialogLayer({
+  render,
   state,
   completeTransitionExit,
-  children,
   onBackdropClick
 }: {
+  render: ({ state }: { state: LayerState }) => React.ReactNode;
   state: LayerState;
   completeTransitionExit: () => void;
-  children: React.ReactNode;
   onBackdropClick?: (() => void) | undefined;
 }) {
   const [isMounted, setIsMounted] = React.useState(false);
@@ -64,22 +64,24 @@ function DialogLayer({
       <Backdrop
         onClick={onBackdropClick ? () => onBackdropClick() : undefined}
       />
-      {children}
+      {render({ state })}
     </div>
   );
 }
 
 type DialogProps = {
-  render: LayerRender;
+  render: ({ state }: { state: LayerState }) => React.ReactNode;
   onBackdropClick?: () => void;
 };
 export default function Dialog({ render, onBackdropClick }: DialogProps) {
   return (
     <Layer
       render={renderProps => (
-        <DialogLayer {...renderProps} onBackdropClick={onBackdropClick}>
-          {render(renderProps)}
-        </DialogLayer>
+        <DialogLayer
+          {...renderProps}
+          render={render}
+          onBackdropClick={onBackdropClick}
+        />
       )}
       transitionExit
     />
