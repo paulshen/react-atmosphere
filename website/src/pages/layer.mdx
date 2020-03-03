@@ -13,6 +13,67 @@ import { Layer } from "millefeuille"
 <Layer render={renderProps => <div>I'm a layer!</div>} />
 ```
 
-When a `<Layer>` is rendered, its `render` prop is called and rendered inside the `<LayerContainer>`.
+When a `<Layer>` is rendered, its `render` prop is called and rendered inside
+the `<LayerContainer>`.
 
-React has [Portals](https://reactjs.org/docs/portals.html), which supports similar functionality. millefeuille does not use React's portal, which decouples the layer's rendering from the host component. This allows support for an imperative API as well as rendering UI after the component unmounts (useful for unmount animations).
+React has [Portals](https://reactjs.org/docs/portals.html), which supports
+similar functionality. millefeuille does not use React's portal, which decouples
+the layer's rendering from the host component. This allows support for an
+imperative API as well as rendering UI after the component unmounts (useful for
+unmount animations).
+
+## Tooltip API
+
+| Prop                                 | Type                               | Required |
+| ------------------------------------ | ---------------------------------- | -------- |
+| `render`                             | `(renderProps) => React.ReactNode` | true     |
+| [`transitionExit`](#exit-transition) | `boolean`                          | false    |
+
+## Exit transition
+
+One unique feature of millefeuille is that layers can render even after the
+`<Layer>` unmounts. For example, this allows you to fade out dialogs even after
+the `<Dialog>` unmounts.
+
+1. Set the `transitionExit` prop to `true`.
+2. Start your exit transition when the render's `state` argument becomes
+   `LayerState.TransitionExit`.
+3. Call `completeTransitionExit` when your exit transition is complete to fully
+   remove the layer.
+
+<!-- prettier-ignore -->
+```typescript
+import { Layer, LayerState } from "millefeuille"
+
+<Layer
+  render={renderProps => <MyLayer {...renderProps} />}
+  transitionExit
+/>
+
+function MyLayer({
+  state,
+  completeTransitionExit,
+}: {
+  state: LayerState
+  completeTransitionExit: () => void
+}) {
+  React.useEffect(() => {
+    if (state === LayerState.TransitionExit) {
+      // Call completeTransitionExit when the animation finishes
+      const timeout = setTimeout(completeTransitionExit, 300)
+      return () => clearTimeout(timeout)
+    }
+  }, [state])
+  return (
+    <div
+      style={{
+        // The layer will fade out using CSS transition
+        opacity: state === LayerState.TransitionExit ? 0 : 1,
+        transition: "opacity 0.3s",
+      }}
+    >
+      ...
+    </div>
+  )
+}
+```
