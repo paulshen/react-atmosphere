@@ -29,6 +29,7 @@ export default function NavSidebar() {
       <h4>Topics</h4>
       <ul className={styles.navList}>
         <NavLink to="/imperative-api">Imperative API</NavLink>
+        <NavLink to="/performance">Performance</NavLink>
       </ul>
     </nav>
   )

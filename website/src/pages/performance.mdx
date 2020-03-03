@@ -1,0 +1,42 @@
+# Performance
+
+`LayerContainer` is a `React.memo` component. Having a parent component that
+rerenders frequently will not cause layers to rerender.
+
+`LayerContainer` keeps a cache map of `Layer` object => `ReactElement`. React
+will skip rendering of elements that are referentially equal. Updating a layer
+should only cause that layer to rerender, even though `LayerContainer` is
+rerendering.
+
+Layers will only update if the `render` function has changed. You can skip
+renders by making your render function referentially equal.
+
+Move state inside your Layer component. This isn't needed as best practice but
+is something you can reach for if you are squeezing performance.
+
+###### Having state outside Layer
+
+```typescript
+function MyLayer({count, setCount}) {
+  ...
+}
+
+function MyPage() {
+  const [count, setCount] = React.useState(0);
+  return <Layer render={() => <MyLayer count={count} setCount={setCount} />} />;
+}
+```
+
+###### Moving state inside Layer
+
+```typescript
+function MyLayer() {
+  // Setting state here avoids rerendering <MyPage> and <Layer>
+  const [count, setCount] = React.useState(0);
+  ...
+}
+
+function MyPage() {
+  return <Layer render={() => <MyLayer />} />;
+}
+```
