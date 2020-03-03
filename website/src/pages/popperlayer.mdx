@@ -1,0 +1,60 @@
+# PopperLayer
+
+It is common to position layers next to a context element. This is the case for
+tooltips, popouts, and dropdowns. millefeuille uses
+[Popper.js](https://popper.js.org/) to power `PopperLayer`.
+
+PopperLayer renders a wrapper div whose position is managed by Popper.js. Your
+`render` function provides the contents of this div.
+
+```typescript
+import { PopperLayer } from "millefeuille"
+
+function MyComponent() {
+  const contextRef = React.useRef()
+  return (
+    <>
+      <div ref={contextRef}>Context Element</div>
+      <PopperLayer
+        reference={contextRef}
+        render={() => <div>Popper Contents</div>}
+      />
+    </>
+  )
+}
+```
+
+## PopperLayer API
+
+| Prop                                | Type                                                                                               | Required |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------- | -------- |
+| [`reference`](#reference)           | <code class="language-text">React.RefObject<Element &#124; VirtualElement &#124; undefined></code> | true     |
+| [`render`](#render)                 | `(renderProps) => React.ReactNode`                                                                 | true     |
+| [`options`](#placement)             | `Partial<Options>`                                                                                 | false    |
+| [`onCloseRequest`](#oncloserequest) | `() => void`                                                                                       | false    |
+
+### reference
+
+A ReactRef containing the reference DOM element. This is the element that
+PopperLayer will be positioned against.
+
+### render
+
+<!-- prettier-ignore -->
+```typescript
+(renderProps: { popperState: State | undefined }) => React.ReactNode
+```
+
+A render function for the PopperLayer contents. You have access to Popper's
+[State](https://github.com/popperjs/popper-core/blob/56af968be69f0d16f6b0202f8ac2730c412513c8/src/types.js#L54-L77)
+which includes properties like positioning placement and rects.
+
+### options
+
+An optional Popper.js [options](https://github.com/popperjs/popper-core/blob/56af968be69f0d16f6b0202f8ac2730c412513c8/src/types.js#L107-L112)
+object. This prop is forwarded to Popper.js and allows you to configure the
+layer's placement and a lot of popper behavior. See [Popper.js documentation](https://popper.js.org/docs/v2/constructors/#options).
+
+### onCloseRequest
+
+An optional callback when the user clicks away.

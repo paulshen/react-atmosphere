@@ -14,6 +14,9 @@ export default function NavSidebar() {
           <Link to="/layer">Layer</Link>
         </li>
         <li>
+          <Link to="/popperlayer">PopperLayer</Link>
+        </li>
+        <li>
           <Link to="/tooltip">Tooltip</Link>
         </li>
       </ul>
