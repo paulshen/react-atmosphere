@@ -6,11 +6,19 @@ html {
 }
 
 body {
-  color: #141414;
+  color: #191919;
   font-size: 14px;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: #107595;
+}
+
+a:hover {
+  color: #1491b9;
 }
 
 button {
@@ -35,6 +43,11 @@ button {
   border-spacing: 0;
   margin-bottom: 48px;
   width: 100%;
+}
+
+.mdxMain table a,
+.mdxMain pre a {
+  color: #657b83;
 }
 
 .mdxMain th {
