@@ -1,0 +1,33 @@
+.root {
+  display: flex;
+  margin: 32px 0;
+}
+
+.context {
+  background-color: #def1fd;
+  border: none;
+  /* border: 1px dashed #0e90e2; */
+  color: #191919;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  justify-content: center;
+  height: 96px;
+  width: 192px;
+}
+
+.main {
+  flex-grow: 1;
+  margin-left: 32px;
+}
+
+.popper {
+  background-color: #f6a36f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 24px;
+  height: 64px;
+  width: 64px;
+}
