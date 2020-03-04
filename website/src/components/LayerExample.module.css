@@ -1,0 +1,17 @@
+.layer {
+  position: fixed;
+  background-color: rgba(126, 78, 252, 0.9);
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 128px;
+  width: 128px;
+  -webkit-user-select: none;
+}
+
+.layer:hover {
+  background-color: #3103aa;
+}
