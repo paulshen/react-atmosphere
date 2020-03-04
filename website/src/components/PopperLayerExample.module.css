@@ -18,7 +18,7 @@
 }
 
 .popper {
-  background-color: #f6a36f;
+  background-color: #3103aa;
   border: none;
   display: flex;
   align-items: center;
@@ -27,4 +27,8 @@
   font-size: 24px;
   height: 64px;
   width: 64px;
+}
+
+.popper:hover {
+  background-color: #3103aa;
 }

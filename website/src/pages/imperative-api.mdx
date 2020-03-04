@@ -9,11 +9,7 @@ import { LayerAPI } from "millefeuille"
 
 function showMyLayer() {
   const key = LayerAPI.pushLayer(() => (
-    <MyLayerComponent
-      onClose={() => {
-        LayerAPI.removeLayer(key)
-      }}
-    />
+    <MyLayerComponent onClose={() => LayerAPI.removeLayer(key)} />
   ))
 }
 ```
@@ -71,7 +67,7 @@ LayerAPI.updateLayer(key, () => <MyLayer state={2} />)
 ###### Type
 
 ```typescript
-(key: string) => void;
+(key: string) => void
 ```
 
 See [Exit transition](/layer#transitionexit). Call this to toggle the state of
@@ -83,7 +79,7 @@ the layer to `LayerState.TransitionExit`. The layer should detect this and call
 ###### Type
 
 ```typescript
-(key: string) => void;
+(key: string) => void
 ```
 
 Remove a layer.
