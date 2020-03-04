@@ -55,12 +55,12 @@ export default function PopperLayerExample() {
         <PopperLayer
           reference={contextRef}
           render={() => (
-            <div
+            <button
               className={styles.popper}
               onClick={() => setShowPopperLayer(false)}
             >
               ✕
-            </div>
+            </button>
           )}
           options={{
             placement,

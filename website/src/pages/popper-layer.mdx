@@ -33,20 +33,28 @@ function MyComponent() {
 | Prop                                  | Type                                                                                               | Required |
 | ------------------------------------- | -------------------------------------------------------------------------------------------------- | -------- |
 | [`reference`](#reference)             | <code class="language-text">React.RefObject<Element &#124; VirtualElement &#124; undefined></code> | true     |
-| [`render`](#render)                   | `(renderProps) => React.ReactNode`                                                                 | true     |
+| [`render`](#render)                   | `(renderProps) => ReactNode`                                                                       | true     |
 | [`options`](#placement)               | `Partial<Options>`                                                                                 | false    |
 | [`onBackdropClick`](#onbackdropclick) | `() => void`                                                                                       | false    |
 
 ### reference
+
+###### Type
+
+```typescript
+React.RefObject<Element | VirtualElement | undefined>
+```
 
 A ReactRef containing the reference DOM element. This is the element that
 PopperLayer will be positioned against.
 
 ### render
 
+###### Type
+
 <!-- prettier-ignore -->
 ```typescript
-(renderProps: { popperState: State | undefined }) => React.ReactNode
+(renderProps: { popperState: State | undefined }) => ReactNode
 ```
 
 A render function for the PopperLayer contents. You have access to Popper's
@@ -55,10 +63,34 @@ which includes properties like positioning placement and rects.
 
 ### options
 
+###### Optional Type
+
+<pre class="language-typescript">
+  type{" "}
+  <a href="https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L107-L112">
+    Options
+  </a>{" "}
+  ={" "}
+  {`{
+  placement: `}
+  <a href="https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/enums.js#L41">
+    Placement
+  </a>
+  {`,
+  ...
+}`}
+</pre>
+
 An optional Popper.js [options](https://github.com/popperjs/popper-core/blob/56af968be69f0d16f6b0202f8ac2730c412513c8/src/types.js#L107-L112)
 object. This prop is forwarded to Popper.js and allows you to configure the
 layer's placement and a lot of popper behavior. See [Popper.js documentation](https://popper.js.org/docs/v2/constructors/#options).
 
 ### onBackdropClick
+
+###### Optional Type
+
+```typescript
+() => void
+```
 
 An optional callback when the user clicks away.

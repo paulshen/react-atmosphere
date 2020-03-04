@@ -19,14 +19,16 @@ import { Tooltip } from "millefeuille"
 
 ## Tooltip API
 
-| Prop                                  | Type                                | Required |
-| ------------------------------------- | ----------------------------------- | -------- |
-| [`children`](#children)               | `(TooltipProps) => React.ReactNode` | true     |
-| [`text`](#text)                       | `React.ReactNode`                   | true     |
-| [`placement`](#placement)             | `Placement`                         | false    |
-| [`tooltipRenderer`](#tooltiprenderer) | `Function`                          | false    |
+| Prop                                  | Type                          | Required |
+| ------------------------------------- | ----------------------------- | -------- |
+| [`children`](#children)               | `(TooltipProps) => ReactNode` | true     |
+| [`text`](#text)                       | `ReactNode`                   | true     |
+| [`placement`](#placement)             | `Placement`                   | false    |
+| [`tooltipRenderer`](#tooltiprenderer) | `Function`                    | false    |
 
 ### children
+
+###### Type
 
 <!-- prettier-ignore -->
 ```typescript
@@ -34,7 +36,7 @@ import { Tooltip } from "millefeuille"
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   ref: React.RefObject<any>;
-}) => React.ReactNode
+}) => ReactNode
 ```
 
 A render function for the tooltip contents. Tooltip adopts a children render
@@ -44,23 +46,43 @@ for example, that your child needs to handle `onMouseEnter` and `onMouseLeave`.
 
 ### text
 
+###### Type
+
+```typescript
+ReactNode
+```
+
 The contents of the tooltip
 
 ### placement
 
-Where to render the tooltip
+###### Optional Type
+
+<pre class="language-typescript">
+  <a href="https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/enums.js#L41">
+    Placement
+  </a>
+</pre>
+
+Popper.js Placement value where to render the tooltip (e.g. `"bottom"`,
+`"left"`, ..)
 
 ### tooltipRenderer
 
-<!-- prettier-ignore -->
-```typescript
-(
-  text: React.ReactNode,
-  props: { popperState: State | undefined }
-) => React.ReactNode
-```
+###### Optional Type
 
-A custom renderer for the tooltip
+<pre class="language-typescript">
+  {`(
+  text: ReactNode,
+  props: { popperState: `}
+  <a href="https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L54-L77">
+    State
+  </a>
+  {` | undefined }
+) => ReactNode`}
+</pre>
+
+A custom renderer for the tooltip. You can use this to render an arrow, etc.
 
 <!-- prettier-ignore -->
 ```typescript

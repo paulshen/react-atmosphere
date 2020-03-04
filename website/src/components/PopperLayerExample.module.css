@@ -4,10 +4,6 @@
 }
 
 .context {
-  background-color: #def1fd;
-  border: none;
-  /* border: 1px dashed #0e90e2; */
-  color: #191919;
   display: flex;
   align-items: center;
   font-size: 14px;
@@ -23,6 +19,7 @@
 
 .popper {
   background-color: #f6a36f;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;

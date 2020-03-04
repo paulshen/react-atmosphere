@@ -74,7 +74,7 @@ LayerAPI.updateLayer(key, () => <MyLayer state={2} />)
 (key: string) => void;
 ```
 
-See [Exit transition](/layer#exit-transition). Call this to toggle the state of
+See [Exit transition](/layer#transitionexit). Call this to toggle the state of
 the layer to `LayerState.TransitionExit`. The layer should detect this and call
 `completeTransitionExit` when the transition is complete.
 

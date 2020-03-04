@@ -26,25 +26,31 @@ import { Dialog } from "millefeuille"
 
 ## Dialog API
 
-| Prop                                  | Type                               | Required |
-| ------------------------------------- | ---------------------------------- | -------- |
-| [`render`](#render)                   | `(renderProps) => React.ReactNode` | true     |
-| [`onBackdropClick`](#onbackdropclick) | `() => void`                       | false    |
+| Prop                                  | Type                         | Required |
+| ------------------------------------- | ---------------------------- | -------- |
+| [`render`](#render)                   | `(renderProps) => ReactNode` | true     |
+| [`onBackdropClick`](#onbackdropclick) | `() => void`                 | false    |
 
 ### render
 
+###### Type
+
 <!-- prettier-ignore -->
 ```typescript
-(args: {
-  state: LayerState;
-  completeTransitionExit: () => void;
-}) => React.ReactNode
+(args: { state: LayerState }) => ReactNode
 ```
 
 A render function for the Dialog element. This element will be centered on top
 of the backdrop.
 
 ### onBackdropClick
+
+###### Optional Type
+
+<!-- prettier-ignore -->
+```typescript
+() => void
+```
 
 An optional callback when the backdrop is clicked. The most likely
 implementation is to stop rendering the Dialog.

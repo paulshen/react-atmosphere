@@ -24,12 +24,33 @@ unmount animations).
 
 ## Tooltip API
 
-| Prop                                 | Type                               | Required |
-| ------------------------------------ | ---------------------------------- | -------- |
-| `render`                             | `(renderProps) => React.ReactNode` | true     |
-| [`transitionExit`](#exit-transition) | `boolean`                          | false    |
+| Prop                                | Type                         | Required |
+| ----------------------------------- | ---------------------------- | -------- |
+| [`render`](#render)                 | `(renderProps) => ReactNode` | true     |
+| [`transitionExit`](#transitionexit) | `boolean`                    | false    |
 
-## Exit transition
+### render
+
+###### Type
+
+<!-- prettier-ignore -->
+```typescript
+(args: {
+  state: LayerState;
+  completeTransitionExit: () => void;
+}) => ReactNode
+```
+
+A render function for the Layer contents. The returned element will be rendered
+inside the [`<LayerContainer>`](/layer-container).
+
+### transitionExit
+
+###### Optional Type
+
+```typescript
+boolean
+```
 
 One unique feature of millefeuille is that layers can render even after the
 `<Layer>` unmounts. For example, this allows you to fade out dialogs even after
@@ -42,7 +63,7 @@ the `<Dialog>` unmounts.
    remove the layer.
 
 <!-- prettier-ignore -->
-```typescript
+```typescript{5,18,26}
 import { Layer, LayerState } from "millefeuille"
 
 <Layer
