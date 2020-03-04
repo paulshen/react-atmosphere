@@ -1,4 +1,4 @@
-import { Layer, Dialog, LayerState, Tooltip } from "millefeuille"
+import { Layer, LayerState, Tooltip, TooltipConfigContext } from "millefeuille"
 import * as React from "react"
 import styles from "./IndexLayerExample.module.css"
 
@@ -15,7 +15,7 @@ function Toast({
 }) {
   React.useEffect(() => {
     if (state === LayerState.TransitionExit) {
-      const timeout = setTimeout(completeTransitionExit, 300)
+      const timeout = setTimeout(completeTransitionExit, 500)
       return () => clearTimeout(timeout)
     }
   }, [state])
@@ -33,13 +33,30 @@ function Toast({
   )
 }
 
+const TooltipConfig = {
+  renderTooltip: (text: React.ReactNode) => (
+    <div className={styles.tooltip}>{text}</div>
+  ),
+  options: {
+    placement: "top" as const,
+    modifiers: [
+      {
+        name: "offset",
+        options: {
+          offset: [0, 4],
+        },
+      },
+    ],
+  },
+}
+
 let nextToastId = 1
 
 export default function IndexLayerExample() {
   const [toasts, setToasts] = React.useState<Array<{ id: number }>>([])
   return (
-    <>
-      <Tooltip text="A <Tooltip>!">
+    <TooltipConfigContext.Provider value={TooltipConfig}>
+      <Tooltip text="A styled <Tooltip>">
         {tooltipProps => (
           <button
             {...tooltipProps}
@@ -66,6 +83,6 @@ export default function IndexLayerExample() {
           key={toast.id}
         />
       ))}
-    </>
+    </TooltipConfigContext.Provider>
   )
 }

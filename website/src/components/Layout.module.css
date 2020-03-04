@@ -64,7 +64,7 @@ button:hover {
 
 .mdxMain td {
   border-top: 1px solid #f0f0f0;
-  padding: 8px 0;
+  padding: 8px 8px 8px 0;
 }
 
 .mdxMain :global(.anchor) {
@@ -104,6 +104,11 @@ button:hover {
 .mdxMain ol,
 .mdxMain ul {
   padding: 0;
+}
+
+.mdxMain ul ul {
+  padding-left: 17px;
+  padding-top: 4px;
 }
 
 .mdxMain li {

@@ -63,6 +63,11 @@ export default function LayerExample() {
       >
         Add Layer
       </button>
+      {layers.length > 0 ? (
+        <button onClick={() => setLayers([])} style={{ marginLeft: 16 }}>
+          Remove All
+        </button>
+      ) : null}
       {layers.map(({ x, y, rotate, key }) => (
         <Layer
           render={renderProps => (

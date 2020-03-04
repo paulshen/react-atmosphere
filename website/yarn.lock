@@ -8437,18 +8437,18 @@ micromatch@^4.0.2:
     braces "^3.0.1"
     picomatch "^2.0.5"
 
-millefeuille-layer@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/millefeuille-layer/-/millefeuille-layer-0.0.2.tgz#7663d21983569b5354987b19fa7ded1af332f7e5"
-  integrity sha512-EXSpKmW6PqaYnVm49p3CWPDIxPgHG1V3IY7ykr554h8x5Ku6X2h/oyRbAsTRGoycvJDee/nINhN+n8cRSuVIEg==
+millefeuille-layer@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/millefeuille-layer/-/millefeuille-layer-0.0.3.tgz#448d5cc6f4bbecea8fad099ff56e931c16d8613b"
+  integrity sha512-+62xdvOHrHuP1F8zBlULjnOpjSbVLazUbDG1uf4BzdFUqHMDIEFwqY8pUmuChyWiR9+iYk9gAaIo9g9UJRb+yw==
 
-millefeuille@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/millefeuille/-/millefeuille-0.0.2.tgz#938bebbe555b191331f93e590cee36e91f36b08a"
-  integrity sha512-0jwq61Qy1loIE0zbqGW21Ai6LTPmZR+NbYAx2qWhkY592hJ+NGvVQzTBJDiXvU9LgzKWqgRhEnhMswljf/rU1g==
+millefeuille@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/millefeuille/-/millefeuille-0.0.3.tgz#e4c02cfa55f8d172ac3bc90c697b01e20dfa1843"
+  integrity sha512-NXgChxJe4ptj5W4gVEinFV8vmZHMeF3KChJSWuJKCZJuYAdmO0VaPPBiivBpKIySfTwoNJ4OiezK+gqnLgRZFQ==
   dependencies:
     "@popperjs/core" "^2.0.6"
-    millefeuille-layer "^0.0.2"
+    millefeuille-layer "^0.0.3"
 
 miller-rabin@^4.0.0:
   version "4.0.1"

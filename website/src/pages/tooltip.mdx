@@ -51,7 +51,7 @@ Wrap your app with a `TooltipConfigContext.Provider`.
 import { TooltipConfigContext } from "millefeuille"
 
 const TooltipConfig = {
-  renderTooltip: (text, popperState) {
+  renderTooltip: (text, {popperState}) {
     return <div>{text}</div>
   },
 
@@ -70,7 +70,7 @@ function MyApp() {
 }
 ```
 
-The second arg to `renderTooltip` is Popper.js
+The second arg to `renderTooltip` contains Popper.js
 [`State`](https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L54-L77),
 with gives you the tooltip placement and more. This is useful if you are
 rendering tooltip arrows, for example.

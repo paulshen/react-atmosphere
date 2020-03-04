@@ -7,7 +7,7 @@
   width: 256px;
   height: 96px;
   border-radius: 8px;
-  transition: top 0.2s, opacity 0.3s;
+  transition: top 0.3s, opacity 0.5s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,4 +17,26 @@
 
 .toast:hover {
   background-color: #3103aa;
+}
+
+.tooltip {
+  background-color: #191919;
+  border-radius: 4px;
+  color: #ffffff;
+  padding: 4px 10px;
+  position: relative;
+}
+
+.tooltip:before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  position: absolute;
+  transform: rotate(45deg);
+  border-color: #191919;
+  border-style: solid;
+  border-width: 0 3px 3px 0;
+  bottom: -3px;
+  left: 50%;
+  margin-left: -4px;
 }

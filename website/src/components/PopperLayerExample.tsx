@@ -33,7 +33,7 @@ export default function PopperLayerExample() {
           className={styles.context}
           ref={contextRef}
         >
-          Click to Toggle
+          Toggle PopperLayer
         </button>
         <div className={styles.main}>
           <div>

@@ -3,26 +3,29 @@ import IndexLayerExample from "../components/IndexLayerExample"
 # react-layer
 
 <p className="intro">
-  A React library for UI layers (tooltips, dialogs, dropdowns, etc).
+  React building blocks for UI layers (tooltips, dialogs, dropdowns, etc).
 </p>
 <IndexLayerExample />
 
 ## Features
 
 - Declarative component API for rendering/hiding layers.
-- millefeuille provides building blocks. Bring your own styles.
-- Single Layer container stacks layers based on render order, removing need for
-  most z-index.
+- Bring your own styles. Documentation examples add styles.
+- Single container stacks layers based on render order, removing need for most
+  z-index.
 - Animate layers as they unmount, even if the owner (parent) component has
   unmounted.
-- An imperative API for managing layers for when it's inconvenient to map to use
-  component API.
+  - Try clicking the button above and then a link in the sidebar. Notice the
+    exit transition.
+- An alternative imperative API.
 
 ## Getting Started
 
 1. Install `millefeuille` from NPM.
 
 ```bash
+npm install millefeuille
+# or
 yarn add millefeuille
 ```
 
@@ -30,7 +33,7 @@ yarn add millefeuille
    rendered inside this component. This container is usually rendered at the end
    of your root UI component.
 
-```typescript
+```typescript{7}
 import { LayerContainer } from "millefeuille"
 
 function App() {
@@ -45,7 +48,7 @@ function App() {
 
 3. Render `<Layer>` components.
 
-```typescript
+```typescript{8}
 import { Layer } from "millefeuille"
 
 function MyComponent() {
