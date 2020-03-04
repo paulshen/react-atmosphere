@@ -1,6 +1,8 @@
 import { Layer, LayerState } from "millefeuille-layer";
 import * as React from "react";
 
+const TransitionDuration = 225;
+
 function Backdrop({ onClick }: { onClick: (() => void) | undefined }) {
   return (
     <div
@@ -27,7 +29,7 @@ const DialogContainerStyles: React.CSSProperties = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  transition: "opacity 225ms cubic-bezier(0.4, 0, 0.2, 1)"
+  transition: `opacity ${TransitionDuration}ms cubic-bezier(0.4, 0, 0.2, 1)`
 };
 
 function DialogLayer({
@@ -50,7 +52,10 @@ function DialogLayer({
   }, []);
   React.useEffect(() => {
     if (state === LayerState.TransitionExit) {
-      const timeout = setTimeout(() => completeTransitionExit(), 225);
+      const timeout = setTimeout(
+        () => completeTransitionExit(),
+        TransitionDuration
+      );
       return () => clearTimeout(timeout);
     }
   }, [state]);
@@ -73,17 +78,19 @@ type DialogProps = {
   render: ({ state }: { state: LayerState }) => React.ReactNode;
   onBackdropClick?: () => void;
 };
-export default function Dialog({ render, onBackdropClick }: DialogProps) {
-  return (
-    <Layer
-      render={renderProps => (
-        <DialogLayer
-          {...renderProps}
-          render={render}
-          onBackdropClick={onBackdropClick}
-        />
-      )}
-      transitionExit
-    />
+export default function Dialog({
+  render: renderProp,
+  onBackdropClick
+}: DialogProps) {
+  const render = React.useCallback(
+    renderProps => (
+      <DialogLayer
+        {...renderProps}
+        render={renderProp}
+        onBackdropClick={onBackdropClick}
+      />
+    ),
+    [renderProp, onBackdropClick]
   );
+  return <Layer render={render} transitionExit />;
 }
