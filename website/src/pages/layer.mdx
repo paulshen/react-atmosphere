@@ -15,11 +15,13 @@ import { Layer } from "millefeuille"
 When a `<Layer>` is rendered, its `render` prop is called and rendered inside
 the `<LayerContainer>`.
 
-React has [Portals](https://reactjs.org/docs/portals.html), which supports
-similar functionality. millefeuille does not use React's portal, which decouples
-the layer's rendering from the host component. This allows support for an
-imperative API as well as rendering UI after the component unmounts (useful for
-unmount animations).
+millefeuille does not use React
+[Portals](https://reactjs.org/docs/portals.html), which supports similar
+functionality. Instead, millefeuille uses message passing from the `<Layer>`
+component to the `<LayerContainer>` component, which decouples the layer's
+rendering from its host component. This allows support for an imperative API as
+well as rendering UI after the component unmounts (useful for unmount
+animations).
 
 ## Layer API
 

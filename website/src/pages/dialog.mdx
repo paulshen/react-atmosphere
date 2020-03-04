@@ -11,15 +11,9 @@ import { Dialog } from "millefeuille"
 
 <Dialog
   render={() => (
-    <div
-      style={{
-        backgroundColor: "#ffffff",
-        width: 500,
-        height: 300,
-      }}
-    >
+    <MyDialog>
       <button onClick={() => setShowDialog(false)}>Close</button>
-    </div>
+    </MyDialog>
   )}
   onBackdropClick={() => setShowDialog(false)}
 />

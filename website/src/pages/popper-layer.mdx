@@ -31,12 +31,12 @@ function MyComponent() {
 
 ## PopperLayer API
 
-| Prop                                  | Type                                                                                               | Required |
-| ------------------------------------- | -------------------------------------------------------------------------------------------------- | -------- |
-| [`reference`](#reference)             | <code class="language-text">React.RefObject<Element &#124; VirtualElement &#124; undefined></code> | true     |
-| [`render`](#render)                   | `(renderProps) => ReactNode`                                                                       | true     |
-| [`options`](#options)                 | `Partial<Options>`                                                                                 | false    |
-| [`onBackdropClick`](#onbackdropclick) | `() => void`                                                                                       | false    |
+| Prop                                | Type                                                                                                                                    | Required |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| [`reference`](#reference)           | <code class="language-text">React.RefObject<Element &#124; VirtualElement &#124; undefined></code>                                      | true     |
+| [`render`](#render)                 | `(renderProps) => ReactNode`                                                                                                            | true     |
+| [`options`](#options)               | `Partial<`[`Options`](https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L107-L112")`>` | false    |
+| [`onOutsideClick`](#onoutsideclick) | `() => void`                                                                                                                            | false    |
 
 ### reference
 
@@ -58,7 +58,7 @@ PopperLayer will be positioned against.
 (renderProps: { popperState: State | undefined }) => ReactNode
 ```
 
-A render function for the PopperLayer contents. You have access to Popper's
+A render function for the PopperLayer contents. You have access to Popper.js
 [State](https://github.com/popperjs/popper-core/blob/56af968be69f0d16f6b0202f8ac2730c412513c8/src/types.js#L54-L77)
 which includes properties like positioning placement and rects.
 
@@ -82,11 +82,11 @@ which includes properties like positioning placement and rects.
 }`}
 </pre>
 
-An optional Popper.js [options](https://github.com/popperjs/popper-core/blob/56af968be69f0d16f6b0202f8ac2730c412513c8/src/types.js#L107-L112)
+An optional Popper.js [Options](https://github.com/popperjs/popper-core/blob/56af968be69f0d16f6b0202f8ac2730c412513c8/src/types.js#L107-L112)
 object. This prop is forwarded to Popper.js and allows you to configure the
 layer's placement and a lot of popper behavior. See [Popper.js documentation](https://popper.js.org/docs/v2/constructors/#options).
 
-### onBackdropClick
+### onOutsideClick
 
 ###### Optional Type
 

@@ -22,49 +22,66 @@ import { Tooltip } from "millefeuille"
 </Tooltip>
 ```
 
-## Tooltip Render Context
+## Configuring Tooltips
 
-You will almost certainly want to customize the render tooltip function. This is
-done via React Context.
-
-###### Type
+You will almost certainly want to customize tooltips, especially the
+`renderTooltip` function. This is done via React Context.
 
 <pre class="language-typescript">
-  {`(text: ReactNode, props: { popperState: `}
+  {`type TooltipConfig = {
+  renderTooltip: (
+    text: ReactNode,
+    props: { popperState: `}
   <a href="https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L54-L77">
     State
   </a>
-  {` | undefined }) => ReactNode`}
+  {` | undefined }
+  ) => ReactNode,
+  options?: Partial<`}
+  <a href="https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L107-L112">
+    Options
+  </a>
+  {`>,
+}`}
 </pre>
 
-Using the provided Popper.js [`State`](https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L54-L77),
-you can get the placement of the tooltip and more. This is useful if you are
-rendering tooltip arrows, for example.
+Wrap your app with a `TooltipConfigContext.Provider`.
 
-<!-- prettier-ignore -->
 ```typescript
-import { TooltipReactContext } from "millefeuille"
+import { TooltipConfigContext } from "millefeuille"
 
-function renderTooltip(text, popperState) {
-  return <div>{text}</div>
-}
+const TooltipConfig = {
+  renderTooltip: (text, popperState) {
+    return <div>{text}</div>
+  },
+
+  // Optional Popper.js options. Tooltip instances can override options.
+  options: {
+    placement: 'bottom',
+  },
+};
 
 function MyApp() {
   return (
-    <TooltipReactContext.Provider value={renderTooltip}>
+    <TooltipConfigContext.Provider value={TooltipConfig}>
       ...
-    </TooltipReactContext.Provider>
+    </TooltipConfigContext.Provider>
   )
 }
 ```
 
+The second arg to `renderTooltip` is Popper.js
+[`State`](https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L54-L77),
+with gives you the tooltip placement and more. This is useful if you are
+rendering tooltip arrows, for example.
+
 ## Tooltip API
 
-| Prop                      | Type                          | Required |
-| ------------------------- | ----------------------------- | -------- |
-| [`children`](#children)   | `(TooltipProps) => ReactNode` | true     |
-| [`text`](#text)           | `ReactNode`                   | true     |
-| [`placement`](#placement) | `Placement`                   | false    |
+| Prop                    | Type                                                                                                                                    | Required |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| [`children`](#children) | `(TooltipProps) => ReactNode`                                                                                                           | true     |
+| [`text`](#text)         | `ReactNode`                                                                                                                             | true     |
+| [`options`](#options)   | `Partial<`[`Options`](https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L107-L112")`>` | false    |
 
 ### children
 
@@ -94,15 +111,21 @@ ReactNode
 
 The contents of the tooltip, usually a string but can be any React element.
 
-### placement
+### options
 
 ###### Optional Type
 
 <pre class="language-typescript">
-  <a href="https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/enums.js#L41">
-    Placement
+  <a href="https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L107-L112">
+    Options
   </a>
 </pre>
 
-Popper.js Placement value where to render the tooltip (e.g. `"bottom"`,
-`"left"`, ..). The default value is `"top"`.
+Optional Tooltip instance Popper.js options overrides. If this object is
+provided, it is merged into the [TooltipConfig](#configuring-tooltips) options.
+
+```typescript
+<Tooltip text="Hi!" options={{ placement: "bottom" }}>
+  {tooltipProps => <div {...tooltipProps}>Button</div>}
+</Tooltip>
+```
