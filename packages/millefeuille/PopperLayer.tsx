@@ -19,7 +19,7 @@ type PopperLayerProps = {
 
 export default function PopperLayer({
   reference,
-  render,
+  render: renderProp,
   onOutsideClick,
   options: optionsProp
 }: PopperLayerProps) {
@@ -91,11 +91,10 @@ export default function PopperLayer({
       document.removeEventListener("click", onClick);
     };
   }, []);
-  return (
-    <Layer
-      render={() => {
-        return <div ref={layerRef}>{render({ popperState })}</div>;
-      }}
-    />
+
+  const render = React.useCallback(
+    () => <div ref={layerRef}>{renderProp({ popperState })}</div>,
+    [renderProp, popperState]
   );
+  return <Layer render={render} />;
 }

@@ -6,10 +6,12 @@ import { Tooltip } from "millefeuille"
   {tooltipProps => <button {...tooltipProps}>Hover Me</button>}
 </Tooltip>
 
-Tooltip is a component built on top of PopperLayer that manages mouse interactions. Tooltip has to attach mouse listeners and a ref to the context element. This is done with an explicit children render API.
+Tooltip is a component built on top of PopperLayer that manages mouse
+interactions. Tooltip has to attach mouse listeners and a ref to the context
+element. This is done with an explicit children render API.
 
 <!-- prettier-ignore -->
-```js
+```typescript
 import { Tooltip } from "millefeuille"
 
 <Tooltip text="Tooltip Text">
@@ -17,14 +19,49 @@ import { Tooltip } from "millefeuille"
 </Tooltip>
 ```
 
+## Tooltip Render Context
+
+You will almost certainly want to customize the render tooltip function. This is
+done via React Context.
+
+###### Type
+
+<pre class="language-typescript">
+  {`(text: ReactNode, props: { popperState: `}
+  <a href="https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L54-L77">
+    State
+  </a>
+  {` | undefined }) => ReactNode`}
+</pre>
+
+Using the provided Popper.js [`State`](https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L54-L77),
+you can get the placement of the tooltip and more. This is useful if you are
+rendering tooltip arrows, for example.
+
+<!-- prettier-ignore -->
+```typescript
+import { TooltipReactContext } from "millefeuille"
+
+function renderTooltip(text, popperState) {
+  return <div>{text}</div>
+}
+
+function MyApp() {
+  return (
+    <TooltipReactContext.Provider value={renderTooltip}>
+      ...
+    </TooltipReactContext.Provider>
+  )
+}
+```
+
 ## Tooltip API
 
-| Prop                                  | Type                          | Required |
-| ------------------------------------- | ----------------------------- | -------- |
-| [`children`](#children)               | `(TooltipProps) => ReactNode` | true     |
-| [`text`](#text)                       | `ReactNode`                   | true     |
-| [`placement`](#placement)             | `Placement`                   | false    |
-| [`tooltipRenderer`](#tooltiprenderer) | `Function`                    | false    |
+| Prop                      | Type                          | Required |
+| ------------------------- | ----------------------------- | -------- |
+| [`children`](#children)   | `(TooltipProps) => ReactNode` | true     |
+| [`text`](#text)           | `ReactNode`                   | true     |
+| [`placement`](#placement) | `Placement`                   | false    |
 
 ### children
 
@@ -52,7 +89,7 @@ for example, that your child needs to handle `onMouseEnter` and `onMouseLeave`.
 ReactNode
 ```
 
-The contents of the tooltip
+The contents of the tooltip, usually a string but can be any React element.
 
 ### placement
 
@@ -65,32 +102,4 @@ The contents of the tooltip
 </pre>
 
 Popper.js Placement value where to render the tooltip (e.g. `"bottom"`,
-`"left"`, ..)
-
-### tooltipRenderer
-
-###### Optional Type
-
-<pre class="language-typescript">
-  {`(
-  text: ReactNode,
-  props: { popperState: `}
-  <a href="https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L54-L77">
-    State
-  </a>
-  {` | undefined }
-) => ReactNode`}
-</pre>
-
-A custom renderer for the tooltip. You can use this to render an arrow, etc.
-
-<!-- prettier-ignore -->
-```typescript
-function customTooltipRender(text: string, { popperState }) {
-  return <div>{text}</div>
-}
-
-<Tooltip text="Text" tooltipRenderer={customTooltipRender}>
-  {tooltipProps => <button {...tooltipProps}>Child</button>}
-</Tooltip>
-```
+`"left"`, ..). The default value is `"top"`.

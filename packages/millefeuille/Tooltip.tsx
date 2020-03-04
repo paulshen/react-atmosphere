@@ -9,29 +9,36 @@ type TooltipRenderProps = {
 };
 
 function defaultRenderTooltip(text: React.ReactNode) {
-  return (
-    <div style={{ backgroundColor: "#000000", color: "#ffffff" }}>{text}</div>
-  );
+  return text;
 }
+
+export const TooltipRenderContext = React.createContext<
+  (
+    text: React.ReactNode,
+    props: { popperState: State | undefined }
+  ) => React.ReactNode
+>(defaultRenderTooltip);
 
 type TooltipProps = {
   children: (tooltipProps: TooltipRenderProps) => React.ReactNode;
   text: React.ReactNode;
   placement?: Placement;
-  renderTooltip?: (
-    text: React.ReactNode,
-    props: { popperState: State | undefined }
-  ) => React.ReactNode;
 };
 
 export default function Tooltip({
   children,
   text,
-  placement = "top",
-  renderTooltip = defaultRenderTooltip
+  placement = "top"
 }: TooltipProps) {
   const domRef = React.useRef<Element>(null);
+  const renderTooltip = React.useContext(TooltipRenderContext);
   const [showTooltip, setShowTooltip] = React.useState(false);
+
+  const render = React.useCallback(
+    popperProps => renderTooltip(text, popperProps),
+    [text, renderTooltip]
+  );
+  const options = React.useMemo(() => ({ placement }), [placement]);
 
   return (
     <>
@@ -45,11 +52,7 @@ export default function Tooltip({
         ref: domRef
       })}
       {showTooltip ? (
-        <PopperLayer
-          reference={domRef}
-          options={{ placement }}
-          render={popperProps => renderTooltip(text, popperProps)}
-        />
+        <PopperLayer reference={domRef} options={options} render={render} />
       ) : null}
     </>
   );
