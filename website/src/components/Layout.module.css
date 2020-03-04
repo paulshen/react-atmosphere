@@ -84,8 +84,12 @@ button {
   margin-bottom: 4px;
 }
 
+.mdxMain h2 {
+  margin: 48px 0 24px;
+}
+
 .mdxMain h3 {
-  margin: 16px 0;
+  margin: 32px 0 16px;
 }
 
 .mdxMain h6 {
