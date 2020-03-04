@@ -1,6 +1,6 @@
 {
   "name": "millefeuille",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.0.6",
-    "millefeuille-layer": "^0.0.2"
+    "millefeuille-layer": "^0.0.3"
   },
   "devDependencies": {
     "@types/react": "^16.9.23",
