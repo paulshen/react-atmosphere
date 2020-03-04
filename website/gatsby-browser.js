@@ -7,3 +7,15 @@
 // You can delete this file if you're not using it
 
 require("prismjs/themes/prism-solarizedlight.css")
+
+const React = require("react")
+const LayerContainer = require("millefeuille").LayerContainer
+
+exports.wrapPageElement = ({ element }) => {
+  return (
+    <>
+      {element}
+      <LayerContainer />
+    </>
+  )
+}

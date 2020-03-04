@@ -47,35 +47,36 @@ function layerReducer(state: Layer[], message: APIMessage) {
   return state;
 }
 
+// Memoize children to avoid infinite recursive rendering (Layer rendering Layer)
+const RenderedLayer = React.memo(({ layer }: { layer: Layer }) => {
+  const completeTransitionExit = React.useCallback(
+    () => LayerAPI.removeLayer(layer.key),
+    [layer.key]
+  );
+  return (
+    <>
+      {layer.render({
+        state: layer.state,
+        completeTransitionExit
+      })}
+    </>
+  );
+});
+
 type LayerContainerProps = {
   context?: API;
 };
 const LayerContainer = React.memo(
   ({ context = LayerAPI }: LayerContainerProps) => {
-    // Memoize children to avoid infinite recursive rendering (Layer rendering Layer)
-    const renderedElements = React.useRef<Map<Layer, React.ReactNode>>();
-    if (!renderedElements.current) {
-      renderedElements.current = new Map();
-    }
     const [layers, dispatch] = React.useReducer(layerReducer, []);
     React.useEffect(() => context.addListener(dispatch), []);
-    const children = layers.map(layer => {
-      let child = renderedElements.current?.get(layer);
-      if (!child) {
-        child = layer.render({
-          state: layer.state,
-          completeTransitionExit: () => LayerAPI.removeLayer(layer.key)
-        });
-        renderedElements.current?.set(layer, child);
-      }
-      return <React.Fragment key={layer.key}>{child}</React.Fragment>;
-    });
-    for (const layer of Array.from(renderedElements.current.keys())) {
-      if (layers.indexOf(layer) === -1) {
-        renderedElements.current.delete(layer);
-      }
-    }
-    return <>{children}</>;
+    return (
+      <>
+        {layers.map(layer => (
+          <RenderedLayer layer={layer} key={layer.key} />
+        ))}
+      </>
+    );
   }
 );
 
