@@ -31,6 +31,10 @@ export default function NavSidebar() {
         <NavLink to="/imperative-api">Imperative API</NavLink>
         <NavLink to="/performance">Performance</NavLink>
       </ul>
+      <h4>Examples</h4>
+      <ul className={styles.navList}>
+        <NavLink to="/examples/nested-layers">Nested Layers</NavLink>
+      </ul>
     </nav>
   )
 }

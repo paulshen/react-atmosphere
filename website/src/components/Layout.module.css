@@ -142,3 +142,9 @@ button:hover {
   background-color: #f9e4ac;
   display: block;
 }
+
+.codesandbox {
+  width: 100%;
+  height: 100vh;
+  border: none;
+}
