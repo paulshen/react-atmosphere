@@ -34,6 +34,7 @@ export default function NavSidebar() {
       <h4>Examples</h4>
       <ul className={styles.navList}>
         <NavLink to="/examples/nested-layers">Nested Layers</NavLink>
+        <NavLink to="/examples/dialog-setup">Dialog Setup</NavLink>
       </ul>
     </nav>
   )

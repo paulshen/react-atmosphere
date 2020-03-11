@@ -61,6 +61,10 @@ function DialogLayer({
   } = React.useContext(DialogConfigContext);
   React.useEffect(() => {
     if (state === LayerState.TransitionExit) {
+      if (transitionDuration === 0) {
+        completeTransitionExit();
+        return;
+      }
       const timeout = setTimeout(
         () => completeTransitionExit(),
         transitionDuration

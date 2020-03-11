@@ -1,1 +1,10 @@
-[{ "path": "/nested-layers", "codesandboxId": "modest-rain-qp20v" }]
+[
+  {
+    "path": "/nested-layers",
+    "codesandboxUrl": "https://codesandbox.io/embed/modest-rain-qp20v?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyDialog.js&theme=light"
+  },
+  {
+    "path": "/dialog-setup",
+    "codesandboxUrl": "https://codesandbox.io/embed/bold-flower-p5jbz?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyDialog.js&theme=light"
+  }
+]
