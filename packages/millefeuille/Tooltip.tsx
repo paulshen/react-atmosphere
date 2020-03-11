@@ -43,10 +43,10 @@ export default function Tooltip({
     popperProps => renderTooltip(text, popperProps),
     [text, renderTooltip]
   );
-  const options = React.useMemo(() => ({ ...optionsContext, ...optionsProp }), [
-    optionsContext,
-    optionsProp
-  ]);
+  const options: Partial<Options> = React.useMemo(
+    () => ({ placement: "top", ...optionsContext, ...optionsProp }),
+    [optionsContext, optionsProp]
+  );
 
   return (
     <>
