@@ -1,9 +1,9 @@
 {
   "name": "website",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "",
   "version": "0.0.4",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Paul Shen <paulshen0@gmail.com>",
   "dependencies": {
     "@mdx-js/mdx": "^1.5.7",
     "@mdx-js/react": "^1.5.7",
