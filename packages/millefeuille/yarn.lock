@@ -25,11 +25,6 @@ csstype@^2.2.0:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.9.tgz#05141d0cd557a56b8891394c1911c40c8a98d098"
   integrity sha512-xz39Sb4+OaTsULgUERcCk+TJj8ylkL4aSVDQiX/ksxbELSqwkgt4d4RD7fovIdgJGSuNYqwZEiVjYY5l0ask+Q==
 
-millefeuille-layer@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/millefeuille-layer/-/millefeuille-layer-0.0.2.tgz#7663d21983569b5354987b19fa7ded1af332f7e5"
-  integrity sha512-EXSpKmW6PqaYnVm49p3CWPDIxPgHG1V3IY7ykr554h8x5Ku6X2h/oyRbAsTRGoycvJDee/nINhN+n8cRSuVIEg==
-
 typescript@^3.8.2:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.2.tgz#91d6868aaead7da74f493c553aeff76c0c0b1d5a"
