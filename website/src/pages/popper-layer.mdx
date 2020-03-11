@@ -10,7 +10,10 @@ tooltips, popouts, and dropdowns. millefeuille uses
 [Popper.js](https://popper.js.org/) to power `PopperLayer`.
 
 PopperLayer renders a wrapper div whose position is managed by Popper.js. Your
-`render` function provides the contents of this div.
+`render` function provides the contents of this div. By providing Popper.js
+options, you have the ability to configure [offsets](https://popper.js.org/docs/v2/modifiers/popper-offsets/),
+[flipping behavior](https://popper.js.org/docs/v2/modifiers/flip/), [event listeners](https://popper.js.org/docs/v2/modifiers/event-listeners/),
+and more.
 
 ```typescript
 import { PopperLayer } from "millefeuille"
@@ -46,8 +49,12 @@ function MyComponent() {
 React.RefObject<Element | VirtualElement | undefined>
 ```
 
-A ReactRef containing the reference DOM element. This is the element that
-PopperLayer will be positioned against.
+A [React Ref](https://reactjs.org/docs/refs-and-the-dom.html) holding the
+reference DOM element. This is the element that PopperLayer will be positioned
+against.
+
+You can also provide a Popper.js `VirtualElement`, which is any entity that
+implements `getBoundingClientRect()`. See Popper.js [VirtualElement documentation](https://popper.js.org/docs/v2/virtual-elements/).
 
 ### render
 
@@ -60,7 +67,8 @@ PopperLayer will be positioned against.
 
 A render function for the PopperLayer contents. You have access to Popper.js
 [State](https://github.com/popperjs/popper-core/blob/56af968be69f0d16f6b0202f8ac2730c412513c8/src/types.js#L54-L77)
-which includes properties like positioning placement and rects.
+which includes properties like positioning placement and rects. This will be
+rendered inside a wrapper div for positioning.
 
 ### options
 
@@ -84,7 +92,8 @@ which includes properties like positioning placement and rects.
 
 An optional Popper.js [Options](https://github.com/popperjs/popper-core/blob/56af968be69f0d16f6b0202f8ac2730c412513c8/src/types.js#L107-L112)
 object. This prop is forwarded to Popper.js and allows you to configure the
-layer's placement and a lot of popper behavior. See [Popper.js documentation](https://popper.js.org/docs/v2/constructors/#options).
+layer's placement and a lot of popper behavior. See Popper.js [options documentation](https://popper.js.org/docs/v2/constructors/#options)
+and [modifiers documentation](https://popper.js.org/docs/v2/modifiers/).
 
 ### onOutsideClick
 
@@ -94,4 +103,5 @@ layer's placement and a lot of popper behavior. See [Popper.js documentation](ht
 () => void
 ```
 
-An optional callback when the user clicks away.
+An optional callback when the user clicks outside the PopperLayer or reference
+element. A common implementation is to stop rendering the PopperLayer.

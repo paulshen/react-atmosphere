@@ -8,8 +8,8 @@ imperative `showLayer` is what you want.
 import { LayerAPI } from "millefeuille"
 
 function showMyLayer() {
-  const key = LayerAPI.pushLayer(() => (
-    <MyLayerComponent onClose={() => LayerAPI.removeLayer(key)} />
+  const layerKey = LayerAPI.pushLayer(() => (
+    <MyLayerComponent onClose={() => LayerAPI.removeLayer(layerKey)} />
   ))
 }
 ```

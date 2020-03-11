@@ -21,9 +21,9 @@ export default function NavSidebar() {
       <h4>Components</h4>
       <ul className={styles.navList}>
         <NavLink to="/layer">Layer</NavLink>
-        <NavLink to="/dialog">Dialog</NavLink>
         <NavLink to="/popper-layer">PopperLayer</NavLink>
         <NavLink to="/tooltip">Tooltip</NavLink>
+        <NavLink to="/dialog">Dialog</NavLink>
         <NavLink to="/layer-container">LayerContainer</NavLink>
       </ul>
       <h4>Topics</h4>

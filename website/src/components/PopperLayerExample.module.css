@@ -14,7 +14,7 @@
 
 .main {
   flex-grow: 1;
-  margin-left: 32px;
+  margin-left: 64px;
 }
 
 .popper {
@@ -31,4 +31,9 @@
 
 .popper:hover {
   background-color: #3103aa;
+}
+
+.label {
+  display: inline-block;
+  margin-bottom: 4px;
 }

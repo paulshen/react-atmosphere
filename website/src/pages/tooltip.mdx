@@ -7,9 +7,9 @@ import { Tooltip } from "millefeuille"
   {tooltipProps => <button {...tooltipProps}>Hover Me</button>}
 </Tooltip>
 
-Tooltip is a component built on top of PopperLayer that manages mouse
-interactions. Tooltip attaches mouse listeners and a ref to the context element.
-This is implemented with an explicit children render API.
+Tooltip is a component built on top of [PopperLayer](/popper-layer) that manages
+mouse interactions. Tooltip attaches mouse listeners and a ref to the context
+element. This is implemented with a children render API.
 
 **Be sure to transfer the provided props to the child element!**
 
@@ -24,8 +24,9 @@ import { Tooltip } from "millefeuille"
 
 ## Configuring Tooltips
 
-You will almost certainly want to customize tooltips, especially the
-`renderTooltip` function. This is done via React Context.
+The example tooltip above shows the default behavior without styles. You will
+almost certainly want to customize how tooltips look with the `renderTooltip`
+function. This is done via [React Context](https://reactjs.org/docs/context.html).
 
 <pre class="language-typescript">
   {`type TooltipConfig = {
@@ -72,7 +73,7 @@ function MyApp() {
 
 The second arg to `renderTooltip` contains Popper.js
 [`State`](https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L54-L77),
-with gives you the tooltip placement and more. This is useful if you are
+which includes the tooltip placement and more. This is useful if you are
 rendering tooltip arrows, for example.
 
 ## Tooltip API
@@ -92,14 +93,15 @@ rendering tooltip arrows, for example.
 (tooltipProps: {
   onMouseEnter: () => void;
   onMouseLeave: () => void;
-  ref: React.RefObject<any>;
+  ref: React.RefObject<Element | VirtualElement | undefined>;
 }) => ReactNode
 ```
 
 A render function for the tooltip contents. Tooltip adopts a children render
 prop API to give you control how to render the children. You are responsible for
-transferring the props to your rendered element. This makes it more explicit,
-for example, that your child needs to handle `onMouseEnter` and `onMouseLeave`.
+transferring the props to your rendered element. This API is more explicit; it
+makes it obvious that your child needs to handle `onMouseEnter` and
+`onMouseLeave`.
 
 ### text
 

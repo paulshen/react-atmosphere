@@ -33,11 +33,11 @@ export default function PopperLayerExample() {
           className={styles.context}
           ref={contextRef}
         >
-          Toggle PopperLayer
+          {showPopperLayer ? "Hide" : "Show"} PopperLayer
         </button>
         <div className={styles.main}>
           <div>
-            <label>Placement</label>
+            <label className={styles.label}>Placement</label>
           </div>
           <select
             value={placement}
