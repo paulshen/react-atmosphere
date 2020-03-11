@@ -5,19 +5,80 @@ import DialogExample from "../components/DialogExample"
 <p className="intro">A modal component that renders over the page.</p>
 <DialogExample />
 
+In the millefeuille philosophy of providing building blocks, `Dialog` comes with
+very few styles. You will likely want to build your own reusable `DialogRoot`
+component.
+
 <!-- prettier-ignore -->
 ```typescript
 import { Dialog } from "millefeuille"
 
 <Dialog
-  render={() => (
-    <MyDialog>
+  render={({ state }) => (
+    <MyDialogRoot state={state}>
+      <div>This is a dialog!</div>
       <button onClick={() => setShowDialog(false)}>Close</button>
-    </MyDialog>
+    </MyDialogRoot>
   )}
   onBackdropClick={() => setShowDialog(false)}
 />
 ```
+
+## Configuring Dialogs
+
+By default, `Dialog` renders a backdrop with background color `rgba(0, 0, 0, 0.5)`
+without animation. This is configurable using [React Context](https://reactjs.org/docs/context.html).
+
+Wrap your app with a `DialogConfigContext.Provider`.
+
+```typescript
+import { DialogConfigContext } from "millefeuille"
+
+const DialogConfig = {
+  renderBackdrop: (state, onClick) => (
+    <MyCustomBackdrop state={state} onClick={onClick} />
+  ),
+  transitionDuration: 225,
+}
+
+function MyApp() {
+  return (
+    <DialogConfigContext.Provider value={DialogConfig}>
+      ...
+    </DialogConfigContext.Provider>
+  )
+}
+```
+
+All context keys are optional.
+
+| Context Key                                 | Type                         | Default Value |
+| ------------------------------------------- | ---------------------------- | ------------- |
+| [`renderBackdrop`](#renderbackdrop)         | `(renderProps) => ReactNode` | Source        |
+| [`containerStyles`](#containerstyles)       | `React.CSSProperties`        | Source        |
+| [`transitionDuration`](#transitionduration) | `number`                     | `0`           |
+
+### renderBackdrop
+
+###### Type
+
+<!-- prettier-ignore -->
+```typescript
+(args: { state: LayerState; onClick: (() => void) | undefined }) => ReactNode
+```
+
+Provide this to customize the backdrop behind the dialog. The `onClick` is
+[`onBackdropClick`](#onbackdropclick) forwarded from the `<Dialog>` API.
+
+### containerStyles
+
+Provide this to customize the CSS styles of the parent div of the backdrop and
+the dialog.
+
+### transitionDuration
+
+Provide this to customize the exit transition duration when a dialog is
+unmounting.
 
 ## Dialog API
 

@@ -47,13 +47,6 @@ function NestableDialog({
   level: number;
   onClose: () => void;
 }) {
-  const [isMounted, setIsMounted] = React.useState(false);
-  React.useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsMounted(true);
-    }, 20);
-    return () => clearTimeout(timeout);
-  }, []);
   return (
     <div
       style={{
@@ -61,8 +54,6 @@ function NestableDialog({
         borderRadius: 4,
         width: 500 - level * 20,
         height: 300 - level * 20,
-        transition: `opacity 225ms cubic-bezier(0.4, 0, 0.2, 1)`,
-        opacity: !isMounted || state === LayerState.TransitionExit ? 0 : 1,
         padding: 16
       }}
     >
