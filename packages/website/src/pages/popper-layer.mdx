@@ -62,7 +62,11 @@ implements `getBoundingClientRect()`. See Popper.js [VirtualElement documentatio
 
 <!-- prettier-ignore -->
 ```typescript
-(renderProps: { popperState: State | undefined }) => ReactNode
+(renderProps: {
+  state: LayerState
+  completeTransitionExit: () => void
+  popperState: State | undefined
+}) => ReactNode
 ```
 
 A render function for the PopperLayer contents. You have access to Popper.js

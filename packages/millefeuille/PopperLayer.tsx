@@ -6,22 +6,28 @@ import {
   State,
   VirtualElement
 } from "@popperjs/core";
-import { Layer } from "millefeuille-layer";
+import { Layer, LayerRender, LayerState } from "millefeuille-layer";
 import * as React from "react";
 import useEventCallback from "./utils/useEventCallback";
 
 type PopperLayerProps = {
   reference: React.RefObject<Element | VirtualElement | undefined>;
-  render: (props: { popperState: State | undefined }) => React.ReactNode;
+  render: (renderProps: {
+    state: LayerState;
+    completeTransitionExit: () => void;
+    popperState: State | undefined;
+  }) => React.ReactNode;
   onOutsideClick?: () => void;
   options?: Partial<Options>;
+  transitionExit?: boolean;
 };
 
 export default function PopperLayer({
   reference,
   render: renderProp,
   onOutsideClick,
-  options: optionsProp
+  options: optionsProp,
+  transitionExit
 }: PopperLayerProps) {
   const popperRef = React.useRef<Instance>();
   const [popperState, setPopperState] = React.useState<State>();
@@ -92,9 +98,11 @@ export default function PopperLayer({
     };
   }, []);
 
-  const render = React.useCallback(
-    () => <div ref={layerRef}>{renderProp({ popperState })}</div>,
+  const render: LayerRender = React.useCallback(
+    renderProps => (
+      <div ref={layerRef}>{renderProp({ ...renderProps, popperState })}</div>
+    ),
     [renderProp, popperState]
   );
-  return <Layer render={render} />;
+  return <Layer render={render} transitionExit={transitionExit} />;
 }

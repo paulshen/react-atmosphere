@@ -3,7 +3,8 @@
   bottom: 0;
   box-sizing: border-box;
   left: 0;
-  padding: 64px 0;
+  overflow: auto;
+  padding: 64px 0 32px;
   position: fixed;
   top: 0;
   width: 256px;
@@ -20,7 +21,7 @@
 }
 
 .navList {
-  margin: 0 0 16px;
+  margin: 0 0 24px;
   padding: 0;
 }
 
