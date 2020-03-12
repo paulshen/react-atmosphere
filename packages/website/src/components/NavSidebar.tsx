@@ -38,6 +38,7 @@ export default function NavSidebar() {
         <NavLink to="/examples/nested-layers">Nested Layers</NavLink>
         <NavLink to="/examples/tooltip-setup">Tooltip Setup</NavLink>
         <NavLink to="/examples/dialog-setup">Dialog Setup</NavLink>
+        <NavLink to="/examples/imperative-dialog">Imperative Dialog</NavLink>
       </ul>
     </nav>
   )
