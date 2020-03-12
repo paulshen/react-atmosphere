@@ -1,10 +1,14 @@
+import { Options, State } from "@popperjs/core";
 import * as React from "react";
 import PopperLayer from "./PopperLayer";
-import { Placement, State, Options } from "@popperjs/core";
+
+let nextToolipId = 1;
+const TOOLTIP_ID_PREFIX = "tooltip--";
 
 type TooltipRenderProps = {
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  "aria-describedby": string | undefined;
   ref: React.RefObject<any>;
 };
 
@@ -34,11 +38,21 @@ export default function Tooltip({
   options: optionsProp
 }: TooltipProps) {
   const domRef = React.useRef<Element>(null);
+  const idRef: React.MutableRefObject<string | null> = React.useRef(null);
   const { renderTooltip, options: optionsContext } = React.useContext(
     TooltipConfigContext
   );
   const [showTooltip, setShowTooltip] = React.useState(false);
 
+  const showTooltipMethod = React.useCallback(() => {
+    if (idRef.current == null) {
+      idRef.current = TOOLTIP_ID_PREFIX + nextToolipId++;
+    }
+    setShowTooltip(true);
+  }, []);
+  const hideTooltipMethod = React.useCallback(() => {
+    setShowTooltip(false);
+  }, []);
   const render = React.useCallback(
     popperProps => renderTooltip(text, popperProps),
     [text, renderTooltip]
@@ -51,16 +65,18 @@ export default function Tooltip({
   return (
     <>
       {children({
-        onMouseEnter: () => {
-          setShowTooltip(true);
-        },
-        onMouseLeave: () => {
-          setShowTooltip(false);
-        },
+        onMouseEnter: showTooltipMethod,
+        onMouseLeave: hideTooltipMethod,
+        "aria-describedby": showTooltip ? idRef.current! : undefined,
         ref: domRef
       })}
       {showTooltip ? (
-        <PopperLayer reference={domRef} options={options} render={render} />
+        <PopperLayer
+          id={idRef.current!}
+          reference={domRef}
+          options={options}
+          render={render}
+        />
       ) : null}
     </>
   );

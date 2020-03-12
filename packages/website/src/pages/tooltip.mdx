@@ -91,9 +91,10 @@ rendering tooltip arrows, for example.
 <!-- prettier-ignore -->
 ```typescript
 (tooltipProps: {
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
-  ref: React.RefObject<Element | VirtualElement | undefined>;
+  onMouseEnter: () => void
+  onMouseLeave: () => void
+  "aria-describedby": string | undefined
+  ref: React.RefObject<Element | VirtualElement | undefined>
 }) => ReactNode
 ```
 

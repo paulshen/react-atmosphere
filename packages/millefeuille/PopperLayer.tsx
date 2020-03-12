@@ -11,6 +11,7 @@ import * as React from "react";
 import useEventCallback from "./utils/useEventCallback";
 
 type PopperLayerProps = {
+  id?: string;
   reference: React.RefObject<Element | VirtualElement | undefined>;
   render: (renderProps: {
     state: LayerState;
@@ -23,6 +24,7 @@ type PopperLayerProps = {
 };
 
 export default function PopperLayer({
+  id,
   reference,
   render: renderProp,
   onOutsideClick,
@@ -100,9 +102,11 @@ export default function PopperLayer({
 
   const render: LayerRender = React.useCallback(
     renderProps => (
-      <div ref={layerRef}>{renderProp({ ...renderProps, popperState })}</div>
+      <div id={id} ref={layerRef}>
+        {renderProp({ ...renderProps, popperState })}
+      </div>
     ),
-    [renderProp, popperState]
+    [id, renderProp, popperState]
   );
   return <Layer render={render} transitionExit={transitionExit} />;
 }

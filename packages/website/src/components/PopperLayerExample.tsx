@@ -31,6 +31,8 @@ export default function PopperLayerExample() {
             setShowPopperLayer(show => !show)
           }}
           className={styles.context}
+          aria-haspopup
+          aria-expanded={showPopperLayer}
           ref={contextRef}
         >
           {showPopperLayer ? "Hide" : "Show"} PopperLayer
