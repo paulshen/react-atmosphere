@@ -11,6 +11,8 @@ function MyDialogRoot({
 }) {
   return (
     <div
+      aria-modal
+      role="dialog"
       style={{
         backgroundColor: "#ffffff",
         borderRadius: 4,

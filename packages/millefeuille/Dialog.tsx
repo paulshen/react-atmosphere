@@ -1,5 +1,6 @@
-import { Layer, LayerState, LayerRender } from "millefeuille-layer";
 import * as React from "react";
+import { Layer, LayerState, LayerRender } from "millefeuille-layer";
+import FocusLock from "react-focus-lock";
 
 const DefaultTransitionDuration = 0;
 
@@ -73,10 +74,12 @@ function DialogLayer({
     }
   }, [state]);
   return (
-    <div style={containerStyles}>
-      {renderBackdrop({ state, onClick: onBackdropClick })}
-      {render({ state })}
-    </div>
+    <FocusLock autoFocus returnFocus>
+      <div style={containerStyles}>
+        {renderBackdrop({ state, onClick: onBackdropClick })}
+        {render({ state })}
+      </div>
+    </FocusLock>
   );
 }
 
