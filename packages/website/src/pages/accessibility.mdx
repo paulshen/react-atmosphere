@@ -1,0 +1,57 @@
+# Accessibility
+
+Because of the low-level nature of millefeuille, many accessibility features
+need to be implemented in user space. millefeuille tries to handle as many a11y
+features as it can.
+
+## PopperLayer
+
+Often, a PopperLayer's reference element has a semantic relationship with the
+layer (e.g. a dropdown layer for a button). For example, if you are implementing
+a menu, you should set the following attributes: `aria-controls`,
+`aria-expanded`, `aria-haspopup`.
+
+```typescript
+function MyComponent() {
+  const buttonRef = useRef(null);
+  const id = useId();
+  const [showPopper, setShowPopper] = React.useState(false);
+  return (
+    <>
+      <button
+        aria-controls={showPopper ? id : undefined}
+        aria-expanded={showPopper}
+        aria-haspopup={showPopper}
+        onClick={() => setShowPopper(true)}
+        ref={buttonRef}>
+        Show
+      </button>
+      {showPopper ? <PopperLayer id={id} reference={buttonRef} ... /> : null}
+    </>
+  );
+}
+```
+
+## Tooltip
+
+Tooltips handle mouse and focus events. Be sure to transfer all the props from
+`Tooltip`'s children render function, which includes aria attributes and event
+listeners.
+
+## Dialog
+
+Dialogs are wrapped by `FocusLock`, which keeps focus inside the Dialog while
+visible.
+
+Your dialog root component (returned by `Dialog.render`) should have
+`aria-model="true"` and `role="dialog"`. You can see this in the [Dialog sandbox](/examples/dialog-setup).
+
+```typescript{3}
+function MyDialogRoot({ children }) {
+  return (
+    <div aria-model role="dialog">
+      {children}
+    </div>
+  )
+}
+```
