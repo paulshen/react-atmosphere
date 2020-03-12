@@ -1,12 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "sandbox": "cd packages/sandbox && yarn start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "website": "cd packages/website && yarn start"
   },
   "author": "Paul Shen",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "lerna": "^3.20.2"
   },
