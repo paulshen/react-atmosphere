@@ -8,6 +8,8 @@ const TOOLTIP_ID_PREFIX = "tooltip--";
 type TooltipRenderProps = {
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  onFocus: () => void;
+  onBlur: () => void;
   "aria-describedby": string | undefined;
   ref: React.RefObject<any>;
 };
@@ -67,6 +69,8 @@ export default function Tooltip({
       {children({
         onMouseEnter: showTooltipMethod,
         onMouseLeave: hideTooltipMethod,
+        onFocus: showTooltipMethod,
+        onBlur: hideTooltipMethod,
         "aria-describedby": showTooltip ? idRef.current! : undefined,
         ref: domRef
       })}
