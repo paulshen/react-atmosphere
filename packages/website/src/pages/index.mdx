@@ -3,21 +3,26 @@ import IndexLayerExample from "../components/IndexLayerExample"
 # react-layer
 
 <p className="intro">
-  React building blocks for UI layers (tooltips, dialogs, dropdowns, etc).
+  React building blocks for UI layers (tooltips, dialogs, etc).
 </p>
 <IndexLayerExample />
 
 ## Features
 
 - Declarative component API for rendering/hiding layers.
-- Bring your own styles. Documentation examples add styles.
+- Bring your own styles.
 - Single container stacks layers based on render order, removing need for most
   z-index.
-- Animate layers as they unmount, even if the owner (parent) component has
-  unmounted.
+- Animate layers as they unmount, even if the owner component has unmounted.
   - Try clicking the button above and then a link in the sidebar. Notice the
     exit transition.
 - An alternative imperative API.
+
+Unlike similar libraries, millefeuille does not use [React Portal](https://reactjs.org/docs/portals.html).
+Instead, a single `<LayerContainer>` subscribes to layer messages emitted by
+other `<Layer>` components. This decouples the layer's rendering from its host
+component, enabling an imperative API as well as rendering UI after the
+component unmounts (useful for unmount animations).
 
 ## Getting Started
 
@@ -74,9 +79,9 @@ millefeuille comes with a number of common Layer components.
 | Component                       | Description                                               |
 | ------------------------------- | --------------------------------------------------------- |
 | [`<Layer>`](/layer)             | The heart and building block of the library               |
-| [`<Dialog>`](/dialog)           | Component rendered over the screen with a backdrop        |
-| [`<PopperLayer>`](/popperlayer) | Layer component that integrates popper.js for positioning |
+| [`<PopperLayer>`](/popperlayer) | Layer component that integrates Popper.js for positioning |
 | [`<Tooltip>`](/tooltip)         | PopperLayer that responds to mouse events                 |
+| [`<Dialog>`](/dialog)           | Modal component rendered over the screen with a backdrop  |
 
 ### Exit transitions
 
@@ -85,5 +90,5 @@ If you want a layer to animate as it is unmounting, read about
 
 ### Imperative API
 
-You can show and hide layers with an imperative API. This is useful when you
-don't want to tie a layer's lifecycle to a component.
+You can show and hide layers with an [imperative API](/imperative-api). This is
+useful when you don't want to tie a layer's lifecycle to a component.

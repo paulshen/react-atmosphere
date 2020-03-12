@@ -103,10 +103,12 @@ button:hover {
 
 .mdxMain ol,
 .mdxMain ul {
+  margin-bottom: 32px;
   padding: 0;
 }
 
 .mdxMain ul ul {
+  margin-bottom: 0;
   padding-left: 17px;
   padding-top: 4px;
 }
