@@ -1,6 +1,6 @@
 import IndexLayerExample from "../components/IndexLayerExample"
 
-# react-layer
+# react-atmosphere
 
 <p className="intro">
   React building blocks for UI layers (tooltips, dialogs, etc).
@@ -18,7 +18,7 @@ import IndexLayerExample from "../components/IndexLayerExample"
     exit transition.
 - An alternative imperative API.
 
-Unlike similar libraries, millefeuille does not use [React Portal](https://reactjs.org/docs/portals.html).
+Unlike similar libraries, react-atmosphere does not use [React Portal](https://reactjs.org/docs/portals.html).
 Instead, a single `<LayerContainer>` subscribes to layer messages emitted by
 other `<Layer>` components. This decouples the layer's rendering from its host
 component, enabling an imperative API as well as rendering UI after the
@@ -26,12 +26,12 @@ component unmounts (useful for unmount animations).
 
 ## Getting Started
 
-1. Install `millefeuille` from NPM.
+1. Install `react-atmosphere` from NPM.
 
 ```bash
-npm install millefeuille
+npm install react-atmosphere
 # or
-yarn add millefeuille
+yarn add react-atmosphere
 ```
 
 2. Render a `<LayerContainer>` in your React app. All layers in your app will be
@@ -39,7 +39,7 @@ yarn add millefeuille
    of your root UI component.
 
 ```typescript{7}
-import { LayerContainer } from "millefeuille"
+import { LayerContainer } from "react-atmosphere"
 
 function App() {
   return (
@@ -54,7 +54,7 @@ function App() {
 3. Render `<Layer>` components.
 
 ```typescript{8}
-import { Layer } from "millefeuille"
+import { Layer } from "react-atmosphere"
 
 function MyComponent() {
   const [showLayer, setShowLayer] = React.useState(false)
@@ -74,7 +74,7 @@ rendered inside the app's `<LayerContainer>`.
 
 ### Components
 
-millefeuille comes with a number of common Layer components.
+react-atmosphere comes with a number of common Layer components.
 
 | Component                       | Description                                               |
 | ------------------------------- | --------------------------------------------------------- |

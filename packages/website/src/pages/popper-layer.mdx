@@ -10,7 +10,7 @@ import PopperLayerExample from "../components/PopperLayerExample"
 <PopperLayerExample />
 
 It is common to position layers next to a context element. This is the case for
-tooltips, popouts, and dropdowns. millefeuille uses
+tooltips, popouts, and dropdowns. react-atmosphere uses
 [Popper.js](https://popper.js.org/) to power `PopperLayer`.
 
 PopperLayer renders a wrapper div whose position is managed by Popper.js. Your
@@ -20,7 +20,7 @@ options, you have the ability to configure [offsets](https://popper.js.org/docs/
 and more.
 
 ```typescript
-import { PopperLayer } from "millefeuille"
+import { PopperLayer } from "react-atmosphere"
 
 function MyComponent() {
   const contextRef = React.useRef()

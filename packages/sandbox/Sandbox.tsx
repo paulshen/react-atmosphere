@@ -8,7 +8,7 @@ import {
   Tooltip,
   createAPI,
   LayerState
-} from "millefeuille";
+} from "react-atmosphere";
 import Highlight, { defaultProps } from "prism-react-renderer";
 
 import PropTable from "./PropTable";
@@ -98,7 +98,7 @@ function DialogSection() {
     <section>
       <h3 id="dialog">Dialog</h3>
       <NestableDialogButton level={1} />
-      <Code>{`import {Dialog} from 'millefeuille';
+      <Code>{`import {Dialog} from 'react-atmosphere';
 
 function DialogExample() {
   return (
@@ -142,7 +142,7 @@ function PopperLayerSection() {
       <h3 id="popper-layer">PopperLayer</h3>
       <p>
         It is common to position layers next to a context element. This is the
-        case for tooltips, popouts, and dropdowns. millefeuille uses Popper.js
+        case for tooltips, popouts, and dropdowns. react-atmosphere uses Popper.js
         to power PopperLayer.
       </p>
       <p>
@@ -185,7 +185,7 @@ function PopperLayerSection() {
           }}
         />
       ) : null}
-      <Code>{`import {PopperLayer} from 'millefeuille';
+      <Code>{`import {PopperLayer} from 'react-atmosphere';
 
 function PopperLayerExample() {
   const contextRef = React.useRef();
@@ -250,7 +250,7 @@ function TooltipSection() {
         interactions. Tooltip has to attach mouse listeners and a ref to the
         context element. This is done with an explicit children render API.
       </p>
-      <Code>{`import {Tooltip} from 'millefeuille';
+      <Code>{`import {Tooltip} from 'react-atmosphere';
 
 <Tooltip text="Tooltip Text">
   {tooltipProps => <div {...tooltipProps}>Context</div>}
@@ -362,7 +362,7 @@ function App() {
     <div id="introduction" className="container">
       <Sidebar />
       <div className="main">
-        <h1>millefeuille</h1>
+        <h1>react-atmosphere</h1>
         <p>
           A React library for UI layers (tooltips, Dialogs, dropdowns, etc).
         </p>
@@ -383,7 +383,7 @@ function App() {
             map to use component API.
           </li>
           <li>
-            millefeuille is designed to be the building blocks for your own UI
+            react-atmosphere is designed to be the building blocks for your own UI
             library. The components come with as little styling as possible.
           </li>
         </ul>
@@ -394,7 +394,7 @@ function App() {
           your app.
         </p>
         <Code>
-          {`import {LayerContainer} from 'millefeuille';
+          {`import {LayerContainer} from 'react-atmosphere';
 
 function App() {
   return (
@@ -406,10 +406,10 @@ function App() {
 }`}
         </Code>
         <p>
-          The heart of millefeuille is the <code>{"<Layer>"}</code> component.
+          The heart of react-atmosphere is the <code>{"<Layer>"}</code> component.
         </p>
         <Code>
-          {`import {Layer} from 'millefeuille';
+          {`import {Layer} from 'react-atmosphere';
 
 function MyComponent() {
   ...
@@ -427,7 +427,7 @@ function MyComponent() {
           DOM nodes are rendered inside your app's LayerContainer.
         </p>
         <p>
-          millefeuille uses message passing instead of{" "}
+          react-atmosphere uses message passing instead of{" "}
           <code>{"React.createPortal"}</code>. This allows for more control,
           including the ability to render UI after the <code>{"<Layer>"}</code>{" "}
           unmounts. This is useful for transition out animations.
@@ -446,7 +446,7 @@ function MyComponent() {
           TransitionExit state. Perform your animation and call
           completeTransitionExit when finished.
         </p>
-        <Code>{`import {LayerState} from 'millefeuille';
+        <Code>{`import {LayerState} from 'react-atmosphere';
 
 function LayerContents({state, completeTransitionExit}) {
   React.useEffect(() => {

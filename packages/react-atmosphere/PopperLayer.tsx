@@ -6,7 +6,7 @@ import {
   State,
   VirtualElement
 } from "@popperjs/core";
-import { Layer, LayerRender, LayerState } from "millefeuille-layer";
+import { Layer, LayerRender, LayerState } from "react-atmosphere-layer";
 import * as React from "react";
 import useEventCallback from "./utils/useEventCallback";
 

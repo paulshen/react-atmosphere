@@ -2,13 +2,17 @@
 title: Tooltip
 ---
 
-import { Tooltip } from "millefeuille"
+import { Tooltip } from "react-atmosphere"
 
 # Tooltip
 
 <p className="intro">A common PopperLayer with mouse event listeners.</p>
 <Tooltip text="Tooltip Text">
-  {tooltipProps => <button {...tooltipProps}>Hover Me</button>}
+  {tooltipProps => (
+    <button {...tooltipProps} className="marginBottom16">
+      Hover Me
+    </button>
+  )}
 </Tooltip>
 
 Tooltip is a component built on top of [PopperLayer](/popper-layer) that manages
@@ -19,7 +23,7 @@ element. This is implemented with a children render API.
 
 <!-- prettier-ignore -->
 ```typescript{4}
-import { Tooltip } from "millefeuille"
+import { Tooltip } from "react-atmosphere"
 
 <Tooltip text="Tooltip Text">
   {tooltipProps => <button {...tooltipProps}>Hover Me</button>}
@@ -53,7 +57,7 @@ function. This is done via [React Context](https://reactjs.org/docs/context.html
 Wrap your app with a `TooltipConfigContext.Provider`.
 
 ```typescript
-import { TooltipConfigContext } from "millefeuille"
+import { TooltipConfigContext } from "react-atmosphere"
 
 const TooltipConfig = {
   renderTooltip: (text, {popperState}) {

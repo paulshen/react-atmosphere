@@ -54,11 +54,6 @@ loose-envify@^1.4.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
-millefeuille-layer@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/millefeuille-layer/-/millefeuille-layer-0.0.4.tgz#66d7cc314fe9c4df26e06a57c1a02eef5035b21f"
-  integrity sha512-xIiZYfSG+D6kACS0hEsfDLQQABk+d6roT0KbhG3tN2vDhlxDdE/q4qegvF4hOFgJUkjJohSYLMZFOaOdodP/oA==
-
 object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Layer, LayerState, LayerRender } from "millefeuille-layer";
+import { Layer, LayerState, LayerRender } from "react-atmosphere-layer";
 import FocusLock from "react-focus-lock";
 
 const DefaultTransitionDuration = 0;

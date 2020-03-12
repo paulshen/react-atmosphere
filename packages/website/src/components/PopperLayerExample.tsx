@@ -1,4 +1,4 @@
-import { PopperLayer } from "millefeuille"
+import { PopperLayer } from "react-atmosphere"
 import * as React from "react"
 import styles from "./PopperLayerExample.module.css"
 

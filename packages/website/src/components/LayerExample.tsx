@@ -1,4 +1,4 @@
-import { Layer, LayerState } from "millefeuille"
+import { Layer, LayerState } from "react-atmosphere"
 import * as React from "react"
 import styles from "./LayerExample.module.css"
 
@@ -60,6 +60,7 @@ export default function LayerExample() {
             },
           ])
         }
+        className="marginBottom16"
       >
         Add Layer
       </button>

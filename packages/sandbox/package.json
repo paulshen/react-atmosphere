@@ -9,7 +9,7 @@
   "author": "Paul Shen",
   "license": "ISC",
   "dependencies": {
-    "millefeuille": "^0.0.5",
+    "react-atmosphere": "^0.0.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },

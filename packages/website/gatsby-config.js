@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: "react-layered",
+    title: "react-atmosphere",
     description: `A React library providing building blocks for UI layers. Build your own tooltips, dialogs, and more.`,
     author: `Paul Shen`,
   },

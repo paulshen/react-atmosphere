@@ -6,12 +6,12 @@ import LayerExample from "../components/LayerExample"
 
 # Layer
 
-<p className="intro">The core building block of millefeuille.</p>
+<p className="intro">The core building block of react-atmosphere.</p>
 <LayerExample />
 
 <!-- prettier-ignore -->
 ```js
-import { Layer } from "millefeuille"
+import { Layer } from "react-atmosphere"
 
 <Layer render={renderProps => <div>I'm a layer!</div>} />
 ```
@@ -49,7 +49,7 @@ inside the [`<LayerContainer>`](/layer-container).
 boolean
 ```
 
-One unique feature of millefeuille is that layers can render even after the
+One unique feature of react-atmosphere is that layers can render even after the
 `<Layer>` unmounts. For example, this allows you to fade out dialogs even after
 the `<Dialog>` unmounts.
 
@@ -61,7 +61,7 @@ the `<Dialog>` unmounts.
 
 <!-- prettier-ignore -->
 ```typescript{5,18,26}
-import { Layer, LayerState } from "millefeuille"
+import { Layer, LayerState } from "react-atmosphere"
 
 <Layer
   render={renderProps => <MyLayer {...renderProps} />}

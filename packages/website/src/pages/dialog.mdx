@@ -9,13 +9,13 @@ import DialogExample from "../components/DialogExample"
 <p className="intro">A modal component that renders over the page.</p>
 <DialogExample />
 
-In the millefeuille philosophy of providing building blocks, `Dialog` comes with
+In the react-atmosphere philosophy of providing building blocks, `Dialog` comes with
 very few styles. You will likely want to build your own reusable `DialogRoot`
 component. For example usage, see the [Dialog Setup sandbox](/examples/dialog-setup).
 
 <!-- prettier-ignore -->
 ```typescript
-import { Dialog } from "millefeuille"
+import { Dialog } from "react-atmosphere"
 
 <Dialog
   render={({ state }) => (
@@ -36,7 +36,7 @@ without animation. This is configurable using [React Context](https://reactjs.or
 Wrap your app with a `DialogConfigContext.Provider`.
 
 ```typescript
-import { DialogConfigContext } from "millefeuille"
+import { DialogConfigContext } from "react-atmosphere"
 
 const DialogConfig = {
   renderBackdrop: (state, onClick) => (

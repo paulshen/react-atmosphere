@@ -9,7 +9,7 @@
 require("prismjs/themes/prism-solarizedlight.css")
 
 const React = require("react")
-const LayerContainer = require("millefeuille").LayerContainer
+const LayerContainer = require("react-atmosphere").LayerContainer
 
 exports.wrapPageElement = ({ element }) => {
   return (

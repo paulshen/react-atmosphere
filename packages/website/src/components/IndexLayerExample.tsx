@@ -1,4 +1,4 @@
-import { Layer, LayerState, Tooltip, TooltipConfigContext } from "millefeuille"
+import { Layer, LayerState, Tooltip, TooltipConfigContext } from "react-atmosphere"
 import * as React from "react"
 import styles from "./IndexLayerExample.module.css"
 
