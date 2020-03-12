@@ -44,7 +44,7 @@ export const DialogConfigContext = React.createContext<{
   transitionDuration?: number;
 }>({});
 
-function DialogLayer({
+export function DialogLayer({
   render,
   state,
   completeTransitionExit,
