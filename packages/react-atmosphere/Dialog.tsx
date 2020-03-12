@@ -74,7 +74,7 @@ export function DialogLayer({
     }
   }, [state]);
   return (
-    <FocusLock autoFocus returnFocus>
+    <FocusLock autoFocus={false} returnFocus>
       <div style={containerStyles}>
         {renderBackdrop({ state, onClick: onBackdropClick })}
         {render({ state })}
