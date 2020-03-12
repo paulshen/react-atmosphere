@@ -15,6 +15,7 @@ exports.createPages = ({ actions }) => {
       path: `/examples${element.path}`,
       component: require.resolve("./src/components/ExampleLayout.tsx"),
       context: {
+        title: element.title,
         codesandboxUrl: element.codesandboxUrl,
       },
     })

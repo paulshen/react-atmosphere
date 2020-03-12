@@ -1,14 +1,17 @@
 [
   {
     "path": "/nested-layers",
+    "title": "Nested Layers",
     "codesandboxUrl": "https://codesandbox.io/embed/modest-rain-qp20v?fontsize=14&hidenavigation=1&module=/src/App.js&theme=light"
   },
   {
     "path": "/tooltip-setup",
+    "title": "Tooltip Setup",
     "codesandboxUrl": "https://codesandbox.io/embed/vigilant-golick-omzt6?fontsize=14&hidenavigation=1&module=/src/App.js&theme=light"
   },
   {
     "path": "/dialog-setup",
+    "title": "Dialog Setup",
     "codesandboxUrl": "https://codesandbox.io/embed/bold-flower-p5jbz?fontsize=14&hidenavigation=1&module=/src/MyDialog.js,/src/App.js&theme=light"
   }
 ]

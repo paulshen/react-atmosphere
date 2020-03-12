@@ -35,6 +35,10 @@ function SEO({
     `
   )
 
+  const displayTitle =
+    title !== undefined
+      ? `${title} | ${site.siteMetadata.title}`
+      : site.siteMetadata.title
   const metaDescription = description || site.siteMetadata.description
 
   return (
@@ -42,8 +46,7 @@ function SEO({
       htmlAttributes={{
         lang,
       }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      title={displayTitle}
       meta={[
         {
           name: `description`,
@@ -92,7 +95,6 @@ SEO.propTypes = {
   description: PropTypes.string,
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
 }
 
 export default SEO

@@ -8,14 +8,16 @@
 import React from "react"
 import styles from "./Layout.module.css"
 import NavSidebar from "./NavSidebar"
+import SEO from "./SEO"
 
 const ExampleLayout = ({
-  pageContext: { codesandboxUrl },
+  pageContext: { title, codesandboxUrl },
 }: {
-  pageContext: { codesandboxUrl: string }
+  pageContext: { title: string; codesandboxUrl: string }
 }) => {
   return (
     <div>
+      <SEO title={`Example: ${title}`} />
       <NavSidebar />
       <div className={styles.right}>
         <iframe
