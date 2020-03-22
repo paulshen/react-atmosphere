@@ -44,6 +44,10 @@ export const DialogConfigContext = React.createContext<{
   transitionDuration?: number;
 }>({});
 
+export const DialogFocusLockGroupContext = React.createContext<string>("");
+
+let nextFocusLockGroup: number = 1;
+
 export function DialogLayer({
   render,
   state,
@@ -60,6 +64,11 @@ export function DialogLayer({
     containerStyles = DefaultContainerStyles,
     transitionDuration = DefaultTransitionDuration
   } = React.useContext(DialogConfigContext);
+  const focusLockGroupRef = React.useRef<string>();
+  if (focusLockGroupRef.current === undefined) {
+    focusLockGroupRef.current = `AtmosphereDialog-${nextFocusLockGroup++}`;
+  }
+  const focusLockGroup = focusLockGroupRef.current;
   React.useEffect(() => {
     if (state === LayerState.TransitionExit) {
       if (transitionDuration === 0) {
@@ -74,11 +83,13 @@ export function DialogLayer({
     }
   }, [state]);
   return (
-    <FocusLock autoFocus={false} returnFocus>
-      <div style={containerStyles}>
-        {renderBackdrop({ state, onClick: onBackdropClick })}
-        {render({ state })}
-      </div>
+    <FocusLock autoFocus={false} returnFocus group={focusLockGroup}>
+      <DialogFocusLockGroupContext.Provider value={focusLockGroup}>
+        <div style={containerStyles}>
+          {renderBackdrop({ state, onClick: onBackdropClick })}
+          {render({ state })}
+        </div>
+      </DialogFocusLockGroupContext.Provider>
     </FocusLock>
   );
 }
