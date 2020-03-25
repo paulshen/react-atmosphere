@@ -2,7 +2,7 @@
   "name": "website",
   "private": true,
   "description": "",
-  "version": "0.0.5",
+  "version": "0.0.1",
   "author": "Paul Shen <paulshen0@gmail.com>",
   "dependencies": {
     "@mdx-js/mdx": "^1.5.7",
