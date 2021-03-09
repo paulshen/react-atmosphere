@@ -32,11 +32,13 @@ type TooltipProps = {
   children: (tooltipProps: TooltipRenderProps) => React.ReactNode;
   text: React.ReactNode;
   options?: Partial<Options>;
+  showDelayMs?: number;
 };
 
 export default function Tooltip({
   children,
   text,
+  showDelayMs,
   options: optionsProp
 }: TooltipProps) {
   const domRef = React.useRef<Element>(null);
@@ -45,14 +47,39 @@ export default function Tooltip({
     TooltipConfigContext
   );
   const [showTooltip, setShowTooltip] = React.useState(false);
+  const showDelayMsRef = React.useRef(showDelayMs);
+  React.useEffect(() => void (showDelayMsRef.current = showDelayMs));
+  const showTimeoutRef = React.useRef<number | undefined>(undefined);
+  React.useEffect(
+    () => () => {
+      if (showTimeoutRef.current !== null) {
+        clearTimeout(showTimeoutRef.current);
+        showTimeoutRef.current = undefined;
+      }
+    },
+    []
+  );
 
   const showTooltipMethod = React.useCallback(() => {
-    if (idRef.current == null) {
-      idRef.current = TOOLTIP_ID_PREFIX + nextToolipId++;
+    const showDelay = showDelayMsRef.current;
+    const show = () => {
+      if (idRef.current == null) {
+        idRef.current = TOOLTIP_ID_PREFIX + nextToolipId++;
+      }
+      setShowTooltip(true);
+      showTimeoutRef.current = undefined;
+    };
+    if (showDelay !== undefined) {
+      showTimeoutRef.current = window.setTimeout(show, showDelay);
+    } else {
+      show();
     }
-    setShowTooltip(true);
   }, []);
   const hideTooltipMethod = React.useCallback(() => {
+    if (showTimeoutRef.current !== null) {
+      clearTimeout(showTimeoutRef.current);
+      showTimeoutRef.current = undefined;
+    }
     setShowTooltip(false);
   }, []);
   const render = React.useCallback(
