@@ -92,7 +92,7 @@ export default function PopperLayer({
     document.addEventListener("click", onClick);
     return () => {
       isMountedRef.current = false;
-      if (popperRef.current) {
+      if (transitionExit !== true && popperRef.current) {
         popperRef.current.destroy();
         popperRef.current = undefined;
       }
@@ -101,9 +101,19 @@ export default function PopperLayer({
   }, []);
 
   const render: LayerRender = React.useCallback(
-    renderProps => (
+    (renderProps) => (
       <div id={id} ref={layerRef}>
-        {renderProp({ ...renderProps, popperState })}
+        {renderProp({
+          ...renderProps,
+          completeTransitionExit: () => {
+            renderProps.completeTransitionExit();
+            if (popperRef.current !== undefined) {
+              popperRef.current.destroy();
+              popperRef.current = undefined;
+            }
+          },
+          popperState,
+        })}
       </div>
     ),
     [id, renderProp, popperState]
