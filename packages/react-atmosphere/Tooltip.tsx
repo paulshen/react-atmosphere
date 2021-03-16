@@ -52,7 +52,7 @@ export default function Tooltip({
   const showTimeoutRef = React.useRef<number | undefined>(undefined);
   React.useEffect(
     () => () => {
-      if (showTimeoutRef.current !== null) {
+      if (showTimeoutRef.current != null) {
         clearTimeout(showTimeoutRef.current);
         showTimeoutRef.current = undefined;
       }
@@ -69,14 +69,16 @@ export default function Tooltip({
       setShowTooltip(true);
       showTimeoutRef.current = undefined;
     };
-    if (showDelay !== undefined) {
-      showTimeoutRef.current = window.setTimeout(show, showDelay);
+    if (showDelay != null) {
+      if (showTimeoutRef.current == null) {
+        showTimeoutRef.current = window.setTimeout(show, showDelay);
+      }
     } else {
       show();
     }
   }, []);
   const hideTooltipMethod = React.useCallback(() => {
-    if (showTimeoutRef.current !== null) {
+    if (showTimeoutRef.current != null) {
       clearTimeout(showTimeoutRef.current);
       showTimeoutRef.current = undefined;
     }
