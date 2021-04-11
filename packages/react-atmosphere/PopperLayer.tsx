@@ -4,7 +4,7 @@ import {
   Modifier,
   Options,
   State,
-  VirtualElement
+  VirtualElement,
 } from "@popperjs/core";
 import { Layer, LayerRender, LayerState } from "react-atmosphere-layer";
 import * as React from "react";
@@ -18,7 +18,7 @@ type PopperLayerProps = {
     completeTransitionExit: () => void;
     popperState: State | undefined;
   }) => React.ReactNode;
-  onOutsideClick?: () => void;
+  onOutsideMouseDown?: () => void;
   options?: Partial<Options>;
   transitionExit?: boolean;
 };
@@ -27,9 +27,9 @@ export default function PopperLayer({
   id,
   reference,
   render: renderProp,
-  onOutsideClick,
+  onOutsideMouseDown,
   options: optionsProp,
-  transitionExit
+  transitionExit,
 }: PopperLayerProps) {
   const popperRef = React.useRef<Instance>();
   const [popperState, setPopperState] = React.useState<State>();
@@ -48,9 +48,9 @@ export default function PopperLayer({
               setPopperState(state);
             }
           },
-          requires: ["computeStyles"]
-        } as Modifier<any>
-      ]
+          requires: ["computeStyles"],
+        } as Modifier<any>,
+      ],
     }),
     [optionsProp]
   );
@@ -63,8 +63,8 @@ export default function PopperLayer({
       }
     }
   };
-  const onClick = useEventCallback((e: MouseEvent) => {
-    if (!onOutsideClick) {
+  const onMouseDown = useEventCallback((e: MouseEvent) => {
+    if (!onOutsideMouseDown) {
       return;
     }
     const target = e.target;
@@ -81,7 +81,7 @@ export default function PopperLayer({
       )
         return;
     }
-    onOutsideClick();
+    onOutsideMouseDown();
   });
   React.useEffect(() => {
     if (popperRef.current && options) {
@@ -89,14 +89,14 @@ export default function PopperLayer({
     }
   }, [options]);
   React.useEffect(() => {
-    document.addEventListener("click", onClick);
+    document.addEventListener("mousedown", onMouseDown);
     return () => {
       isMountedRef.current = false;
       if (transitionExit !== true && popperRef.current) {
         popperRef.current.destroy();
         popperRef.current = undefined;
       }
-      document.removeEventListener("click", onClick);
+      document.removeEventListener("mousedown", onMouseDown);
     };
   }, []);
 
