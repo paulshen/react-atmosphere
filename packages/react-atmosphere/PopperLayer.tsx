@@ -18,7 +18,7 @@ type PopperLayerProps = {
     completeTransitionExit: () => void;
     popperState: State | undefined;
   }) => React.ReactNode;
-  onOutsideMouseDown?: () => void;
+  onOutsideMouseDown?: (e: MouseEvent) => void;
   options?: Partial<Options>;
   transitionExit?: boolean;
 };
@@ -81,7 +81,7 @@ export default function PopperLayer({
       )
         return;
     }
-    onOutsideMouseDown();
+    onOutsideMouseDown(e);
   });
   React.useEffect(() => {
     if (popperRef.current && options) {

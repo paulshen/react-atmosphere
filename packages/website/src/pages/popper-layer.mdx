@@ -44,7 +44,7 @@ function MyComponent() {
 | [`render`](#render)                         | `(renderProps) => ReactNode`                                                                                                            | true     |
 | [`id`](#id)                                 | `string`                                                                                                                                | false    |
 | [`options`](#options)                       | `Partial<`[`Options`](https://github.com/popperjs/popper-core/blob/1c380a42cccc5286786bcd73872f2f5157a99db8/src/types.js#L107-L112")`>` | false    |
-| [`onOutsideMousedown`](#onoutsidemousedown) | `() => void`                                                                                                                            | false    |
+| [`onOutsideMousedown`](#onoutsidemousedown) | `(e: MouseEvent) => void`                                                                                                                            | false    |
 
 ### reference
 
@@ -120,7 +120,7 @@ and [modifiers documentation](https://popper.js.org/docs/v2/modifiers/).
 ###### Optional Type
 
 ```typescript
-() => void
+(e: MouseEvent) => void
 ```
 
 An optional callback when the user clicks outside the PopperLayer or reference
