@@ -2,7 +2,7 @@
   "name": "website",
   "private": true,
   "description": "",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "author": "Paul Shen <paulshen0@gmail.com>",
   "dependencies": {
     "@mdx-js/mdx": "^1.5.7",
@@ -27,7 +27,7 @@
     "prismjs": "^1.19.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
-    "react-atmosphere": "^0.0.9",
+    "react-atmosphere": "^0.0.10",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
     "typescript": "^3.8.3"

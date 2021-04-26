@@ -1,6 +1,6 @@
 {
   "name": "react-atmosphere",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.0.6",
-    "react-atmosphere-layer": "^0.0.9",
+    "react-atmosphere-layer": "^0.0.10",
     "react-focus-lock": "^2.2.1"
   },
   "devDependencies": {
